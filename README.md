@@ -1,4 +1,4 @@
-# run_all_shinsegye.py
+# run_all_shinsegye_project
 신비로운 가방 - 편리한 나의 도구 (My Convenient Tool)
 
 ## 소개 (Introduction)
