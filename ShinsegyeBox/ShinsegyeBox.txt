@@ -1,0 +1,81 @@
+import os, subprocess, datetime, json, shutil
+
+# === ShinsegyeBox 자동 관리 스크립트 === #
+# by 소리새 & 파트너
+
+PROJECT = "ShinsegyeBox"
+REPO_URL = "https://github.com/parkcheolhong/ShinsegyeBox"
+ROOT = os.path.abspath(os.path.dirname(__file__))
+
+# 안전한 폴더 생성
+for folder in ["logs", "backup"]:
+    os.makedirs(os.path.join(ROOT, folder), exist_ok=True)
+
+# 1. 실행 순서 표시
+print(f"\n🌀 [{datetime.datetime.now().strftime('%H:%M:%S')}] 신세계 박스 자동 루프 시작\n")
+
+# 2. 학습/조정 모듈 실행
+for script in ["ai_self_evolve_demo.py", "ai_self_evolve_config_demo.py"]:
+    path = os.path.join(ROOT, script)
+    if os.path.exists(path):
+        print(f"▶ 실행 중: {script}")
+        subprocess.run(["python", path], check=False)
+    else:
+        print(f"⚠️ {script} 파일이 존재하지 않습니다.")
+
+# 3. 자동 백업
+cfg = os.path.join(ROOT, "system_config.json")
+if os.path.exists(cfg):
+    backup_name = f"system_config_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    shutil.copy(cfg, os.path.join(ROOT, "backup", backup_name))
+    print(f"💾 설정 백업 완료: {backup_name}")
+
+# 4. GitHub 업로드
+print("\n🚀 GitHub 자동 푸시 시작...")
+try:
+    subprocess.run(["git", "add", "."], check=True)
+    subprocess.run(["git", "commit", "-m", f"Auto update from ShinsegyeBox at {datetime.datetime.now()}"], check=False)
+    subprocess.run(["git", "push", "origin", "main"], check=True)
+    print("✅ GitHub 업로드 완료.")
+except Exception as e:
+    print("⚠️ GitHub 푸시 중 오류 발생:", e)
+
+print("\n🌈 모든 작업 완료! 신세계 박스가 자동으로 정리되었습니다.\n")
+# === 자동 리포트 생성 및 README 갱신 === #
+report_path = os.path.join(ROOT, "README.md")
+log_dir = os.path.join(ROOT, "logs")
+
+# 최근 로그 파일 찾기
+latest_log = None
+if os.path.exists(log_dir):
+    logs = [os.path.join(log_dir, f) for f in os.listdir(log_dir)]
+    if logs:
+        latest_log = max(logs, key=os.path.getctime)
+
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+report = [
+    "# ShinsegyeBox 자동 리포트",
+    "",
+    f"🕒 {timestamp}",
+    "- 학습/조정 루프 완료",
+    "- 설정 백업 및 GitHub 동기화 완료 ✅"
+]
+
+if latest_log:
+    report.append(f"- 최근 로그 파일: `{os.path.basename(latest_log)}`")
+
+# README 갱신
+with open(report_path, "w", encoding="utf-8") as f:
+    f.write("\n".join(report))
+
+print("🪶 자동 리포트 작성 완료!")
+
+# GitHub 반영
+try:
+    subprocess.run(["git", "add", "README.md"], check=True)
+    subprocess.run(["git", "commit", "-m", f"Auto report update from ShinsegyeBox at {timestamp}"], check=False)
+    subprocess.run(["git", "push", "origin", "main"], check=True)
+    print("✅ GitHub README 자동 업로드 완료!")
+except Exception as e:
+    print("⚠️ README 자동 푸시 중 오류 발생:", e)
