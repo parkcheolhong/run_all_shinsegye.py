@@ -1,4 +1,50 @@
 import os, subprocess, datetime, json, shutil
+# by 소리새 & 파트너 🌱
+
+import argparse, os, shutil, datetime
+
+# 현재 신세계 박스 경로 인식
+ROOT = os.path.abspath(os.path.dirname(__file__))
+
+# projects 폴더 자동 생성
+projects_root = os.path.join(ROOT, "projects")
+os.makedirs(projects_root, exist_ok=True)
+
+# 인자 파서 설정 (--new 옵션)
+parser = argparse.ArgumentParser()
+parser.add_argument("--new", help="새 신세계 프로젝트를 생성합니다.")
+args, unknown = parser.parse_known_args()
+
+# 새 프로젝트 생성 로직
+if args.new:
+    new_name = args.new.strip()
+    new_path = os.path.join(projects_root, new_name)
+    os.makedirs(new_path, exist_ok=True)
+
+    # 복사할 기본 파일 목록
+    base_files = [
+        "ai_self_evolve_demo.py",
+        "ai_self_evolve_config_demo.py",
+        "system_config.json",
+        "run_all_shinsegye.py"
+    ]
+
+    for file in base_files:
+        src = os.path.join(ROOT, file)
+        if os.path.exists(src):
+            shutil.copy(src, os.path.join(new_path, file))
+
+    # 새 프로젝트에 logs, backup 폴더 자동 생성
+    for folder in ["logs", "backup"]:
+        os.makedirs(os.path.join(new_path, folder), exist_ok=True)
+
+    # 생성 리포트 출력
+    print(f"\n🌱 새로운 프로젝트가 생성되었습니다!")
+    print(f"📁 위치: {new_path}")
+    print(f"🕒 시간: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+    print(f"이제 이 폴더 안에서 새로운 신세계 작업을 시작할 수 있습니다 🚀\n")
+    exit()
+
 
 # === ShinsegyeBox 자동 관리 스크립트 === #
 # by 소리새 & 파트너
