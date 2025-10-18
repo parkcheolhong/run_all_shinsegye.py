@@ -6,25 +6,6 @@ from datetime import datetime
 from threading import Lock
 import threading
 import time
-import hashlib
-from functools import wraps
-
-# 🔒 보안 설정 로드
-def load_security_config():
-    try:
-        with open("config/security_config.json", "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print("⚠️ 보안 설정 파일이 없습니다. 기본 설정을 사용합니다.")
-        return {
-            "security": {
-                "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],
-                "max_failed_attempts": 5
-            }
-        }
-
-security_config = load_security_config()
-failed_attempts = {}  # IP별 실패 횟수 추적
 
 app = Flask(__name__)
 app.secret_key = "sorisay_secure_key_2025"  # 보안키 추가

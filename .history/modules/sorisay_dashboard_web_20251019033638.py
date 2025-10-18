@@ -6,25 +6,6 @@ from datetime import datetime
 from threading import Lock
 import threading
 import time
-import hashlib
-from functools import wraps
-
-# 🔒 보안 설정 로드
-def load_security_config():
-    try:
-        with open("config/security_config.json", "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print("⚠️ 보안 설정 파일이 없습니다. 기본 설정을 사용합니다.")
-        return {
-            "security": {
-                "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],
-                "max_failed_attempts": 5
-            }
-        }
-
-security_config = load_security_config()
-failed_attempts = {}  # IP별 실패 횟수 추적
 
 app = Flask(__name__)
 app.secret_key = "sorisay_secure_key_2025"  # 보안키 추가
@@ -458,14 +439,6 @@ def api_stats():
 @socketio.on("remote_command")
 def handle_remote_command(data):
     command = data.get('command', '')
-    
-    # 🔒 명령어 보안 검증
-    allowed_commands = ['리팩터링', '동기화', '상태', '테스트', '정리', '도움말', '종료']
-    if command not in allowed_commands:
-        print(f"🚫 허용되지 않은 명령어: {command}")
-        emit("security_warning", {"message": f"허용되지 않은 명령어: {command}"})
-        return
-    
     print(f"📡 웹에서 원격 명령 수신: {command}")
     dashboard_state.add_voice_command(f"[원격] {command}")
     emit("voice_command", {"command": f"[원격] {command}", "status": "success"}, broadcast=True)
@@ -495,5 +468,4 @@ def broadcast_creative_activity(activity_type, description):
 
 def run_dashboard():
     print("🌍 웹 대시보드 실행 중... (http://localhost:5050)")
-    print("🔒 보안 모드: 로컬호스트만 접근 허용")
-    socketio.run(app, host="127.0.0.1", port=5050, debug=False)  # 보안: 로컬호스트만 허용
+    socketio.run(app, host="0.0.0.0", port=5050, debug=False)

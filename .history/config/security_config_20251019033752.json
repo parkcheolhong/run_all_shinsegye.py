@@ -1,0 +1,24 @@
+{
+  "security": {
+    "allowed_hosts": ["127.0.0.1", "localhost"],
+    "allowed_commands": [
+      "리팩터링", "동기화", "상태", "테스트", "정리", "도움말", "종료"
+    ],
+    "max_failed_attempts": 5,
+    "session_timeout": 3600,
+    "rate_limit": {
+      "max_requests_per_minute": 60,
+      "max_commands_per_minute": 10
+    },
+    "logging": {
+      "log_failed_attempts": true,
+      "log_commands": true,
+      "log_level": "INFO"
+    }
+  },
+  "network": {
+    "bind_address": "127.0.0.1",
+    "port": 5050,
+    "cors_origins": ["http://localhost:5050", "http://127.0.0.1:5050"]
+  }
+}
