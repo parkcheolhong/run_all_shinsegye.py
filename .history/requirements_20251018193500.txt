@@ -1,0 +1,12 @@
+# 소리새 AI 시스템 필수 패키지
+speechrecognition==3.10.0
+pyttsx3==2.90
+flask==2.3.3
+flask-socketio==5.3.6
+python-socketio==5.9.0
+pyaudio==0.2.11
+
+# 개발 도구 (선택사항)
+pytest==7.4.2
+black==23.9.1
+flake8==6.1.0

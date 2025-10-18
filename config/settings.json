@@ -1,38 +1,13 @@
 {
-    "voice_recognition": {
-        "energy_threshold": 300,
-        "dynamic_energy_threshold": true,
-        "pause_threshold": 0.8,
-        "phrase_threshold": 0.3,
-        "timeout": 5,
-        "phrase_time_limit": 3,
-        "ambient_noise_duration": 0.5
-    },
-    "tts": {
-        "rate": 120,
-        "voice_index": 0,
-        "volume": 0.8,
-        "voice_gender": "female",
-        "language": "ko",
-        "emotion": "friendly",
-        "pitch": 0,
-        "voice_effects": {
-            "enable_emotion": true,
-            "enable_speed_variation": false,
-            "enable_pause_insertion": true,
-            "conversation_mode": true
-        }
-    },
-    "system": {
-        "log_directory": "logs",
-        "dashboard_port": 5000,
-        "debug_mode": false
-    },
-    "commands": {
-        "refactor": ["리팩터링", "리팩토링", "refactor"],
-        "sync": ["동기화", "싱크", "sync"],
-        "stop": ["종료", "소리새그만", "정지", "stop", "quit"],
-        "status": ["상태", "status"],
-        "help": ["도움말", "help", "명령어"]
-    }
+  "voice_recognition": {
+    "energy_threshold": 300,
+    "dynamic_energy_threshold": true,
+    "pause_threshold": 0.8
+  },
+  "tts": {
+    "rate": 120,
+    "volume": 0.9,
+    "voice_id": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_KO-KR_HEAMI_11.0"
+  },
+  "creative_probability": 0.75
 }

@@ -1,0 +1,53 @@
+{
+  "conversations": [
+    {
+      "id": "1c1c3437",
+      "timestamp": "2025-10-19T01:30:27.716478",
+      "user_input": "안녕하세요",
+      "ai_response": "AI 응답",
+      "emotion_detected": "happy",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "c055ebe4",
+      "timestamp": "2025-10-19T01:46:41.222571",
+      "user_input": "테스트",
+      "ai_response": "응답",
+      "emotion_detected": "happy",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "adb1ad65",
+      "timestamp": "2025-10-19T01:55:36.710611",
+      "user_input": "test",
+      "ai_response": "response",
+      "emotion_detected": "happy",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "89ebfb5e",
+      "timestamp": "2025-10-19T01:59:29.065424",
+      "user_input": "테스트",
+      "ai_response": "테스트를 실행하겠습니다. 모든 테스트가 성공적으로 통과했습니다!",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "9ef23e18",
+      "timestamp": "2025-10-19T01:59:47.095375",
+      "user_input": "실내도 100%",
+      "ai_response": "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    }
+  ],
+  "user_profile": {},
+  "emotional_history": [],
+  "learning_moments": [],
+  "creative_collaborations": []
+}

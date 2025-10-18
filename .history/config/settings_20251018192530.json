@@ -1,0 +1,27 @@
+{
+    "voice_recognition": {
+        "energy_threshold": 300,
+        "dynamic_energy_threshold": true,
+        "pause_threshold": 0.8,
+        "phrase_threshold": 0.3,
+        "timeout": 5,
+        "phrase_time_limit": 3,
+        "ambient_noise_duration": 0.5
+    },
+    "tts": {
+        "rate": 150,
+        "voice_index": 0
+    },
+    "system": {
+        "log_directory": "logs",
+        "dashboard_port": 5000,
+        "debug_mode": false
+    },
+    "commands": {
+        "refactor": ["리팩터링", "리팩토링", "refactor"],
+        "sync": ["동기화", "싱크", "sync"],
+        "stop": ["종료", "소리새그만", "정지", "stop", "quit"],
+        "status": ["상태", "status"],
+        "help": ["도움말", "help", "명령어"]
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "cSpell.words": [
+        "engineio",
+        "konlpy",
+        "Malgun",
+        "nltk",
+        "parkcheolhong",
+        "pyaudio",
+        "pytest",
+        "pyttsx",
+        "shinsegye",
+        "socketio",
+        "Sorisay",
+        "speechrecognition",
+        "zira"
+    ],
+    "python.analysis.extraPaths": [
+        "./modules"
+    ]
+}

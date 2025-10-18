@@ -1,0 +1,29 @@
+{
+  "learned_patterns": {},
+  "user_preferences": {},
+  "successful_responses": {
+    "테스트": [
+      "테스트를 실행하겠습니다. 모든 테스트가 성공적으로 통과했습니다!"
+    ]
+  },
+  "failed_responses": {
+    "100_실내도": [
+      "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다."
+    ]
+  },
+  "web_search_cache": {
+    "search_5205242632989959692": {
+      "results": [],
+      "timestamp": "2025-10-19T01:59:46.781592"
+    }
+  },
+  "improvement_history": [],
+  "capabilities": [
+    "음성 인식",
+    "자연어 처리",
+    "코드 관리",
+    "웹 검색",
+    "자가 학습",
+    "기능 확장"
+  ]
+}
