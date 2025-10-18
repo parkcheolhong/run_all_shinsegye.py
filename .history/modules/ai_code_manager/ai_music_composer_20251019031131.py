@@ -29,80 +29,64 @@ class AIMusicComposer:
         self.notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
         
         # 음계별 음정 패턴 정의
-        # 음계별 음정 패턴 정의
         self.scales = {
-            'major': [0, 2, 4, 5, 7, 9, 11],      # 장조 (밝고 행복한 느낌)
-            'minor': [0, 2, 3, 5, 7, 8, 10],      # 단조 (슬프고 서정적인 느낌)
-            'pentatonic': [0, 2, 4, 7, 9],        # 5음계 (평온하고 동양적인 느낌)
-            'blues': [0, 3, 5, 6, 7, 10]          # 블루스 (재즈적이고 감성적인 느낌)
+            'major': [0, 2, 4, 5, 7, 9, 11],
+            'minor': [0, 2, 3, 5, 7, 8, 10],
+            'pentatonic': [0, 2, 4, 7, 9],
+            'blues': [0, 3, 5, 6, 7, 10]
         }
         
-        # 감정별 음악 스타일 정의
-        # 각 감정에 맞는 음계, 템포, 리듬, 조성을 매핑
+        # 감정별 음악 특성
         self.emotion_styles = {
-            'happy': {      # 기쁜 감정
-                'scale': 'major',        # 장조 사용
-                'tempo': 'fast',         # 빠른 템포
-                'rhythm': 'upbeat',      # 경쾌한 리듬
-                'key': 'C'              # C 장조
+            'happy': {
+                'scale': 'major',
+                'tempo': 'fast',
+                'rhythm': 'upbeat',
+                'key': 'C'
             },
-            'sad': {        # 슬픈 감정
-                'scale': 'minor',        # 단조 사용
-                'tempo': 'slow',         # 느린 템포
-                'rhythm': 'melancholy',  # 우울한 리듬
-                'key': 'Am'             # A 단조
+            'sad': {
+                'scale': 'minor',
+                'tempo': 'slow',
+                'rhythm': 'melancholy',
+                'key': 'Am'
             },
-            'excited': {    # 흥분된 감정
-                'scale': 'major',        # 장조 사용
-                'tempo': 'very_fast',    # 매우 빠른 템포
-                'rhythm': 'energetic',   # 에너지틱한 리듬
-                'key': 'G'              # G 장조
+            'excited': {
+                'scale': 'major',
+                'tempo': 'very_fast',
+                'rhythm': 'energetic',
+                'key': 'G'
             },
-            'calm': {       # 평온한 감정
-                'scale': 'pentatonic',   # 5음계 사용
-                'tempo': 'moderate',     # 적당한 템포
-                'rhythm': 'flowing',     # 흐르는 듯한 리듬
-                'key': 'F'              # F 장조
+            'calm': {
+                'scale': 'pentatonic',
+                'tempo': 'moderate',
+                'rhythm': 'flowing',
+                'key': 'F'
             },
-            'creative': {   # 창의적인 감정
-                'scale': 'blues',        # 블루스 음계
-                'tempo': 'varied',       # 다양한 템포
-                'rhythm': 'jazz',        # 재즈 리듬
-                'key': 'Bb'            # Bb 장조
+            'creative': {
+                'scale': 'blues',
+                'tempo': 'varied',
+                'rhythm': 'jazz',
+                'key': 'Bb'
             }
         }
         
-        # 프로그래밍 코드 패턴을 음악 요소로 매핑
-        # 각 프로그래밍 구문을 특정 음악적 표현으로 변환
+        # 코드 패턴 → 음악 매핑
         self.code_music_mapping = {
-            'for': '반복 리듬 패턴',          # 반복문 → 반복적인 리듬
-            'if': '조건부 화음 변화',         # 조건문 → 화음의 변화
-            'function': '메인 멜로디 라인',   # 함수 → 주선율
-            'class': '전체 곡 구조',         # 클래스 → 곡의 전체 구조
-            'return': '마무리 코다',         # 반환문 → 곡의 마무리
-            'print': '악센트 노트',          # 출력문 → 강조 음표
-            'while': '지속적인 베이스 라인', # 무한루프 → 지속되는 베이스
-            'try': '실험적 불협화음',        # 예외처리 → 실험적 화음
-            'except': '해결 화음'           # 예외처리 → 불협화음의 해결
+            'for': '반복 리듬 패턴',
+            'if': '조건부 화음 변화',
+            'function': '메인 멜로디 라인',
+            'class': '전체 곡 구조',
+            'return': '마무리 코다',
+            'print': '악센트 노트',
+            'while': '지속적인 베이스 라인',
+            'try': '실험적 불협화음',
+            'except': '해결 화음'
         }
         
-        # 작곡된 음악들을 저장하는 리스트
         self.compositions = []
     
     def analyze_code_pattern(self, code: str) -> Dict[str, Any]:
-        """
-        프로그래밍 코드 패턴을 음악적 요소로 분석
-        
-        Args:
-            code (str): 분석할 프로그래밍 코드
-            
-        Returns:
-            Dict[str, Any]: 음악적 요소로 변환된 분석 결과
-                - complexity: 코드 복잡도 (1-10)
-                - rhythm_pattern: 리듬 패턴
-                - melodic_structure: 멜로디 구조
-                - harmonic_elements: 화성 요소
-        """
+        """코드 패턴을 음악적 요소로 분석"""
         analysis = {
             'complexity': self.calculate_complexity(code),
             'rhythm_pattern': self.extract_rhythm_pattern(code),
@@ -113,38 +97,20 @@ class AIMusicComposer:
         return analysis
     
     def calculate_complexity(self, code: str) -> int:
-        """
-        코드 복잡도를 음악 복잡도로 변환
+        """코드 복잡도를 음악 복잡도로 변환"""
+        lines = len(code.split('\n'))
+        functions = len(re.findall(r'def\s+\w+', code))
+        loops = len(re.findall(r'(for|while)', code))
+        conditionals = len(re.findall(r'if\s+', code))
         
-        Args:
-            code (str): 분석할 코드
-            
-        Returns:
-            int: 음악 복잡도 (1-10 스케일)
-        """
-        # 코드의 여러 요소를 분석하여 복잡도 계산
-        lines = len(code.split('\n'))                    # 총 라인 수
-        functions = len(re.findall(r'def\s+\w+', code))  # 함수 개수
-        loops = len(re.findall(r'(for|while)', code))    # 반복문 개수
-        conditionals = len(re.findall(r'if\s+', code))   # 조건문 개수
-        
-        # 가중치를 적용하여 복잡도 계산
         complexity = (lines * 0.1) + (functions * 2) + (loops * 1.5) + (conditionals * 1)
-        return min(int(complexity), 10)  # 1-10 스케일로 제한
+        return min(int(complexity), 10)  # 1-10 스케일
     
     def extract_rhythm_pattern(self, code: str) -> List[str]:
-        """
-        코드에서 리듬 패턴 추출
-        
-        Args:
-            code (str): 분석할 코드
-            
-        Returns:
-            List[str]: 추출된 리듬 패턴 리스트
-        """
+        """코드에서 리듬 패턴 추출"""
         patterns = []
         
-        # 들여쓰기 레벨을 기반으로 리듬 패턴 생성
+        # 들여쓰기 기반 리듬
         lines = code.split('\n')
         for line in lines:
             if line.strip():
