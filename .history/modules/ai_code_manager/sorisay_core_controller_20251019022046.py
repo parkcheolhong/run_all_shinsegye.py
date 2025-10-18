@@ -81,9 +81,6 @@ class SorisayCore:
         # 🎵 AI 음악 작곡가 초기화
         self.music_composer = AIMusicComposer()
         
-        # 🌙 꿈 해석 시스템 초기화
-        self.dream_interpreter = DreamInterpreter()
-        
         # 진화 카운터
         self.interaction_count = 0
         self.last_evolution_check = 0
@@ -602,42 +599,7 @@ class SorisayCore:
             self.memory_palace.remember_conversation(cmd, insights, "analytical")
             return insights
         
-        # � 꿈 해석 요청
-        elif any(keyword in cmd_lower for keyword in ["꿈", "해석", "꿈해석", "심리분석"]):
-            if "꿈" in cmd_lower:
-                # 꿈 내용 추출
-                dream_text = cmd.replace("꿈", "").replace("해석", "").replace("분석", "").strip()
-                if not dream_text:
-                    dream_text = "물에 떨어져서 무서웠지만 날개가 생겨서 하늘을 날아다녔다"
-                
-                # 나이와 문화권 정보 (기본값 사용)
-                dreamer_age = 25  # 기본 나이
-                culture = "한국"  # 기본 문화권
-                
-                # 꿈 분석 실행
-                analysis = self.dream_interpreter.analyze_dream(dream_text, dreamer_age, culture)
-                
-                # 간단한 응답 생성
-                symbols = analysis.get("상징_분석", {}).get("발견된_상징", {})
-                emotion = analysis.get("감정_분석", {}).get("지배적_감정", "중립")
-                advice = analysis.get("조언", {}).get("우선순위_조언", [])
-                
-                response = f"🌙 꿈 해석 결과:\n"
-                response += f"🔮 발견된 상징: {len(symbols)}개\n"
-                response += f"💭 지배적 감정: {emotion}\n"
-                
-                if advice:
-                    response += f"💡 조언: {advice[0]}\n"
-                
-                # 상세 보고서 생성
-                detailed_report = self.dream_interpreter.create_dream_report(analysis)
-                print(detailed_report)  # 콘솔에 상세 출력
-                
-                broadcast_creative_activity("dream_analysis", f"꿈 해석: {emotion} 감정, {len(symbols)}개 상징")
-                self.memory_palace.remember_conversation(cmd, response, "analytical")
-                return response
-        
-        # �🎵 음악 작곡 요청
+        # 🎵 음악 작곡 요청
         elif any(keyword in cmd_lower for keyword in ["음악", "작곡", "멜로디", "노래"]):
             if "코드" in cmd_lower and ("음악" in cmd_lower or "작곡" in cmd_lower):
                 # 코드를 음악으로 변환

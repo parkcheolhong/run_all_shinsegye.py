@@ -44,6 +44,15 @@
       "emotion_detected": "neutral",
       "context_tags": [],
       "importance_score": 1
+    },
+    {
+      "id": "3a66210e",
+      "timestamp": "2025-10-19T02:24:19.243597",
+      "user_input": "꿈 해석해줘",
+      "ai_response": "🌙 꿈 해석 결과:\n🔮 발견된 상징: 0개\n💭 지배적 감정: 중립\n",
+      "emotion_detected": "analytical",
+      "context_tags": [],
+      "importance_score": 1
     }
   ],
   "user_profile": {},
