@@ -3,10 +3,10 @@ speechrecognition==3.10.0
 pyttsx3==2.90
 flask==2.3.3
 flask-socketio==5.3.6
-python-socketio==5.9.0
+python-socketio==5.14.0
 pyaudio==0.2.11
 
 # 개발 도구 (선택사항)
 pytest==7.4.2
-black==23.9.1
+black==24.3.0
 flake8==6.1.0
