@@ -53,6 +53,17 @@
       "emotion_detected": "analytical",
       "context_tags": [],
       "importance_score": 1
+    },
+    {
+      "id": "533be119",
+      "timestamp": "2025-10-19T02:31:03.351619",
+      "user_input": "개발팀 상태",
+      "ai_response": "🤖 가상 개발팀 상태\n👥 8명의 전문가들이 대기 중\n💪 평균 스킬: 8.0/10\n🎯 현재 프로젝트: 0개",
+      "emotion_detected": "project_management",
+      "context_tags": [
+        "tech"
+      ],
+      "importance_score": 1
     }
   ],
   "user_profile": {},
