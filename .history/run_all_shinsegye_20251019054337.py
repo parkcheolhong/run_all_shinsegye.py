@@ -54,5 +54,4 @@ def main():
         log_voice_command("=== 세션 종료 ===")
 
 if __name__ == "__main__":
-    demo = main()
-    print("\n✅ 보안 시스템 데모 완료!")
+    main()

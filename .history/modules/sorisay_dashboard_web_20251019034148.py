@@ -283,10 +283,6 @@ button:hover {
             <span id="system-status" class="system-status status-waiting">대기 중</span>
             <span style="margin-left: 20px;">마지막 명령: </span>
             <span id="last-command">없음</span>
-            <div style="margin-left: auto; display: flex; align-items: center;">
-                <div id="auth-status" style="padding: 5px 12px; border-radius: 10px; background: #f44336; color: white; margin-right: 10px;">🔒 미인증</div>
-                <button onclick="showAuthModal()" style="padding: 5px 10px; background: #2196f3; border: none; border-radius: 5px; color: white;">🔑 인증</button>
-            </div>
         </div>
     </div>
     
@@ -485,126 +481,6 @@ function addCreativeActivityToLog(activity) {
     if (emptyMsg) emptyMsg.remove();
 }
 
-// 🔑 인증 관련 함수들
-let currentAuth = null;
-
-// 인증 모달 표시
-function showAuthModal() {
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5); display: flex; align-items: center;
-        justify-content: center; z-index: 1000;
-    `;
-    
-    modal.innerHTML = `
-        <div style="background: white; padding: 30px; border-radius: 15px; max-width: 400px; width: 90%;">
-            <h3 style="margin-bottom: 20px; color: #333;">🔑 인증하기</h3>
-            <div style="margin-bottom: 15px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">API 키:</label>
-                <input type="text" id="auth-api-key" placeholder="API 키 입력" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            </div>
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 5px; font-weight: bold;">액세스 토큰:</label>
-                <input type="text" id="auth-token" placeholder="액세스 토큰 입력" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <button onclick="authenticate()" style="flex: 1; padding: 10px; background: #4caf50; border: none; border-radius: 5px; color: white; font-weight: bold;">✅ 인증</button>
-                <button onclick="closeAuthModal()" style="flex: 1; padding: 10px; background: #f44336; border: none; border-radius: 5px; color: white; font-weight: bold;">❌ 취소</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    modal.onclick = (e) => { if (e.target === modal) closeAuthModal(); };
-}
-
-// 인증 모달 닫기
-function closeAuthModal() {
-    const modal = document.querySelector('div[style*="z-index: 1000"]');
-    if (modal) modal.remove();
-}
-
-// 인증 실행
-async function authenticate() {
-    const apiKey = document.getElementById('auth-api-key').value;
-    const token = document.getElementById('auth-token').value;
-    
-    if (!apiKey && !token) {
-        alert('API 키 또는 액세스 토큰 중 하나를 입력해주세요.');
-        return;
-    }
-    
-    const credential = apiKey || token;
-    
-    try {
-        const response = await fetch('/api/auth/verify', {
-            method: 'GET',
-            headers: {
-                'X-API-Key': apiKey || '',
-                'Authorization': token || ''
-            }
-        });
-        
-        const result = await response.json();
-        
-        if (result.valid) {
-            currentAuth = credential;
-            updateAuthStatus(true, result.permissions);
-            closeAuthModal();
-            alert(`✅ 인증 성공! 권한: ${result.permissions.join(', ')}`);
-        } else {
-            alert('❌ 인증 실패: ' + (result.error || '유효하지 않은 인증 정보'));
-        }
-    } catch (error) {
-        console.error('인증 오류:', error);
-        alert('❌ 인증 중 오류가 발생했습니다.');
-    }
-}
-
-// 인증 상태 업데이트
-function updateAuthStatus(authenticated, permissions = []) {
-    const authStatus = document.getElementById('auth-status');
-    
-    if (authenticated) {
-        authStatus.textContent = `🔓 인증됨 (${permissions.join(', ')})`;
-        authStatus.style.background = '#4caf50';
-    } else {
-        authStatus.textContent = '🔒 미인증';
-        authStatus.style.background = '#f44336';
-    }
-}
-
-// 로그아웃
-function logout() {
-    currentAuth = null;
-    updateAuthStatus(false);
-    alert('🔒 로그아웃되었습니다.');
-}
-
-// 인증된 요청 전송
-function sendAuthenticatedCommand(command) {
-    if (!currentAuth) {
-        alert('⚠️ 명령 실행을 위해 먼저 인증이 필요합니다.');
-        showAuthModal();
-        return;
-    }
-    
-    socket.emit('remote_command', {
-        command: command,
-        auth: currentAuth
-    });
-}
-
-// 기존 명령 전송 함수 수정
-function sendRemoteCommand() {
-    const command = document.getElementById('remote-command').value.trim();
-    if (command) {
-        sendAuthenticatedCommand(command);
-        document.getElementById('remote-command').value = '';
-    }
-}
-
 // 통계 업데이트 요청
 function updateStats() {
     socket.emit('get_stats');
@@ -629,87 +505,18 @@ updateStats();
 
 @app.route("/")
 def index():
-    # 🔑 기본 인증 확인 (선택적)
-    api_key = request.args.get('api_key')
-    token = request.args.get('token')
-    
-    if security_config.get("security", {}).get("require_auth", False):
-        if not api_key and not token:
-            return """
-            <h1>🔒 소리새 AI 대시보드 - 인증 필요</h1>
-            <p>접근하려면 올바른 API 키 또는 토큰이 필요합니다.</p>
-            <form method="GET">
-                <label>API 키: <input type="text" name="api_key" placeholder="API 키 입력"></label><br><br>
-                <label>또는 토큰: <input type="text" name="token" placeholder="액세스 토큰 입력"></label><br><br>
-                <button type="submit">🔓 접근</button>
-            </form>
-            """
-        
-        credential = api_key or token
-        if not verify_api_key(credential) and not verify_token(credential):
-            return "<h1>❌ 인증 실패</h1><p>유효하지 않은 인증 정보입니다.</p>"
-    
     return render_template_string(HTML)
 
 @app.route("/api/stats")
-@require_auth("dashboard")
 def api_stats():
     return jsonify(dashboard_state.get_stats())
-
-@app.route("/api/auth/verify")
-def verify_auth():
-    """🔑 인증 정보 검증 API"""
-    api_key = request.headers.get('X-API-Key') or request.args.get('api_key')
-    token = request.headers.get('Authorization') or request.args.get('token')
-    
-    if not api_key and not token:
-        return jsonify({"valid": False, "error": "인증 정보 없음"}), 401
-    
-    credential = api_key or token
-    is_valid = verify_api_key(credential) or verify_token(credential)
-    
-    if is_valid:
-        permissions = get_permission_level(credential)
-        return jsonify({
-            "valid": True,
-            "permissions": permissions,
-            "credential_type": "api_key" if verify_api_key(credential) else "token"
-        })
-    else:
-        return jsonify({"valid": False, "error": "유효하지 않은 인증 정보"}), 401
-
-@app.route("/api/auth/keys")
-@require_auth("all")
-def list_keys():
-    """🔐 API 키 목록 (마스터 키만 접근 가능)"""
-    return jsonify({
-        "api_keys": list(security_config.get("security", {}).get("api_keys", {}).keys()),
-        "tokens": list(security_config.get("security", {}).get("access_tokens", {}).keys())
-    })
 
 @socketio.on("remote_command")
 def handle_remote_command(data):
     command = data.get('command', '')
-    auth_credential = data.get('auth', '')  # 소켓에서 인증 정보 받기
-    
-    # 🔑 소켓 인증 검증
-    if security_config.get("security", {}).get("require_auth", False):
-        if not auth_credential:
-            emit("auth_error", {"message": "인증이 필요합니다"})
-            return
-        
-        if not verify_api_key(auth_credential) and not verify_token(auth_credential):
-            emit("auth_error", {"message": "유효하지 않은 인증 정보"})
-            return
-        
-        # 명령어 실행 권한 확인
-        permissions = get_permission_level(auth_credential)
-        if "commands" not in permissions and "all" not in permissions:
-            emit("auth_error", {"message": "명령어 실행 권한이 없습니다"})
-            return
     
     # 🔒 명령어 보안 검증
-    allowed_commands = security_config.get("security", {}).get("allowed_commands", [])
+    allowed_commands = ['리팩터링', '동기화', '상태', '테스트', '정리', '도움말', '종료']
     if command not in allowed_commands:
         print(f"🚫 허용되지 않은 명령어: {command}")
         emit("security_warning", {"message": f"허용되지 않은 명령어: {command}"})

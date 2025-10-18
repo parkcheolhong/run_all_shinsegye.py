@@ -42,20 +42,6 @@ pip install -r requirements.txt
 
 ### 2. 실행
 
-#### 방법 1: 배치 파일 사용 (가장 쉬움, Windows 추천)
-
-```cmd
-start_sorisay.bat
-```
-
-#### 방법 2: PowerShell 스크립트 사용
-
-```powershell
-.\start_sorisay.ps1
-```
-
-#### 방법 3: 직접 Python 명령어 사용
-
 ```bash
 # ✅ 올바른 실행 방법
 python run_all_shinsegye.py
@@ -65,8 +51,7 @@ python run_all_shinsegye.py
 # github run_shinsegye.py      # 이것도 마찬가지입니다
 ```
 
-> **⚠️ 중요**: `github` 명령어는 존재하지 않습니다. 항상 `python` 명령어를 사용하세요!  
-> **💡 팁**: 반복적인 오류를 방지하려면 `start_sorisay.bat` 파일을 사용하세요.
+> **⚠️ 중요**: `github` 명령어는 존재하지 않습니다. 항상 `python` 명령어를 사용하세요!
 
 시스템이 시작되면:
 

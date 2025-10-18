@@ -1,0 +1,47 @@
+{
+  "security": {
+    "api_keys": {
+      "master_key": "sorisay_master_2025_secure_key_abcd1234",
+      "admin_key": "sorisay_admin_2025_key_efgh5678",
+      "user_key": "sorisay_user_2025_key_ijkl9012",
+      "guest_key": "sorisay_guest_2025_key_mnop3456"
+    },
+    "access_tokens": {
+      "admin_token": "ADM_tok_2025_xyz789abc123def456",
+      "user_token": "USR_tok_2025_ghi012jkl345mno678",
+      "readonly_token": "RO_tok_2025_pqr901stu234vwx567"
+    },
+    "permissions": {
+      "master_key": ["all"],
+      "admin_key": ["dashboard", "commands", "config", "logs"],
+      "user_key": ["dashboard", "commands"],
+      "guest_key": ["dashboard"],
+      "admin_token": ["dashboard", "commands", "logs"],
+      "user_token": ["dashboard", "commands"],
+      "readonly_token": ["dashboard"]
+    },
+    "allowed_hosts": ["127.0.0.1", "localhost"],
+    "allowed_commands": [
+      "리팩터링", "동기화", "상태", "테스트", "정리", "도움말", "종료"
+    ],
+    "max_failed_attempts": 5,
+    "session_timeout": 3600,
+    "token_expiry": 86400,
+    "require_auth": true,
+    "rate_limit": {
+      "max_requests_per_minute": 60,
+      "max_commands_per_minute": 10
+    },
+    "logging": {
+      "log_failed_attempts": true,
+      "log_commands": true,
+      "log_auth_attempts": true,
+      "log_level": "INFO"
+    }
+  },
+  "network": {
+    "bind_address": "127.0.0.1",
+    "port": 5050,
+    "cors_origins": ["http://localhost:5050", "http://127.0.0.1:5050"]
+  }
+}

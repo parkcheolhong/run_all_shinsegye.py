@@ -64,6 +64,301 @@
         "tech"
       ],
       "importance_score": 1
+    },
+    {
+      "id": "a15b0ac4",
+      "timestamp": "2025-10-19T05:42:02.336282",
+      "user_input": "테스트 실행",
+      "ai_response": "테스트를 실행하겠습니다. 모든 테스트가 성공적으로 통과했습니다!",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "07463790",
+      "timestamp": "2025-10-19T05:42:30.174189",
+      "user_input": "정지",
+      "ai_response": "시스템을 안전하게 종료하겠습니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "f30516d8",
+      "timestamp": "2025-10-19T05:44:51.606955",
+      "user_input": "문서",
+      "ai_response": "프로젝트 문서가 생성되었습니다!",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "712832c2",
+      "timestamp": "2025-10-19T05:45:09.972171",
+      "user_input": "중지",
+      "ai_response": "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "c7b31427",
+      "timestamp": "2025-10-19T05:46:09.773182",
+      "user_input": "그만",
+      "ai_response": "소리새를 종료합니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "7d6986f9",
+      "timestamp": "2025-10-19T06:07:36.287925",
+      "user_input": "빌드",
+      "ai_response": "프로젝트를 컴파일하겠습니다. 프로젝트 빌드가 완료되었습니다!",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "9d7ae937",
+      "timestamp": "2025-10-19T06:08:45.310470",
+      "user_input": "끝",
+      "ai_response": "소리새를 종료합니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "77c969f5",
+      "timestamp": "2025-10-19T06:11:17.157125",
+      "user_input": "정리",
+      "ai_response": "프로젝트 정리가 완료되었습니다!",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "3bb26cdc",
+      "timestamp": "2025-10-19T06:11:30.353170",
+      "user_input": "노래 이제 그만",
+      "ai_response": "소리새를 종료합니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "5d6f3623",
+      "timestamp": "2025-10-19T06:14:17.506673",
+      "user_input": "소리새 하는",
+      "ai_response": "안녕하세요! 무엇을 도와드릴까요?",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "04be3fe7",
+      "timestamp": "2025-10-19T06:15:39.302084",
+      "user_input": "소리새 그만",
+      "ai_response": "작업을 마치고 종료합니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "cfe16ed1",
+      "timestamp": "2025-10-19T06:21:22.742765",
+      "user_input": "청소",
+      "ai_response": "프로젝트 정리가 완료되었습니다!",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "6cc377e0",
+      "timestamp": "2025-10-19T06:21:40.746117",
+      "user_input": "프린트",
+      "ai_response": "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "79b13c8e",
+      "timestamp": "2025-10-19T06:22:03.075493",
+      "user_input": "포맷",
+      "ai_response": "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "bfb6eaee",
+      "timestamp": "2025-10-19T06:23:22.077855",
+      "user_input": "네 생일이",
+      "ai_response": "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "project"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "42572626",
+      "timestamp": "2025-10-19T06:23:32.623113",
+      "user_input": "소리새 생일이 언제야",
+      "ai_response": "반갑습니다! 어떤 작업을 하시겠어요?",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "project"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "1b7da18c",
+      "timestamp": "2025-10-19T06:23:45.612495",
+      "user_input": "소리새 생일은 오늘이야",
+      "ai_response": "반갑습니다! 어떤 작업을 하시겠어요?",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "project"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "cad3ba52",
+      "timestamp": "2025-10-19T06:24:07.529380",
+      "user_input": "소리새 생일 언제",
+      "ai_response": "반갑습니다! 어떤 작업을 하시겠어요?",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "project"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "2246278b",
+      "timestamp": "2025-10-19T06:24:18.712307",
+      "user_input": "소리새 생일은 언제야",
+      "ai_response": "반갑습니다! 어떤 작업을 하시겠어요?",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "project"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "ba6a3fba",
+      "timestamp": "2025-10-19T06:24:43.258856",
+      "user_input": "소리 이제 그만",
+      "ai_response": "소리새를 종료합니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "61364565",
+      "timestamp": "2025-10-19T06:30:49.840557",
+      "user_input": "안녕 소리새",
+      "ai_response": "소리새입니다. 명령을 말씀해주세요.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "2b819e42",
+      "timestamp": "2025-10-19T06:31:22.770789",
+      "user_input": "소리새",
+      "ai_response": "반갑습니다! 어떤 작업을 하시겠어요?",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "fe35236b",
+      "timestamp": "2025-10-19T06:31:46.154931",
+      "user_input": "프린트",
+      "ai_response": "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "dbd4e47d",
+      "timestamp": "2025-10-19T06:33:18.995731",
+      "user_input": "소리새 음악",
+      "ai_response": "반갑습니다! 어떤 작업을 하시겠어요?",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "33e317f3",
+      "timestamp": "2025-10-19T06:34:04.609648",
+      "user_input": "종료",
+      "ai_response": "작업을 마치고 종료합니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "43f5145d",
+      "timestamp": "2025-10-19T06:58:38.456941",
+      "user_input": "소리새 이름이 뭐야",
+      "ai_response": "안녕하세요! 무엇을 도와드릴까요?",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "personal"
+      ],
+      "importance_score": 4
+    },
+    {
+      "id": "9eb8f6f1",
+      "timestamp": "2025-10-19T06:58:53.818722",
+      "user_input": "프린트",
+      "ai_response": "죄송합니다. 아직 이해하지 못하는 요청입니다. 하지만 학습해서 다음엔 더 잘 도와드리겠습니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "f24c4d11",
+      "timestamp": "2025-10-19T06:58:58.673548",
+      "user_input": "프린트",
+      "ai_response": "웹에서 찾은 정보입니다: 웹 검색 중 오류가 발생했습니다: 'datetime.timedelta' object has no attribute 'hours'...",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "8ce07965",
+      "timestamp": "2025-10-19T07:01:58.137587",
+      "user_input": "컴파일",
+      "ai_response": "프로젝트를 컴파일하겠습니다. 프로젝트 빌드가 완료되었습니다!",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "project"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "ec0536f4",
+      "timestamp": "2025-10-19T07:02:24.519530",
+      "user_input": "소리새 생일이",
+      "ai_response": "소리새입니다. 명령을 말씀해주세요.",
+      "emotion_detected": "neutral",
+      "context_tags": [
+        "project"
+      ],
+      "importance_score": 1
+    },
+    {
+      "id": "e77bd603",
+      "timestamp": "2025-10-19T07:03:51.824866",
+      "user_input": "소리새 끝",
+      "ai_response": "시스템을 안전하게 종료하겠습니다. 시스템을 종료합니다.",
+      "emotion_detected": "neutral",
+      "context_tags": [],
+      "importance_score": 1
     }
   ],
   "user_profile": {},
