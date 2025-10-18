@@ -89,9 +89,6 @@ class SorisayCore:
         # 🤖 가상 개발팀 시스템 초기화
         self.virtual_dev_team = VirtualDevelopmentTeam()
         
-        # 🔮 미래 예측 엔진 초기화
-        self.prediction_engine = FuturePredictionEngine()
-        
         # 진화 카운터
         self.interaction_count = 0
         self.last_evolution_check = 0
@@ -730,110 +727,7 @@ class SorisayCore:
             self.memory_palace.remember_conversation(cmd, response, "project_management")
             return response
         
-        # 🔮 미래 예측 요청
-        elif any(keyword in cmd_lower for keyword in ["미래", "예측", "전망", "트렌드", "예상", "분석"]):
-            if "트렌드" in cmd_lower:
-                # 트렌드 분석 요청
-                category = "전체"
-                if "기술" in cmd_lower:
-                    category = "기술"
-                elif "경제" in cmd_lower:
-                    category = "경제"
-                elif "사회" in cmd_lower:
-                    category = "사회"
-                
-                analysis = self.prediction_engine.analyze_future_trends(category)
-                response = f"📈 {category} 트렌드 분석 완료!\n"
-                response += f"🎯 신뢰도: {analysis.get('confidence_score', 0):.1%}\n"
-                
-                # 신흥 트렌드 표시
-                emerging = analysis.get('emerging_trends', [])[:2]
-                if emerging:
-                    response += f"🚀 주요 신흥 트렌드:\n"
-                    for trend in emerging:
-                        response += f"  • {trend['name']}: {trend['predicted_value']:.1%} 성장 예상\n"
-                
-                # 핵심 인사이트
-                insights = analysis.get('key_insights', [])
-                if insights:
-                    response += f"💡 핵심 인사이트: {insights[0]}"
-                
-                broadcast_creative_activity("trend_analysis", f"{category} 트렌드 분석")
-                
-            elif "예측" in cmd_lower or "전망" in cmd_lower:
-                # 미래 예측 생성
-                focus = "전체"
-                if "기술" in cmd_lower:
-                    focus = "기술"
-                elif "사회" in cmd_lower:
-                    focus = "사회"
-                elif "경제" in cmd_lower:
-                    focus = "경제"
-                
-                predictions = self.prediction_engine.generate_predictions(focus, 3)
-                response = f"🔮 {focus} 분야 미래 예측!\n\n"
-                
-                for i, pred in enumerate(predictions, 1):
-                    response += f"{i}. {pred.title}\n"
-                    response += f"   📊 확률: {pred.probability:.1%} | 신뢰도: {pred.confidence.value}\n"
-                    response += f"   ⏰ 시기: {pred.timeframe.value} | 영향도: {pred.impact_score:.1f}/1.0\n\n"
-                
-                broadcast_creative_activity("future_prediction", f"{focus} 분야 예측 {len(predictions)}건")
-                
-            elif "시나리오" in cmd_lower:
-                # 시나리오 시뮬레이션 (최신 예측 기준)
-                predictions = self.prediction_engine.generate_predictions("기술", 1)
-                if predictions:
-                    scenario = self.prediction_engine.simulate_scenario(predictions[0].id)
-                    response = f"🎭 시나리오 시뮬레이션: {predictions[0].title}\n\n"
-                    
-                    scenarios = scenario.get('scenarios', {})
-                    if 'realistic' in scenarios:
-                        real_scenario = scenarios['realistic']
-                        response += f"📋 현실적 시나리오:\n{real_scenario['description']}\n\n"
-                        response += f"⏱️ 예상 일정: {real_scenario['timeline']}\n"
-                    
-                    # 권장 행동
-                    actions = scenario.get('recommended_actions', [])
-                    if actions:
-                        response += f"\n💡 권장 행동:\n"
-                        for action in actions[:2]:
-                            response += f"  • {action}\n"
-                    
-                    broadcast_creative_activity("scenario_simulation", predictions[0].title)
-                else:
-                    response = "시나리오 생성에 실패했습니다."
-                    
-            elif "보고서" in cmd_lower or "리포트" in cmd_lower:
-                # 종합 미래 예측 보고서
-                category = "전체"
-                if "기술" in cmd_lower:
-                    category = "기술"
-                elif "경제" in cmd_lower:
-                    category = "경제"
-                elif "사회" in cmd_lower:
-                    category = "사회"
-                    
-                report = self.prediction_engine.generate_future_report(category)
-                response = f"📋 {category} 미래 예측 보고서가 생성되었습니다!\n"
-                response += "상세 내용은 콘솔에서 확인하세요."
-                
-                # 콘솔에 상세 보고서 출력
-                print(report)
-                
-                broadcast_creative_activity("prediction_report", f"{category} 미래 예측 보고서")
-            else:
-                # 기본 예측 엔진 소개
-                accuracy = self.prediction_engine.get_prediction_accuracy()
-                response = f"🔮 미래 예측 엔진 활성화!\n"
-                response += f"🎯 예측 정확도: {accuracy.get('accuracy_rate', 75):.1f}%\n"
-                response += f"📊 총 예측: {accuracy.get('total_predictions', 0)}건\n"
-                response += f"💡 '미래 트렌드', '예측', '시나리오', '보고서' 등으로 요청하세요!"
-            
-            self.memory_palace.remember_conversation(cmd, response, "prediction")
-            return response
-        
-        # 🎵 음악 작곡 요청
+        # �🎵 음악 작곡 요청
         elif any(keyword in cmd_lower for keyword in ["음악", "작곡", "멜로디", "노래"]):
             if "코드" in cmd_lower and ("음악" in cmd_lower or "작곡" in cmd_lower):
                 # 코드를 음악으로 변환
