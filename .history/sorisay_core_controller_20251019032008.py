@@ -23,15 +23,6 @@ try:
 except ImportError:
     print("NLP Processor 모듈을 찾을 수 없습니다.")
 
-# 더미 브로드캐스트 함수들 (웹 대시보드 연동 시 사용)
-def broadcast_voice_command(command, status):
-    """음성 명령 브로드캐스트 (더미 함수)"""
-    print(f"🔊 음성 명령: {command} - 상태: {status}")
-
-def broadcast_system_status(status):
-    """시스템 상태 브로드캐스트 (더미 함수)"""
-    print(f"📡 시스템 상태: {status}")
-
 class SorisayCore:
     def __init__(self, config_path="config/settings.json"):
         # 설정 로드
@@ -50,49 +41,36 @@ class SorisayCore:
         tts_config = self.config.get("tts", {})
         self.setup_tts_voice(tts_config)
         
-        # 🎯 새로운 5개 AI 시스템 초기화
-        try:
-            self.music_composer = AIMusicComposer()
-            print("✅ AI 음악 작곡가 시스템 초기화 완료")
-        except Exception as e:
-            print(f"❌ AI 음악 작곡가 초기화 실패: {e}")
-            self.music_composer = None
-            
-        try:
-            self.dream_interpreter = DreamInterpreter()
-            print("✅ 꿈 해석 시스템 초기화 완료")
-        except Exception as e:
-            print(f"❌ 꿈 해석 시스템 초기화 실패: {e}")
-            self.dream_interpreter = None
-            
-        try:
-            self.dev_team = VirtualDevTeam()
-            print("✅ 가상 개발팀 시스템 초기화 완료")
-        except Exception as e:
-            print(f"❌ 가상 개발팀 초기화 실패: {e}")
-            self.dev_team = None
-            
-        try:
-            self.future_engine = FuturePredictionEngine()
-            print("✅ 미래 예측 엔진 초기화 완료")
-        except Exception as e:
-            print(f"❌ 미래 예측 엔진 초기화 실패: {e}")
-            self.future_engine = None
-            
-        try:
-            self.color_therapist = EmotionColorTherapist()
-            print("✅ 감정 색채 치료사 초기화 완료")
-        except Exception as e:
-            print(f"❌ 감정 색채 치료사 초기화 실패: {e}")
-            self.color_therapist = None
+        # 플러그인 매니저 초기화
+        self.plugin_manager = PluginManager()
+        self.plugin_manager.load_plugins()
         
-        # 자연어 처리기 초기화 (사용 가능한 경우)
-        try:
-            self.nlp_processor = NLPProcessor()
-            print("✅ NLP 프로세서 초기화 완료")
-        except Exception as e:
-            print(f"❌ NLP 프로세서 초기화 실패: {e}")
-            self.nlp_processor = None
+        # 자연어 처리기 초기화
+        self.nlp_processor = NLPProcessor()
+        
+        # 자가 학습 엔진 초기화
+        self.learning_engine = SelfLearningEngine()
+        
+        # 자동 기능 확장 시스템 초기화
+        self.auto_expansion = AutoFeatureExpansion()
+        
+        # 🎨 창조형 소리새 엔진 초기화
+        self.creative_engine = CreativeSorisayEngine()
+        
+        # 🎭 페르소나 시스템 초기화
+        self.persona_system = PersonaSystem()
+        
+        # 🧠 기억의 궁전 초기화
+        self.memory_palace = MemoryPalace()
+        
+        # 🤝 AI 협업 네트워크 초기화
+        self.ai_network = AICollaborationNetwork()
+        
+        # 🎨 창조적 코딩 어시스턴트 초기화
+        self.coding_assistant = CreativeCodingAssistant()
+        
+        # 🧩 스마트 플러그인 생성기 초기화
+        self.plugin_generator = SmartPluginGenerator()
         
         # 진화 카운터
         self.interaction_count = 0

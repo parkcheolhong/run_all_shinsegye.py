@@ -23,15 +23,6 @@ try:
 except ImportError:
     print("NLP Processor 모듈을 찾을 수 없습니다.")
 
-# 더미 브로드캐스트 함수들 (웹 대시보드 연동 시 사용)
-def broadcast_voice_command(command, status):
-    """음성 명령 브로드캐스트 (더미 함수)"""
-    print(f"🔊 음성 명령: {command} - 상태: {status}")
-
-def broadcast_system_status(status):
-    """시스템 상태 브로드캐스트 (더미 함수)"""
-    print(f"📡 시스템 상태: {status}")
-
 class SorisayCore:
     def __init__(self, config_path="config/settings.json"):
         # 설정 로드
