@@ -93,9 +93,6 @@ class SorisayCore:
         # 🔮 미래 예측 엔진 초기화
         self.prediction_engine = FuturePredictionEngine()
         
-        # 🎨 감정 색채 치료사 초기화
-        self.color_therapist = EmotionColorTherapist()
-        
         # 진화 카운터
         self.interaction_count = 0
         self.last_evolution_check = 0
@@ -837,135 +834,7 @@ class SorisayCore:
             self.memory_palace.remember_conversation(cmd, response, "prediction")
             return response
         
-        # � 감정 색채 치료 요청
-        elif any(keyword in cmd_lower for keyword in ["색", "색깔", "컬러", "치료", "감정치료", "색채치료"]):
-            if "분석" in cmd_lower or "진단" in cmd_lower:
-                # 감정 분석 요청
-                if "스트레스" in cmd_lower or "불안" in cmd_lower:
-                    emotion_text = "스트레스받고 불안해요"
-                    context = "일상 생활"
-                elif "우울" in cmd_lower or "슬프" in cmd_lower:
-                    emotion_text = "우울하고 기분이 안좋아요"
-                    context = "개인적 상황"
-                elif "화나" in cmd_lower or "짜증" in cmd_lower:
-                    emotion_text = "화나고 짜증나요"
-                    context = "대인 관계"
-                else:
-                    emotion_text = "감정이 복잡해요"
-                    context = "일반적 상황"
-                
-                analysis = self.color_therapist.analyze_emotion(emotion_text, context)
-                response = f"🎨 감정 분석 완료!\n"
-                
-                primary_emotion = analysis.get('primary_emotion')
-                if primary_emotion and hasattr(primary_emotion, 'value'):
-                    response += f"🎯 주감정: {primary_emotion.value}\n"
-                
-                response += f"📊 감정 강도: {analysis.get('emotion_intensity', 0):.1%}\n"
-                response += f"🔍 복합성: {analysis.get('emotion_complexity', '미상')}\n"
-                response += f"⚡ 긴급도: {analysis.get('urgency_level', '미상')}\n"
-                response += f"💡 '색 추천', '치료 시작' 등으로 요청하세요!"
-                
-                broadcast_creative_activity("emotion_analysis", f"감정 분석: {primary_emotion.value if primary_emotion and hasattr(primary_emotion, 'value') else '미상'}")
-                
-            elif "추천" in cmd_lower or "제안" in cmd_lower or "색깔" in cmd_lower:
-                # 색상 추천
-                emotion_text = "전체적으로 마음이 복잡하고 힘들어요"
-                context = "일상 스트레스"
-                
-                # 사용자 선호도 추출
-                preference = "균형"
-                if "따뜻" in cmd_lower:
-                    preference = "따뜻함"
-                elif "차가" in cmd_lower or "시원" in cmd_lower:
-                    preference = "차가움"
-                elif "강렬" in cmd_lower or "진한" in cmd_lower:
-                    preference = "강렬함"
-                elif "부드럽" in cmd_lower or "연한" in cmd_lower:
-                    preference = "부드러움"
-                
-                analysis = self.color_therapist.analyze_emotion(emotion_text, context)
-                colors = self.color_therapist.recommend_colors(analysis, preference)
-                
-                response = f"🎨 색채 치료 추천!\n"
-                response += f"🎯 선호도: {preference}\n\n"
-                
-                for i, color in enumerate(colors[:3], 1):
-                    response += f"{i}. {color.name} ({color.hex_code})\n"
-                    response += f"   💫 효과: {', '.join(color.emotion_effects[:2])}\n"
-                    response += f"   🌡️ 온도감: {'따뜻함' if color.warmth > 0.6 else '차가움' if color.warmth < 0.4 else '중성'}\n\n"
-                
-                response += "💡 '치료 시작'으로 정식 세션을 시작할 수 있어요!"
-                
-                broadcast_creative_activity("color_recommendation", f"{len(colors)}개 색상 추천")
-                
-            elif "시작" in cmd_lower or "세션" in cmd_lower or "치료시작" in cmd_lower:
-                # 치료 세션 시작
-                emotion_text = "요즘 감정이 복잡하고 힘들어요"
-                context = "일상 생활의 스트레스"
-                
-                session = self.color_therapist.create_therapy_session(emotion_text, context, "균형", 15)
-                if session:
-                    response = f"🎨 색채 치료 세션 시작!\n"
-                    response += f"📋 세션 ID: {session.session_id}\n"
-                    response += f"🎯 치료 유형: {session.therapy_type.value}\n"
-                    response += f"⏰ 예상 시간: {session.session_duration}분\n"
-                    response += f"💪 예상 효과: {session.effectiveness_score:.1%}\n\n"
-                    
-                    response += f"🎨 추천 색상:\n"
-                    for color in session.recommended_colors[:2]:
-                        response += f"  • {color.name} ({color.hex_code})\n"
-                    
-                    response += f"\n💡 '보고서 {session.session_id}'로 상세 결과를 확인하세요!"
-                    
-                    broadcast_creative_activity("therapy_session", f"치료 세션 {session.session_id}")
-                else:
-                    response = "세션 생성에 실패했습니다. 다시 시도해주세요."
-            
-            elif "보고서" in cmd_lower:
-                # 세션 보고서 (최신 세션)
-                if self.color_therapist.therapy_history:
-                    latest_session_id = list(self.color_therapist.therapy_history.keys())[-1]
-                    report = self.color_therapist.get_session_report(latest_session_id)
-                    response = f"📋 최신 치료 세션 보고서가 생성되었습니다!\n"
-                    response += "상세 내용은 콘솔에서 확인하세요."
-                    
-                    # 콘솔에 상세 보고서 출력
-                    print(report)
-                    
-                    broadcast_creative_activity("therapy_report", f"세션 보고서: {latest_session_id}")
-                else:
-                    response = "아직 치료 세션이 없습니다. '치료 시작'으로 세션을 만들어보세요!"
-                    
-            elif "통계" in cmd_lower or "상태" in cmd_lower:
-                # 치료사 통계
-                stats = self.color_therapist.get_therapist_stats()
-                response = f"🎨 색채 치료사 통계\n"
-                response += f"📊 총 세션: {stats['total_sessions']}건\n"
-                response += f"🎯 평균 효과: {stats['average_effectiveness']:.1%}\n"
-                response += f"😊 주요 감정: {stats['most_common_emotion']}\n"
-                response += f"💊 주요 치료: {stats['most_used_therapy']}\n"
-                response += f"🎨 색상 DB: {stats['color_database_size']}개\n"
-                response += f"⭐ 경험치: {stats['therapist_experience']:.1f}"
-                
-                broadcast_creative_activity("therapist_stats", f"통계 조회: {stats['total_sessions']}건")
-            else:
-                # 기본 색채 치료 소개
-                stats = self.color_therapist.get_therapist_stats()
-                response = f"🎨 감정 색채 치료사 활성화!\n"
-                response += f"💫 색상 데이터베이스: {stats['color_database_size']}개 색상\n"
-                response += f"📊 총 세션: {stats['total_sessions']}건\n"
-                response += f"💡 명령어:\n"
-                response += f"  • '감정 분석' - 현재 감정 상태 분석\n"
-                response += f"  • '색 추천' - 맞춤 색상 추천\n"
-                response += f"  • '치료 시작' - 정식 치료 세션 시작\n"
-                response += f"  • '보고서' - 세션 결과 확인\n"
-                response += f"  • '통계' - 치료사 현황"
-            
-            self.memory_palace.remember_conversation(cmd, response, "color_therapy")
-            return response
-        
-        # �🎵 음악 작곡 요청
+        # 🎵 음악 작곡 요청
         elif any(keyword in cmd_lower for keyword in ["음악", "작곡", "멜로디", "노래"]):
             if "코드" in cmd_lower and ("음악" in cmd_lower or "작곡" in cmd_lower):
                 # 코드를 음악으로 변환
