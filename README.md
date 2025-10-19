@@ -8,13 +8,15 @@
 
 ## 📚 문서 가이드
 
+**처음 시작**: [빠른 시작](QUICKSTART.md) | **문제 해결**: [Troubleshooting](TROUBLESHOOTING.md) | **전체 문서**: [문서 색인](DOCUMENTATION_INDEX.md)
+
 - 🚀 **[빠른 시작 가이드](QUICKSTART.md)** - 5분 만에 시작하기
-- 🔧 **[문제 해결](TROUBLESHOOTING.md)** - 일반적인 오류 해결
-- 📖 **[실행 방법](HOW_TO_RUN.md)** - 상세한 실행 가이드
-- 📊 **[코드 검토 보고서](CODE_REVIEW_REPORT.md)** - 전체 코드 품질 분석
-- 📝 **[검토 요약 (한글)](REVIEW_SUMMARY_KO.md)** - 코드 검토 요약 (추천!)
-- ✅ **[개선 체크리스트](IMPROVEMENT_CHECKLIST.md)** - 개선 작업 목록
-- 📑 **[문서 색인](DOCUMENTATION_INDEX.md)** - 모든 문서 안내
+- 🔧 **[문제 해결 가이드](TROUBLESHOOTING.md)** - 일반적인 오류와 해결 방법
+- 📖 **[실행 방법](HOW_TO_RUN.md)** - 다양한 실행 방법 상세 안내
+- 📝 **[검토 요약 (한글)](REVIEW_SUMMARY_KO.md)** - 최신 코드 검토 요약 (추천!)
+- 📊 **[코드 검토 보고서](CODE_REVIEW_REPORT.md)** - 전체 코드 품질 분석 (개발자용)
+- ✅ **[개선 체크리스트](IMPROVEMENT_CHECKLIST.md)** - 우선순위별 개선 작업 목록
+- 📑 **[문서 색인](DOCUMENTATION_INDEX.md)** - 모든 문서 탐색 및 안내
 
 ## 🎯 개요
 

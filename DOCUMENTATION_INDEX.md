@@ -26,7 +26,7 @@
 
 ### 시작 가이드 (Getting Started)
 
-#### 📘 README.md (12KB)
+#### 📘 README.md
 **대상**: 모든 사용자  
 **내용**: 
 - 프로젝트 개요 및 특징
@@ -42,7 +42,7 @@
 
 ---
 
-#### 📗 QUICKSTART.md (2.8KB)
+#### 📗 QUICKSTART.md
 **대상**: 빠르게 시작하고 싶은 사용자  
 **내용**:
 - 5분 빠른 시작 가이드
@@ -56,7 +56,7 @@
 
 ---
 
-#### 📙 HOW_TO_RUN.md (2.4KB)
+#### 📙 HOW_TO_RUN.md
 **대상**: 실행 방법이 궁금한 사용자  
 **내용**:
 - 여러 가지 실행 방법
@@ -72,7 +72,7 @@
 
 ### 개발 문서 (Development)
 
-#### 📕 CODE_REVIEW_REPORT.md (8.9KB) ⭐ NEW
+#### 📕 CODE_REVIEW_REPORT.md ⭐ 추천
 **대상**: 개발자, 코드 검토자  
 **내용**:
 - 전체 코드 품질 분석
@@ -89,7 +89,7 @@
 
 ---
 
-#### 📗 REVIEW_SUMMARY_KO.md (5.6KB) ⭐ NEW 추천!
+#### 📗 REVIEW_SUMMARY_KO.md ⭐ 추천
 **대상**: 한국어 사용자, 빠른 이해 필요  
 **내용**:
 - 전체 검토 결과 요약 (한글)
@@ -105,7 +105,7 @@
 
 ---
 
-#### 📘 IMPROVEMENT_CHECKLIST.md (7.6KB) ⭐ NEW
+#### 📘 IMPROVEMENT_CHECKLIST.md ⭐ 추천
 **대상**: 개발자, 프로젝트 관리자  
 **내용**:
 - 우선순위별 개선 작업 목록
@@ -120,7 +120,7 @@
 
 ---
 
-#### 📙 PROJECT_COMPLETION_REPORT.md (5.9KB)
+#### 📙 PROJECT_COMPLETION_REPORT.md
 **대상**: 프로젝트 관계자  
 **내용**:
 - 5대 AI 시스템 완성 보고
@@ -136,7 +136,7 @@
 
 ### 문제 해결 (Troubleshooting)
 
-#### 📕 TROUBLESHOOTING.md (5.9KB) ⭐ NEW 추천!
+#### 📕 TROUBLESHOOTING.md ⭐ 추천
 **대상**: 문제를 겪고 있는 모든 사용자  
 **내용**:
 - 자주 발생하는 8가지 문제와 해결 방법
@@ -155,7 +155,7 @@
 
 ### 보안 (Security)
 
-#### 📘 SECURITY.md (619B)
+#### 📘 SECURITY.md
 **대상**: 보안 정책 담당자  
 **내용**:
 - 보안 취약점 신고 방법
@@ -163,7 +163,7 @@
 
 ---
 
-#### 📗 SECURITY_GUIDE.md (4.8KB)
+#### 📗 SECURITY_GUIDE.md
 **대상**: 시스템 관리자, 보안 담당자  
 **내용**:
 - API 키 관리
@@ -241,10 +241,10 @@ README.md → REVIEW_SUMMARY_KO.md → PROJECT_COMPLETION_REPORT.md → IMPROVEM
 
 ---
 
-## 🆕 최근 추가된 문서 (2025-10-19)
+## 🆕 최근 추가된 문서
 
 1. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 보고서
-2. **REVIEW_SUMMARY_KO.md** - 한글 요약 (추천!)
+2. **REVIEW_SUMMARY_KO.md** - 한글 요약 (추천)
 3. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 체크리스트
 4. **TROUBLESHOOTING.md** - 빠른 문제 해결 가이드
 5. **DOCUMENTATION_INDEX.md** - 이 문서
