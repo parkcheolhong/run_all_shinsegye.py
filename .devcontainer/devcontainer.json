@@ -1,0 +1,39 @@
+FROM python:3.11-slim
+
+# 작업 디렉토리
+WORKDIR /app
+
+# 의존성 파일 있으면 복사 후 설치
+COPY requirements.txt ./
+RUN if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi
+
+# 소스 전체 복사
+COPY . .
+
+# 앱이 외부 포트를 사용하면 EXPOSE에 포트 반영 (현재: 5050)
+EXPOSE 5050
+
+# 실행 커맨드: 메인 스크립트가 신세계/run_all_shinsegye.py에 있음을 반영
+CMD ["python", "신세계/run_all_shinsegye.py"]
+__pycache__
+*.pyc
+.env
+venv
+.git
+.DS_Store
+node_modules
+dist
+build
+version: "3.8"
+services:
+  sorisae:
+    image: parkcheolhong/sorisae:v1
+    build:
+      context: .
+      dockerfile: 소리새
+    ports:
+      - "5050:5050"
+    environment:
+      - PYTHONUNBUFFERED=1
+      # 필요한 환경변수는 여기에 추가하세요 (민감값은 .env 또는 시크릿으로 관리)
+    restart: unless-stopped
