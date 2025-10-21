@@ -1,0 +1,29 @@
+{
+  "speech_recognition": {
+    "energy_threshold": 250,
+    "dynamic_energy_threshold": true,
+    "pause_threshold": 1.0,
+    "phrase_threshold": 0.4,
+    "timeout": 6,
+    "phrase_time_limit": 4,
+    "language": "ko-KR",
+    "gentle_mode": true
+  },
+  "text_to_speech": {
+    "rate": 120,
+    "volume": 0.8,
+    "voice_id": null,
+    "pitch": 0,
+    "smooth_delivery": true,
+    "pause_between_sentences": 0.3
+  },
+  "system": {
+    "log_commands": true,
+    "debug_mode": false,
+    "auto_adjust_noise": true,
+    "ambient_noise_duration": 1.0,
+    "voice_quality": "high",
+    "natural_pauses": true,
+    "smooth_transitions": true
+  }
+}
