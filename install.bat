@@ -140,7 +140,7 @@ echo.
 
 REM Download NLTK data if needed
 echo 📚 NLTK 데이터 다운로드 중...
-python -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True)" 2>nul
+python -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True)"
 echo ✅ NLTK 데이터 다운로드 완료
 echo.
 
