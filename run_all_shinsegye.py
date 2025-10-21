@@ -47,8 +47,14 @@ def main():
         for text in sorisay.run():  # 제너레이터로 명령어를 받아옴
             print(f"[사용자 명령]: {text}")
             log_voice_command(text)  # 로그 저장
+            
+            # 종료 명령 감지 시 즉시 종료
+            if not sorisay.running:
+                print("🛑 소리새 종료 명령 수신됨")
+                break
+                
     except KeyboardInterrupt:
-        print("🧹 사용자가 수동 종료했습니다.")
+        print("🧹 사용자가 수동 종료했습니다 (Ctrl+C)")
     finally:
         print("🛑 시스템 종료 완료")
         log_voice_command("=== 세션 종료 ===")

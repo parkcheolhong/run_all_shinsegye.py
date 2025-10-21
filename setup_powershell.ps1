@@ -1,3 +1,4 @@
+소리새
 # 소리새 AI PowerShell 환경 설정 스크립트
 
 Write-Host "🔧 소리새 AI PowerShell 환경 설정 중..." -ForegroundColor Cyan
@@ -83,4 +84,4 @@ Write-Host "  3. 'sorisay' 또는 '소리새' 명령어로 실행" -ForegroundCo
 Write-Host ""
 Write-Host "💡 'sorisay-help'로 도움말을 확인하세요!" -ForegroundColor Yellow
 
-Read-Host "아무 키나 눌러서 계속"
+Read-Host "아무 키나 눌러서 계속"    

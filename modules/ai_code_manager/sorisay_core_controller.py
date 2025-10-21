@@ -6,6 +6,7 @@ import os
 import random
 import sys
 import os
+from datetime import datetime
 
 # 모듈 경로 추가
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -31,6 +32,11 @@ from dream_interpreter import DreamInterpreter
 from virtual_dev_team import VirtualDevelopmentTeam
 from future_prediction_engine import FuturePredictionEngine
 from emotion_color_therapist import EmotionColorTherapist
+from personal_ai_tutor import PersonalAITutor, create_ai_tutor_response
+from realtime_game_generator import RealTimeGameGenerator, create_game_response
+from autonomous_shopping_mall import AutonomousShoppingMall, create_autonomous_mall_response
+from multi_agent_shopping_system import MultiAgentShoppingSystem, create_multi_agent_response
+from autonomous_marketing_system import AutonomousMarketingSystem, create_autonomous_marketing_response
 
 class SorisayCore:
     def __init__(self, config_path="config/settings.json"):
@@ -95,6 +101,21 @@ class SorisayCore:
         
         # 🎨 감정 색채 치료사 초기화
         self.color_therapist = EmotionColorTherapist()
+        
+        # 🎓 개인 맞춤 AI 튜터 초기화
+        self.ai_tutor = PersonalAITutor()
+        
+        # 🎮 실시간 게임 생성기 초기화
+        self.game_generator = RealTimeGameGenerator()
+        
+        # 🛒 지능형 자율 쇼핑몰 초기화
+        self.autonomous_mall = AutonomousShoppingMall()
+        
+        # 🤖 멀티 AI 에이전트 쇼핑 시스템 초기화
+        self.multi_agent_shopping = MultiAgentShoppingSystem()
+        
+        # 🎯 자율 마케팅 시스템 초기화
+        self.marketing_system = AutonomousMarketingSystem()
         
         # 진화 카운터
         self.interaction_count = 0
@@ -352,6 +373,15 @@ class SorisayCore:
                 broadcast_creative_activity("persona_switch", f"{old_persona} → {self.persona_system.current_persona}")
             else:
                 print(f"🎭 활성 페르소나: {self.persona_system.current_persona}")
+            
+            # 🛑 종료 명령 최우선 처리
+            if any(keyword in cmd.lower() for keyword in ["종료", "끝", "그만", "정지", "멈춰", "닫아", "shutdown", "exit", "quit", "소리새 안녕"]):
+                print("🛑 종료 명령 감지됨!")
+                self.speak("소리새를 종료합니다. 안녕히 가세요!")
+                self.running = False
+                broadcast_system_status("시스템 종료 중")
+                yield cmd
+                break
             
             # 🧠 기억의 궁전에 대화 저장
             nlp_result = self.nlp_processor.process_natural_language(cmd)
@@ -648,6 +678,72 @@ class SorisayCore:
                 broadcast_creative_activity("dream_analysis", f"꿈 해석: {emotion} 감정, {len(symbols)}개 상징")
                 self.memory_palace.remember_conversation(cmd, response, "analytical")
                 return response
+        
+        # 🎓 개인 맞춤 AI 튜터 요청
+        elif any(keyword in cmd_lower for keyword in ["학습", "공부", "튜터", "가르쳐", "배우고", "수업", "강의"]):
+            tutor_response = create_ai_tutor_response(cmd)
+            
+            # 학습 패턴 분석 (코드가 포함된 경우)
+            if "코드" in cmd_lower or any(lang in cmd_lower for lang in ["python", "javascript", "java"]):
+                # 간단한 코드 예시로 패턴 분석 시연
+                sample_code = "def hello(): print('Hello, World!')"
+                feedback = self.ai_tutor.analyze_coding_pattern(sample_code, "python")
+                if feedback:
+                    tutor_response += "\n\n💡 코딩 스타일 피드백:\n" + "\n".join(feedback[:2])
+            
+            # 격려 메시지 추가
+            if "격려" in cmd_lower or "힘들" in cmd_lower:
+                encouragement = self.ai_tutor.get_personalized_encouragement()
+                tutor_response = encouragement + "\n\n" + tutor_response
+            
+            self.memory_palace.remember_conversation(cmd, tutor_response, "educational")
+            broadcast_creative_activity("ai_tutoring", f"개인 맞춤 학습 지원")
+            return tutor_response
+        
+        # 🎮 실시간 게임 생성 요청
+        elif any(keyword in cmd_lower for keyword in ["게임", "퍼즐", "퀴즈", "놀이", "재미있는"]):
+            if any(word in cmd_lower for word in ["만들", "생성", "만들어", "게임하자", "놀자"]):
+                # 게임 생성
+                game = self.game_generator.create_game(cmd)
+                
+                response = f"""🎮 {game['data']['name']} 생성 완료!
+
+❓ 문제: {game['data']['question']}
+
+게임 ID: {game['id'][-6:]}
+타입: {game['request']['type']} ({game['request']['difficulty']})
+
+답을 말씀해주세요! 🎯"""
+                
+                # 게임 힌트 추가
+                if game['data'].get('hints'):
+                    response += f"\n\n💡 힌트: {game['data']['hints'][0]}"
+                
+                self.memory_palace.remember_conversation(cmd, response, "playful")
+                broadcast_creative_activity("game_generation", f"{game['data']['name']} 생성")
+                return response
+            
+            else:
+                # 게임 플레이 (이미 생성된 게임에 대한 답변)
+                if self.game_generator.generated_games:
+                    latest_game = self.game_generator.generated_games[-1]
+                    if latest_game['status'] == 'ready':
+                        # 사용자 입력을 답안으로 처리
+                        result = self.game_generator.play_game(latest_game, cmd)
+                        
+                        response = result['message']
+                        if result.get('hint'):
+                            response += f"\n💡 {result['hint']}"
+                        
+                        if result['game_over']:
+                            if result['success']:
+                                response += f"\n🏆 최종 점수: {latest_game['score']}점!"
+                            latest_game['status'] = 'completed'
+                        
+                        self.memory_palace.remember_conversation(cmd, response, "playful")
+                        return response
+                
+                return "🎮 게임을 먼저 만들어보세요! '퍼즐 게임 만들어줘' 라고 말씀해보세요."
         
         # 🤖 가상 개발팀 요청
         elif any(keyword in cmd_lower for keyword in ["개발팀", "프로젝트", "팀관리", "스프린트", "개발진행"]):
@@ -984,4 +1080,71 @@ class SorisayCore:
             self.memory_palace.remember_conversation(cmd, response, "creative")
             return response
         
+        # 🛒 지능형 자율 쇼핑몰 요청
+        elif any(keyword in cmd_lower for keyword in ["쇼핑몰", "온라인쇼핑", "상품판매", "자율쇼핑", "스마트쇼핑"]):
+            mall_response = create_autonomous_mall_response(cmd)
+            self.memory_palace.remember_conversation(cmd, mall_response, "business")
+            broadcast_creative_activity("autonomous_shopping", "지능형 쇼핑몰 운영")
+            return mall_response
+        
+        # 🤖 멀티 AI 에이전트 시스템 요청
+        elif any(keyword in cmd_lower for keyword in ["멀티에이전트", "멀티 에이전트", "다중ai", "협업ai", "에이전트시스템"]):
+            agent_response = create_multi_agent_response(cmd)
+            self.memory_palace.remember_conversation(cmd, agent_response, "collaborative")
+            broadcast_creative_activity("multi_agent_system", "멀티 AI 협업 시스템")
+            return agent_response
+        
+        # 🎯 자율 마케팅 시스템 요청
+        elif any(keyword in cmd_lower for keyword in ["마케팅", "광고", "판매", "홍보", "브랜딩", "캠페인", "자동마케팅", "광고자동화"]):
+            marketing_response = create_autonomous_marketing_response(cmd)
+            self.memory_palace.remember_conversation(cmd, marketing_response, "marketing")
+            broadcast_creative_activity("autonomous_marketing", "자율 마케팅 시스템 운영")
+            return marketing_response
+        
         return None  # 창의적 기능에 해당하지 않음
+
+
+def create_autonomous_mall_response(user_request):
+    """자율 쇼핑몰 응답 생성"""
+    mall = AutonomousShoppingMall()
+    
+    # 쇼핑몰 자율 운영 시작
+    mall_status = mall.run_autonomous_cycle()
+    
+    response = f"🛒 지능형 자율 쇼핑몰 가동!\n\n"
+    response += f"⏰ 운영 시간: {mall_status['timestamp'][:19]}\n"
+    response += f"🎯 신제품 출시: {mall_status['new_products']}개\n"
+    response += f"� 판매 실적: {mall_status['sales_made']}건\n"
+    response += f"🤖 자동 구매: {mall_status['purchases_made']}건\n"
+    response += f"💵 총 수익: {mall_status['total_revenue']:,}원\n"
+    response += f"📋 실행 작업: {', '.join(mall_status['actions_performed'])}\n\n"
+    response += "쇼핑몰이 완전 자율로 운영되고 있습니다! 📈"
+    
+    return response
+
+
+def create_multi_agent_response(user_request):
+    """멀티 AI 에이전트 응답 생성"""
+    agent_system = MultiAgentShoppingSystem()
+    
+    # 7개 에이전트 협업 회의 시작
+    meeting_result = agent_system.agent_collaboration_meeting("멀티 AI 협업 프로젝트")
+    
+    response = f"🤖 멀티 AI 에이전트 시스템 활성화!\n\n"
+    response += f"👥 협업 에이전트 7명 동시 가동:\n"
+    response += f"📊 마케팅 분석가: {meeting_result['market_analysis']}\n"
+    response += f"🎨 제품 디자이너: {meeting_result['product_design']}\n"
+    response += f"💼 영업 매니저: {meeting_result['sales_strategy']}\n"
+    response += f"🎧 고객 서비스: {meeting_result['customer_service']}\n"
+    response += f"📦 재고 관리자: {meeting_result['inventory_mgmt']}\n"
+    response += f"💰 재무 컨트롤러: {meeting_result['financial_ctrl']}\n"
+    response += f"📢 마케팅 전문가: {meeting_result['marketing_strategy']}\n\n"
+    response += "🔄 실시간 협업 최적화가 진행 중입니다!"
+    
+    return response
+
+
+def broadcast_creative_activity(activity_type, description):
+    """창의적 활동 브로드캐스트 (로깅용)"""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"[{timestamp}] 🎨 Creative Activity: {activity_type} - {description}")

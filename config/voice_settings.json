@@ -1,22 +1,31 @@
 {
   "speech_recognition": {
-    "energy_threshold": 300,
+    "energy_threshold": 250,
     "dynamic_energy_threshold": true,
-    "pause_threshold": 0.8,
-    "phrase_threshold": 0.3,
-    "timeout": 5,
-    "phrase_time_limit": 3,
-    "language": "ko-KR"
+    "pause_threshold": 1.0,
+    "phrase_threshold": 0.4,
+    "timeout": 6,
+    "phrase_time_limit": 4,
+    "language": "ko-KR",
+    "gentle_mode": true
   },
   "text_to_speech": {
-    "rate": 150,
-    "volume": 0.9,
-    "voice_id": null
+    "rate": 120,
+    "volume": 0.8,
+    "voice_id": null,
+    "pitch": 0,
+    "smooth_delivery": true,
+    "pause_between_sentences": 0.3
   },
   "system": {
     "log_commands": true,
     "debug_mode": false,
     "auto_adjust_noise": true,
-    "ambient_noise_duration": 0.5
+    "ambient_noise_duration": 1.0,
+    "voice_quality": "high",
+    "natural_pauses": true,
+    "smooth_transitions": true,
+    "exit_command_priority": true,
+    "exit_command_sensitivity": "high"
   }
 }
