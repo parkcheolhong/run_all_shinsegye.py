@@ -125,7 +125,11 @@ fi
 # Download NLTK data if needed
 echo ""
 echo "📚 NLTK 데이터 다운로드 중..."
-python3 -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True)" 2>/dev/null || true
+python3 -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True)"
+if [ $? -ne 0 ]; then
+    echo -e "${RED}❌ NLTK 데이터 다운로드에 실패했습니다. 인터넷 연결을 확인하거나 Python/NLTK가 올바르게 설치되었는지 확인하세요.${NC}"
+    exit 1
+fi
 echo -e "${GREEN}✅ NLTK 데이터 다운로드 완료${NC}"
 
 # Run verification
