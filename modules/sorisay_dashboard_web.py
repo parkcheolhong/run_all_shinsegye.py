@@ -2,6 +2,7 @@ from flask import Flask, render_template_string, jsonify, request
 from flask_socketio import SocketIO, emit
 import json
 import os
+import logging
 from datetime import datetime
 from threading import Lock
 import threading
@@ -9,13 +10,43 @@ import time
 import hashlib
 from functools import wraps
 
+# 로깅 설정 import
+try:
+    from modules.logging_config import setup_logger
+    logger = setup_logger('sorisay_dashboard_web', level='INFO')
+except ImportError:
+    # 백업: 기본 로깅 설정
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger('sorisay_dashboard_web')
+
 # 🔒 보안 설정 로드
 def load_security_config():
     try:
         with open("config/security_config.json", "r", encoding="utf-8") as f:
-            return json.load(f)
+            config = json.load(f)
+            logger.info("보안 설정 파일 로드 완료")
+            return config
     except FileNotFoundError:
+        logger.warning("보안 설정 파일이 없습니다. 기본 설정을 사용합니다.")
         print("⚠️ 보안 설정 파일이 없습니다. 기본 설정을 사용합니다.")
+        return {
+            "security": {
+                "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],
+                "max_failed_attempts": 5
+            }
+        }
+    except json.JSONDecodeError as e:
+        logger.error(f"보안 설정 파일 JSON 파싱 오류: {e}", exc_info=True)
+        print(f"⚠️ 보안 설정 파일 형식 오류: {e}")
+        return {
+            "security": {
+                "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],
+                "max_failed_attempts": 5
+            }
+        }
+    except Exception as e:
+        logger.error(f"보안 설정 로드 중 예상치 못한 오류: {e}", exc_info=True)
+        print(f"⚠️ 보안 설정 로드 실패: {e}")
         return {
             "security": {
                 "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],

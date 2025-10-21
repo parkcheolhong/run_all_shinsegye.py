@@ -5,7 +5,7 @@ import json
 import os
 import random
 import sys
-import os
+import logging
 
 # 모듈 경로 추가
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -15,6 +15,7 @@ sys.path.append(root_dir)
 sys.path.append(parent_dir)
 sys.path.append(current_dir)
 
+from modules.logging_config import setup_logger
 from modules.plugins.plugin_manager import PluginManager
 from modules.sorisay_dashboard_web import broadcast_voice_command, broadcast_system_status, broadcast_persona_change, broadcast_creative_activity
 from nlp_processor import NLPProcessor
@@ -34,6 +35,10 @@ from emotion_color_therapist import EmotionColorTherapist
 
 class SorisayCore:
     def __init__(self, config_path="config/settings.json"):
+        # 로거 설정
+        self.logger = setup_logger('SorisayCore', level='INFO')
+        self.logger.info("소리새 코어 시스템 초기화 시작")
+        
         # 설정 로드
         self.config = self.load_config(config_path)
         
@@ -114,11 +119,23 @@ class SorisayCore:
         try:
             if os.path.exists(config_path):
                 with open(config_path, 'r', encoding='utf-8') as f:
-                    return json.load(f)
+                    config = json.load(f)
+                    self.logger.info(f"설정 파일 로드 완료: {config_path}")
+                    return config
             else:
+                self.logger.warning(f"설정 파일을 찾을 수 없습니다: {config_path}. 기본 설정을 사용합니다.")
                 print(f"⚠ 설정 파일을 찾을 수 없습니다: {config_path}")
                 return self.get_default_config()
+        except json.JSONDecodeError as e:
+            self.logger.error(f"설정 파일 JSON 파싱 오류: {e}", exc_info=True)
+            print(f"⚠ 설정 파일 형식 오류: {e}")
+            return self.get_default_config()
+        except PermissionError as e:
+            self.logger.error(f"설정 파일 읽기 권한 없음: {e}")
+            print(f"⚠ 설정 파일 읽기 권한이 없습니다: {e}")
+            return self.get_default_config()
         except Exception as e:
+            self.logger.error(f"설정 파일 로드 중 예상치 못한 오류: {e}", exc_info=True)
             print(f"⚠ 설정 파일 로드 실패: {e}")
             return self.get_default_config()
     
@@ -186,20 +203,31 @@ class SorisayCore:
                 selected_voice = None
                 if korean_voices:
                     selected_voice = korean_voices[0]
+                    self.logger.info(f"한국어 음성 선택: {selected_voice[1].name}")
                     print(f"🎤 한국어 음성 선택: {selected_voice[1].name}")
                 elif female_voices:
                     selected_voice = female_voices[0]
+                    self.logger.info(f"여성 음성 선택: {selected_voice[1].name}")
                     print(f"🎤 여성 음성 선택: {selected_voice[1].name}")
                 elif voice_index < len(voices):
                     selected_voice = (voice_index, voices[voice_index])
+                    self.logger.info(f"음성 선택 (인덱스 {voice_index}): {selected_voice[1].name}")
                     print(f"🎤 음성 선택: {selected_voice[1].name}")
                 
                 if selected_voice:
                     self.engine.setProperty('voice', selected_voice[1].id)
                 
+            self.logger.info(f"TTS 설정 완료 - 속도: {rate}, 볼륨: {volume}")
             print(f"🔊 TTS 설정 완료 - 속도: {rate}, 볼륨: {volume}")
             
+        except RuntimeError as e:
+            self.logger.error(f"TTS 엔진 런타임 오류: {e}", exc_info=True)
+            print(f"⚠ TTS 엔진 오류가 발생했습니다. 기본 설정을 사용합니다: {e}")
+        except AttributeError as e:
+            self.logger.error(f"TTS 속성 설정 오류: {e}", exc_info=True)
+            print(f"⚠ TTS 속성 오류: {e}")
         except Exception as e:
+            self.logger.error(f"TTS 설정 중 예상치 못한 오류: {e}", exc_info=True)
             print(f"⚠ TTS 설정 중 오류: {e}")
 
     def speak_with_emotion(self, text, emotion="neutral", speed_modifier=1.0):
@@ -244,7 +272,13 @@ class SorisayCore:
             # 원래 속도로 복원
             self.engine.setProperty('rate', original_rate)
             
+        except RuntimeError as e:
+            self.logger.error(f"TTS 음성 출력 런타임 오류: {e}", exc_info=True)
+            print(f"⚠ 음성 출력 오류: {e}")
+            # 기본 speak 메서드로 fallback
+            self.speak(text)
         except Exception as e:
+            self.logger.error(f"음성 출력 중 예상치 못한 오류: {e}", exc_info=True)
             print(f"⚠ 음성 출력 오류: {e}")
             # 기본 speak 메서드로 fallback
             self.speak(text)
@@ -405,7 +439,22 @@ class SorisayCore:
                                     self.running = False
                                     broadcast_system_status("시스템 종료 중")
                                     
+                            except ImportError as e:
+                                self.logger.error(f"플러그인 모듈 로드 실패: {e}", exc_info=True)
+                                error_msg = f"플러그인을 찾을 수 없습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg, "error")
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
+                            except AttributeError as e:
+                                self.logger.error(f"명령어 속성 오류: {e}", exc_info=True)
+                                error_msg = f"명령어 실행 방법이 잘못되었습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg, "error")
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
                             except Exception as e:
+                                self.logger.error(f"명령어 실행 중 예상치 못한 오류: {e}", exc_info=True)
                                 error_msg = f"명령어 실행 중 오류가 발생했습니다: {str(e)}"
                                 print(f"❌ {error_msg}")
                                 self.speak(error_msg, "error")
@@ -471,7 +520,22 @@ class SorisayCore:
                                     self.running = False
                                     broadcast_system_status("시스템 종료 중")
                                     
+                            except ImportError as e:
+                                self.logger.error(f"플러그인 모듈 로드 실패: {e}", exc_info=True)
+                                error_msg = f"플러그인을 찾을 수 없습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg)
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
+                            except AttributeError as e:
+                                self.logger.error(f"명령어 속성 오류: {e}", exc_info=True)
+                                error_msg = f"명령어 실행 방법이 잘못되었습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg)
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
                             except Exception as e:
+                                self.logger.error(f"명령어 실행 중 예상치 못한 오류: {e}", exc_info=True)
                                 error_msg = f"명령어 실행 중 오류가 발생했습니다: {str(e)}"
                                 print(f"❌ {error_msg}")
                                 self.speak(error_msg)
