@@ -144,6 +144,15 @@ python -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopw
 echo ✅ NLTK 데이터 다운로드 완료
 echo.
 
+REM Run verification
+echo 🔍 설치 확인 중...
+if exist "verify_install.py" (
+    python verify_install.py
+) else (
+    echo ⚠️  verify_install.py를 찾을 수 없습니다. 수동 확인이 필요합니다.
+)
+echo.
+
 REM Installation complete
 echo ======================================
 echo 🎉 설치 완료!
