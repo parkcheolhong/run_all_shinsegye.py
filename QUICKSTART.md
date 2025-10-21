@@ -6,6 +6,18 @@
 ```bash
 git clone https://github.com/parkcheolhong/run_all_shinsegye.py.git
 cd run_all_shinsegye.py
+
+# 시스템 의존성 설치 (Text-to-Speech 엔진)
+# Ubuntu/Debian:
+sudo apt-get install espeak espeak-ng
+
+# macOS:
+brew install espeak
+
+# Windows: https://espeak.sourceforge.net/ 에서 다운로드
+
+# Python 의존성 설치
+pip install -r requirements.txt
 ```
 
 ### 기본 사용법 (Basic Usage)
@@ -100,6 +112,21 @@ python run_all_shinsegye.py --file commands.txt --verbose
    - 긴 작업의 경우 여러 단계로 나누기 권장
 
 ## 문제 해결 (Troubleshooting)
+
+### espeak 설치 관련 오류
+**오류**: `RuntimeError: This means you probably do not have eSpeak or eSpeak-ng installed!`
+
+**해결 방법**:
+```bash
+# Ubuntu/Debian
+sudo apt-get install espeak espeak-ng
+
+# macOS
+brew install espeak
+
+# Windows
+# https://espeak.sourceforge.net/ 에서 설치
+```
 
 ### Python 스크립트가 실행되지 않을 때
 ```bash

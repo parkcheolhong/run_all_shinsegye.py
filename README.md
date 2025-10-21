@@ -64,13 +64,23 @@ chmod +x install.sh
 git clone https://github.com/parkcheolhong/run_all_shinsegye.py.git
 cd run_all_shinsegye.py
 
+# 시스템 의존성 설치 (Text-to-Speech 엔진)
+# Ubuntu/Debian:
+sudo apt-get install espeak espeak-ng
+
+# macOS:
+brew install espeak
+
+# Windows:
+# https://espeak.sourceforge.net/ 에서 설치 프로그램 다운로드
+
 # 가상환경 생성 (권장)
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # 또는
 venv\Scripts\activate     # Windows
 
-# 의존성 설치
+# Python 의존성 설치
 pip install -r requirements.txt
 ```
 
@@ -221,11 +231,30 @@ python run_all_shinsegye.py
 
 ## 📦 의존성
 
-### 필수 패키지
+### 시스템 의존성 (필수)
+
+**Text-to-Speech (TTS) 엔진 - espeak**
+
+음성 합성 기능을 위해 espeak이 필요합니다:
+
+```bash
+# Ubuntu/Debian
+sudo apt-get install espeak espeak-ng
+
+# macOS
+brew install espeak
+
+# Windows
+# https://espeak.sourceforge.net/ 에서 다운로드 및 설치
+```
+
+### Python 패키지
+
+#### 필수 패키지
 
 ```text
 speechrecognition==3.10.0    # 음성 인식
-pyttsx3==2.90               # 음성 합성
+pyttsx3==2.90               # 음성 합성 (espeak 필요)
 flask==2.3.3                # 웹 서버
 flask-socketio==5.3.6       # 실시간 통신
 nltk==3.8.1                 # 자연어 처리
@@ -233,7 +262,7 @@ transformers==4.35.0        # AI 모델
 torch==2.1.0                # 딥러닝
 ```
 
-### 선택적 패키지 (개발용)
+#### 선택적 패키지 (개발용)
 
 ```text
 pytest==7.4.2              # 테스트
@@ -376,7 +405,26 @@ pip uninstall pyaudio
 pip install pyaudio
 ```
 
-#### 3. 모듈 import 오류
+#### 3. 음성 합성(TTS)이 작동하지 않는 경우
+
+**오류 메시지**: `RuntimeError: This means you probably do not have eSpeak or eSpeak-ng installed!`
+
+**해결 방법**:
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install espeak espeak-ng
+
+# macOS
+brew install espeak
+
+# Windows
+# https://espeak.sourceforge.net/ 에서 설치 프로그램 다운로드 후 설치
+```
+
+설치 후 시스템을 재시작하거나 터미널을 다시 열어주세요.
+
+#### 4. 모듈 import 오류
 
 ```bash
 # 가상환경 확인
@@ -387,7 +435,7 @@ where python  # Windows
 pip install -r requirements.txt --force-reinstall
 ```
 
-#### 4. 웹 대시보드 접속 불가
+#### 5. 웹 대시보드 접속 불가
 
 ```bash
 # 포트 충돌 확인
