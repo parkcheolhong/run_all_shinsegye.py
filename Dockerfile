@@ -4,10 +4,12 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies required for audio processing
+# Install system dependencies required for audio processing and TTS
 RUN apt-get update && apt-get install -y \
     portaudio19-dev \
     python3-pyaudio \
+    espeak \
+    espeak-ng \
     gcc \
     g++ \
     make \

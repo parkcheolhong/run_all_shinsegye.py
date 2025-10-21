@@ -6,6 +6,8 @@
 - Docker가 설치되어 있어야 합니다
 - Docker Compose가 설치되어 있어야 합니다
 
+**참고**: Docker 이미지에는 TTS(Text-to-Speech)를 위한 espeak/espeak-ng가 포함되어 있습니다.
+
 ### 실행 방법
 
 #### 1. Docker Compose를 사용한 실행 (권장)
