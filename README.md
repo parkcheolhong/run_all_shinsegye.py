@@ -8,8 +8,9 @@
 
 ## 📚 문서 가이드
 
-**처음 시작**: [빠른 시작](QUICKSTART.md) | **문제 해결**: [Troubleshooting](TROUBLESHOOTING.md) | **전체 문서**: [문서 색인](DOCUMENTATION_INDEX.md)
+**처음 시작**: [📦 설치 가이드](INSTALL.md) | [빠른 시작](QUICKSTART.md) | **문제 해결**: [Troubleshooting](TROUBLESHOOTING.md) | **전체 문서**: [문서 색인](DOCUMENTATION_INDEX.md)
 
+- 📦 **[설치 가이드](INSTALL.md)** - 상세한 설치 방법 및 문제 해결 (신규!)
 - 🚀 **[빠른 시작 가이드](QUICKSTART.md)** - 5분 만에 시작하기
 - 🔧 **[문제 해결 가이드](TROUBLESHOOTING.md)** - 일반적인 오류와 해결 방법
 - 📖 **[실행 방법](HOW_TO_RUN.md)** - 다양한 실행 방법 상세 안내
@@ -35,7 +36,28 @@
 
 ## 🚀 빠른 시작
 
+> **💡 처음 설치하시나요?** [📦 설치 가이드(INSTALL.md)](INSTALL.md)를 참조하세요!
+
 ### 1. 설치 및 설정
+
+#### 자동 설치 (권장)
+
+**Windows:**
+```cmd
+git clone https://github.com/parkcheolhong/run_all_shinsegye.py.git
+cd run_all_shinsegye.py
+install.bat
+```
+
+**Linux/Mac:**
+```bash
+git clone https://github.com/parkcheolhong/run_all_shinsegye.py.git
+cd run_all_shinsegye.py
+chmod +x install.sh
+./install.sh
+```
+
+#### 수동 설치
 
 ```bash
 # 저장소 클론
