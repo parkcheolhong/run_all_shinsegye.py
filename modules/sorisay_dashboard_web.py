@@ -115,7 +115,7 @@ def require_auth(permission=None):
 
 app = Flask(__name__)
 app.secret_key = "sorisay_secure_key_2025"  # 보안키 추가
-socketio = SocketIO(app, cors_allowed_origins=["http://localhost:5050", "http://127.0.0.1:5050"])  # CORS 제한
+socketio = SocketIO(app, cors_allowed_origins="*")  # Docker 접근을 위해 모든 origin 허용
 
 # 실시간 상태 관리
 class DashboardState:
@@ -775,5 +775,5 @@ def broadcast_creative_activity(activity_type, description):
 
 def run_dashboard():
     print("🌍 웹 대시보드 실행 중... (http://localhost:5050)")
-    print("🔒 보안 모드: 로컬호스트만 접근 허용")
-    socketio.run(app, host="127.0.0.1", port=5050, debug=False)  # 보안: 로컬호스트만 허용
+    print("🔒 보안 모드: 로컬 네트워크 접근 허용 (Docker 지원)")
+    socketio.run(app, host="0.0.0.0", port=5050, debug=False)  # Docker 호환을 위해 0.0.0.0 바인딩
