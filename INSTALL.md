@@ -129,6 +129,21 @@ python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords')"
 
 설치가 완료되었는지 확인하려면:
 
+### 자동 확인 (권장)
+
+```bash
+python verify_install.py
+```
+
+이 스크립트는 다음을 확인합니다:
+- ✅ Python 버전 (3.8 이상)
+- ✅ 필수 패키지 설치 여부
+- ✅ 선택적 패키지 설치 여부
+- ✅ 필수 디렉토리 존재 여부
+- ✅ 핵심 파일 존재 여부
+
+### 수동 확인
+
 ```bash
 python run_all_shinsegye.py --version
 ```
@@ -352,6 +367,7 @@ python --version
 - [ ] 가상환경 생성 및 활성화됨
 - [ ] requirements.txt의 모든 패키지 설치됨
 - [ ] logs/, data/, config/, memories/ 디렉토리 존재함
+- [ ] `python verify_install.py` 명령어로 모든 항목 확인됨
 - [ ] `python run_all_shinsegye.py --test` 명령어가 정상 작동함
 - [ ] (선택) 마이크 권한 허용됨
 - [ ] (선택) 웹 대시보드 접속 가능 (http://localhost:5050)

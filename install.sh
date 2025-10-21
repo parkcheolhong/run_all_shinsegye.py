@@ -128,6 +128,17 @@ echo "📚 NLTK 데이터 다운로드 중..."
 python3 -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True)" 2>/dev/null || true
 echo -e "${GREEN}✅ NLTK 데이터 다운로드 완료${NC}"
 
+# Run verification
+echo ""
+echo "🔍 설치 확인 중..."
+if [ -f "verify_install.py" ]; then
+    python3 verify_install.py
+    verify_result=$?
+else
+    echo -e "${YELLOW}⚠️  verify_install.py를 찾을 수 없습니다. 수동 확인이 필요합니다.${NC}"
+    verify_result=0
+fi
+
 # Installation complete
 echo ""
 echo "======================================"
