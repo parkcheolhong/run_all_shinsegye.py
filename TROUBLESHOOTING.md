@@ -92,14 +92,18 @@ from modules.ai_code_manager.sorisay_core_controller import SorisayCore
 
 #### 증상
 - 마이크 입력이 인식되지 않음
-- "Listening..." 상태에서 멈춤
+- "🎧 듣는 중..." 상태에서 멈춤
+- "⚠ 음성을 인식하지 못했습니다" 메시지 반복
+- Google Speech Recognition 오류
 
 #### 원인
 - 마이크 권한 문제
 - pyaudio 설치 문제
 - 마이크 설정 문제
+- 네트워크 연결 문제
+- TTS 엔진 문제
 
-#### 해결 방법
+#### 빠른 해결 방법
 ```bash
 # 1. 마이크 권한 확인 (Windows)
 # 설정 > 개인정보 > 마이크 > 앱이 마이크 접근 허용
@@ -109,8 +113,22 @@ pip uninstall pyaudio
 pip install pyaudio
 
 # 3. 마이크 테스트
-python -c "import speech_recognition as sr; r = sr.Recognizer(); print('마이크 테스트 성공')"
+python -c "import speech_recognition as sr; r = sr.Recognizer(); print('✅ 마이크 테스트 성공')"
+
+# 4. 네트워크 연결 확인
+ping 8.8.8.8
 ```
+
+#### 📘 상세 가이드
+음성 문제의 포괄적인 해결 방법은 **[음성 문제 해결 가이드](VOICE_TROUBLESHOOTING_GUIDE.md)**를 참조하세요.
+
+이 가이드는 다음 내용을 포함합니다:
+- 플랫폼별 PyAudio 설치 방법 (Windows/macOS/Linux)
+- 마이크 권한 및 설정 상세 가이드
+- 음성 합성(TTS) 문제 해결
+- 네트워크 연결 문제 진단 및 해결
+- 고급 디버깅 방법
+- 대체 솔루션
 
 ---
 

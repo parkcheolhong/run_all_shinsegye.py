@@ -153,6 +153,26 @@
 
 ---
 
+#### 🎤 VOICE_TROUBLESHOOTING_GUIDE.md ⭐ 신규!
+**대상**: 음성 인식 문제를 겪고 있는 사용자  
+**내용**:
+- 음성 인식 문제 포괄적 해결 방법
+- 플랫폼별 PyAudio 설치 가이드 (Windows/macOS/Linux)
+- 마이크 권한 및 설정 상세 가이드
+- 음성 합성(TTS) 문제 해결
+- 네트워크 연결 문제 진단 및 해결
+- 고급 디버깅 방법
+- 대체 솔루션
+
+**이런 분들에게 추천**:
+- 음성 인식이 작동하지 않는 분
+- PyAudio 설치에 어려움을 겪는 분
+- 마이크가 인식되지 않는 분
+- "Google Speech Recognition 오류"를 받는 분
+- TTS(음성 합성)가 작동하지 않는 분
+
+---
+
 ### 보안 (Security)
 
 #### 📘 SECURITY.md
@@ -190,8 +210,16 @@
 ### 상황 2: "오류가 발생했어요!"
 ```
 1. TROUBLESHOOTING.md ⭐
-2. HOW_TO_RUN.md
-3. README.md의 문제 해결 섹션
+2. VOICE_TROUBLESHOOTING_GUIDE.md (음성 문제인 경우)
+3. HOW_TO_RUN.md
+4. README.md의 문제 해결 섹션
+```
+
+### 상황 2-1: "음성 인식이 작동하지 않아요!"
+```
+1. VOICE_TROUBLESHOOTING_GUIDE.md ⭐⭐
+2. TROUBLESHOOTING.md
+3. README.md의 음성 문제 섹션
 ```
 
 ### 상황 3: "코드를 이해하고 기여하고 싶어요"
@@ -243,11 +271,12 @@ README.md → REVIEW_SUMMARY_KO.md → PROJECT_COMPLETION_REPORT.md → IMPROVEM
 
 ## 🆕 최근 추가된 문서
 
-1. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 보고서
-2. **REVIEW_SUMMARY_KO.md** - 한글 요약 (추천)
-3. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 체크리스트
-4. **TROUBLESHOOTING.md** - 빠른 문제 해결 가이드
-5. **DOCUMENTATION_INDEX.md** - 이 문서
+1. **VOICE_TROUBLESHOOTING_GUIDE.md** - 음성 문제 완벽 해결 가이드 (신규!) ⭐⭐
+2. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 보고서
+3. **REVIEW_SUMMARY_KO.md** - 한글 요약 (추천)
+4. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 체크리스트
+5. **TROUBLESHOOTING.md** - 빠른 문제 해결 가이드
+6. **DOCUMENTATION_INDEX.md** - 이 문서
 
 ---
 
