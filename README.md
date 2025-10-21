@@ -6,6 +6,16 @@
 
 > **"스스로 학습하고 진화하는 AI가 당신의 창작과 개발을 도와드립니다"**
 
+## 🆕 최신 업데이트 (2025-10-21)
+
+**주요 개선 사항**:
+- ✅ **BOM 문자 제거**: 파일 인코딩 호환성 개선
+- ✅ **에러 처리 강화**: 더 명확한 오류 메시지와 자동 복구
+- ✅ **의존성 관리 개선**: 유연한 버전 제약으로 설치 성공률 향상
+- ✅ **로그 권한 처리**: 권한 오류 시 자동으로 임시 디렉토리 사용
+- 🆕 **최소 설치 옵션**: `requirements-minimal.txt`로 빠른 설치 지원
+- 📚 **상세 검토 문서**: [PROGRAM_REVIEW_DETAILED_KO.md](PROGRAM_REVIEW_DETAILED_KO.md) 참조
+
 ## 📚 문서 가이드
 
 **처음 시작**: [📦 설치 가이드](INSTALL.md) | [빠른 시작](QUICKSTART.md) | **문제 해결**: [Troubleshooting](TROUBLESHOOTING.md) | **전체 문서**: [문서 색인](DOCUMENTATION_INDEX.md)
@@ -381,6 +391,28 @@ python modules/sorisay_dashboard_web.py
 
 ## 🚨 문제 해결
 
+### 최신 개선 사항 (2025-10-21 업데이트)
+
+#### ✅ 해결된 문제들
+1. **BOM 문자 제거**: 파일 인코딩 문제 해결
+2. **에러 처리 개선**: 더 명확한 오류 메시지와 복구 로직
+3. **버전 제약 완화**: requirements.txt가 더 유연한 버전 관리 사용
+4. **로그 권한 처리**: 로그 디렉토리 쓰기 권한 오류 시 자동으로 임시 디렉토리 사용
+
+#### 🆕 새로운 설치 옵션
+
+**빠른 설치 (최소 의존성)**:
+```bash
+pip install -r requirements-minimal.txt
+```
+
+이 옵션은 torch와 transformers 같은 대용량 패키지를 제외하고 핵심 기능만 설치합니다.
+
+**전체 설치 (모든 AI 기능)**:
+```bash
+pip install -r requirements.txt
+```
+
 ### 일반적인 문제들
 
 #### 1. "프로그램 이름을 찾을 수 없다" 오류
@@ -426,16 +458,79 @@ brew install espeak
 
 #### 4. 모듈 import 오류
 
+**증상**: `ModuleNotFoundError: No module named 'speech_recognition'`
+
+**해결 방법**:
 ```bash
-# 가상환경 확인
+# 1. 패키지가 설치되지 않은 경우
+pip install SpeechRecognition
+
+# 2. 전체 의존성 재설치
+pip install -r requirements.txt --upgrade
+
+# 3. 가상환경 확인
 which python  # Linux/Mac
 where python  # Windows
 
-# 의존성 재설치
-pip install -r requirements.txt --force-reinstall
+# 4. pip 업그레이드
+pip install --upgrade pip
+
+# 5. 특정 패키지만 설치 (최소 구성)
+pip install speechrecognition pyttsx3 flask flask-socketio
 ```
 
-#### 5. 웹 대시보드 접속 불가
+**주의사항**:
+- `SpeechRecognition` (대문자)으로 설치하지만 import는 `speech_recognition` (소문자)으로 합니다
+- pyaudio는 시스템 의존성(portaudio)이 필요합니다 (아래 참조)
+
+#### 4.1. pyaudio 설치 오류
+
+**증상**: `ERROR: Could not build wheels for pyaudio`
+
+**해결 방법**:
+
+**Ubuntu/Debian**:
+```bash
+# 시스템 의존성 설치
+sudo apt-get update
+sudo apt-get install portaudio19-dev python3-dev
+pip install pyaudio
+```
+
+**macOS**:
+```bash
+brew install portaudio
+pip install pyaudio
+```
+
+**Windows**:
+```bash
+# 방법 1: pipwin 사용 (권장)
+pip install pipwin
+pipwin install pyaudio
+
+# 방법 2: 사전 컴파일된 wheel 사용
+# https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio 에서 다운로드
+pip install pyaudio-0.2.11-cp312-cp312-win_amd64.whl
+```
+
+#### 5. 로그 파일 권한 오류
+
+**증상**: `PermissionError: [Errno 13] Permission denied: 'logs/voice_history.txt'`
+
+**자동 해결**: 프로그램이 자동으로 임시 디렉토리를 사용합니다.
+
+**수동 해결**:
+```bash
+# Linux/Mac
+chmod 755 logs/
+sudo chown -R $USER:$USER logs/
+
+# Windows
+# 폴더 우클릭 > 속성 > 보안 > 편집 > 전체 제어 허용
+```
+
+#### 6. 웹 대시보드 접속 불가
 
 ```bash
 # 포트 충돌 확인
