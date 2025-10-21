@@ -122,18 +122,24 @@ class SecurityKeyManager:
         else:
             print(f"❌ {key_name}을 찾을 수 없습니다")
     
-    def list_credentials(self):
+    def list_credentials(self, show_full=False):
         """모든 인증 정보 목록"""
         print("🔐 현재 등록된 인증 정보:")
         print("\n📋 API 키:")
         for key_name, key_value in self.config["security"]["api_keys"].items():
             permissions = self.config["security"]["permissions"].get(key_name, [])
-            print(f"   • {key_name}: {key_value[:20]}... (권한: {permissions})")
+            if show_full:
+                print(f"   • {key_name}: {key_value} (권한: {permissions})")
+            else:
+                print(f"   • {key_name}: {key_value[:20]}... (권한: {permissions})")
         
         print("\n🎫 액세스 토큰:")
         for token_name, token_value in self.config["security"]["access_tokens"].items():
             permissions = self.config["security"]["permissions"].get(token_name, [])
-            print(f"   • {token_name}: {token_value[:20]}... (권한: {permissions})")
+            if show_full:
+                print(f"   • {token_name}: {token_value} (권한: {permissions})")
+            else:
+                print(f"   • {token_name}: {token_value[:20]}... (권한: {permissions})")
     
     def verify_credential(self, credential):
         """인증 정보 검증"""
@@ -156,7 +162,7 @@ class SecurityKeyManager:
 
 def main():
     parser = argparse.ArgumentParser(description="소리새 AI 보안 키 관리 도구")
-    parser.add_argument("action", choices=["add-key", "add-token", "revoke", "list", "verify"], 
+    parser.add_argument("action", choices=["add-key", "add-token", "revoke", "list", "show-all", "verify"], 
                        help="수행할 작업")
     parser.add_argument("--name", help="키/토큰 이름")
     parser.add_argument("--type", choices=["master", "admin", "user", "guest", "readonly"], 
@@ -189,7 +195,11 @@ def main():
         manager.save_config()
     
     elif args.action == "list":
-        manager.list_credentials()
+        manager.list_credentials(show_full=False)
+    
+    elif args.action == "show-all":
+        print("\n⚠️  주의: 전체 키 값을 표시합니다. 보안에 유의하세요!\n")
+        manager.list_credentials(show_full=True)
     
     elif args.action == "verify":
         if not args.credential:

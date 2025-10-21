@@ -1,5 +1,26 @@
 # Quick Reference - run_all_shinsegye.py
 
+## 🆘 접속 문제? 빠른 해결
+
+**프로그램에 접속할 수 없나요?**
+
+```bash
+# 접속키 빠르게 확인
+python show_access_keys.py
+
+# 또는
+python security_key_manager.py show-all
+```
+
+**빠른 접속 링크:**
+```
+http://localhost:5050?api_key=sorisay_user_2025_key_ijkl9012
+```
+
+📖 **자세한 안내**: [ACCESS_KEYS.md](./ACCESS_KEYS.md)
+
+---
+
 ## 빠른 시작 (Quick Start)
 
 ### 설치 (Installation)

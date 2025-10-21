@@ -36,7 +36,11 @@ python security_key_manager.py add-token --name mytoken --type admin
 ### 키/토큰 목록 확인
 
 ```bash
+# 축약된 키 목록 보기
 python security_key_manager.py list
+
+# 전체 키 값 보기 (접속키 확인할 때 사용)
+python security_key_manager.py show-all
 ```
 
 ### 키/토큰 폐기

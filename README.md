@@ -29,6 +29,24 @@
 - ✅ **[개선 체크리스트](IMPROVEMENT_CHECKLIST.md)** - 우선순위별 개선 작업 목록
 - 📑 **[문서 색인](DOCUMENTATION_INDEX.md)** - 모든 문서 탐색 및 안내
 
+## 🆘 빠른 문제 해결
+
+### 💡 프로그램에 접속할 수 없나요?
+
+**접속키 확인 방법:**
+```bash
+python security_key_manager.py show-all
+```
+
+**빠른 접속 링크 (기본 사용자 키):**
+```
+http://localhost:5050?api_key=sorisay_user_2025_key_ijkl9012
+```
+
+📖 **접속키 상세 안내**: [ACCESS_KEYS.md](./ACCESS_KEYS.md) | **문제 해결**: [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
+
+---
+
 ## 🎯 개요
 
 소리새 AI는 음성 인식, 자연어 처리, 창작 지원을 통합한 **차세대 AI 어시스턴트 시스템**입니다.  
@@ -283,6 +301,22 @@ flake8==6.1.0               # 린팅
 ## 🔒 보안 설정
 
 소리새 AI는 다층 보안 시스템을 제공합니다:
+
+### 🔑 접속키 확인 (중요!)
+
+**프로그램에 접속할 수 없나요?** 다음 명령으로 접속키를 확인하세요:
+
+```bash
+# 모든 접속키 확인
+python security_key_manager.py show-all
+```
+
+**빠른 접속 (기본 사용자 키):**
+```
+http://localhost:5050?api_key=sorisay_user_2025_key_ijkl9012
+```
+
+📖 **자세한 접속키 안내**: [ACCESS_KEYS.md](./ACCESS_KEYS.md) 참고
 
 ### API 키 생성
 

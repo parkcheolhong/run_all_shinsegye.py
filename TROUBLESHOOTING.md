@@ -1,7 +1,37 @@
 # 🔧 빠른 문제 해결 가이드 (Quick Troubleshooting Guide)
 
 **프로젝트**: 소리새 AI  
-**업데이트**: 2025년 10월 19일
+**업데이트**: 2025년 10월 21일
+
+---
+
+## 🆘 접속 문제
+
+### 🔑 "프로그램에 접속할 수 없어요"
+
+#### 증상
+- 웹 대시보드에 접속이 안 됨
+- 접속키를 모르겠음
+- 접속키가 바뀐 것 같음
+
+#### 해결 방법
+
+**방법 1: 빠른 접속키 확인 (가장 쉬움)**
+```bash
+python show_access_keys.py
+```
+
+**방법 2: 전체 키 목록 확인**
+```bash
+python security_key_manager.py show-all
+```
+
+**방법 3: 기본 키로 바로 접속**
+```
+http://localhost:5050?api_key=sorisay_user_2025_key_ijkl9012
+```
+
+📖 **자세한 안내**: [ACCESS_KEYS.md](./ACCESS_KEYS.md) 참고
 
 ---
 
