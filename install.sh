@@ -77,8 +77,16 @@ if [ -f "requirements.txt" ]; then
             continue
         fi
         
-        # Extract package name
-        package=$(echo "$line" | cut -d'=' -f1 | cut -d'>' -f1 | cut -d'<' -f1 | tr -d '[:space:]')
+        # Extract package name for display.
+        # This regex matches the package name (with optional extras) at the start of the line.
+        # It supports most common pip requirement formats, but may not handle all edge cases (e.g., direct URLs without #egg).
+        if [[ "$line" =~ ^[[:space:]]*([a-zA-Z0-9._-]+(\[[a-zA-Z0-9_,.-]+\])?) ]]; then
+            package="${BASH_REMATCH[1]}"
+        elif [[ "$line" =~ \#egg=([a-zA-Z0-9._-]+) ]]; then
+            package="${BASH_REMATCH[1]}"
+        else
+            package="$line"
+        fi
         
         echo "  📥 설치 중: $line"
         
