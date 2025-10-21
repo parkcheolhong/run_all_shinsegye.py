@@ -114,6 +114,37 @@ python -c "import speech_recognition as sr; r = sr.Recognizer(); print('마이�
 
 ---
 
+### 4-1. 음성 합성(TTS)이 작동하지 않음
+
+#### 증상
+```
+RuntimeError: This means you probably do not have eSpeak or eSpeak-ng installed!
+```
+
+#### 원인
+시스템에 espeak 또는 espeak-ng TTS 엔진이 설치되지 않음
+
+#### 해결 방법
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install espeak espeak-ng
+
+# macOS
+brew install espeak
+
+# Windows
+# https://espeak.sourceforge.net/ 에서 설치 프로그램 다운로드 후 설치
+
+# 설치 확인
+espeak --version
+espeak-ng --version
+```
+
+**참고**: espeak 설치 후 시스템을 재시작하거나 터미널을 다시 열어주세요.
+
+---
+
 ### 5. 웹 대시보드 접속 불가
 
 #### 증상
