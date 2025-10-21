@@ -74,3 +74,4 @@ temp/
 *.pem
 *.crt
 secrets.json
+.pytest_cache/
