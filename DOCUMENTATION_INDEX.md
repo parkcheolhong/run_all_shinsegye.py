@@ -7,15 +7,17 @@
 ## 🎯 어디서 시작해야 할까요?
 
 ### 처음 사용하시는 분
-1. **INSTALL.md** - 설치 가이드 (신규!)
-2. **README.md** - 프로젝트 전체 개요
-3. **QUICKSTART.md** - 5분 만에 시작하기
-4. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
+1. **CURRENT_STATUS_QUICK_KO.md** - 현상태 빠른 요약 (신규! 추천) ⭐
+2. **INSTALL.md** - 설치 가이드
+3. **README.md** - 프로젝트 전체 개요
+4. **QUICKSTART.md** - 5분 만에 시작하기
+5. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
 
 ### 개발자/기여자
-1. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 (영문)
-2. **REVIEW_SUMMARY_KO.md** - 검토 요약 (한글) ⭐ 추천
-3. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 목록
+1. **CURRENT_STATUS_REVIEW.md** - 현상태 검토 보고서 (신규! 추천) ⭐
+2. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 (영문)
+3. **REVIEW_SUMMARY_KO.md** - 검토 요약 (한글) ⭐ 추천
+4. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 목록
 
 ### 문제 해결이 필요한 분
 1. **TROUBLESHOOTING.md** - 빠른 문제 해결 가이드 ⭐ 추천
@@ -24,6 +26,43 @@
 ---
 
 ## 📖 전체 문서 목록
+
+### 현상태 검토 (Current Status) ⭐ 신규!
+
+#### 📕 CURRENT_STATUS_REVIEW.md ⭐
+**대상**: 프로젝트 관리자, 개발자, 이해관계자  
+**내용**:
+- 종합적인 프로젝트 현상태 분석
+- 코드 품질 평가 (99.9% 정상)
+- 테스트 현황 (100% 통과)
+- 문서화 현황 (30개 문서)
+- 주요 강점과 주의사항
+- 개선 제안 및 로드맵
+- 통계 및 메트릭스
+
+**이런 분들에게 추천**:
+- 프로젝트의 현재 상태를 정확히 파악하고 싶은 분
+- 품질 평가가 필요한 관리자
+- 종합적인 검토 보고서가 필요한 분
+
+---
+
+#### 📗 CURRENT_STATUS_QUICK_KO.md ⭐
+**대상**: 빠른 정보가 필요한 모든 사용자  
+**내용**:
+- 1페이지 빠른 요약
+- 핵심 통계 (1,697개 파일, 100% 테스트 통과)
+- 주요 강점 한눈에 보기
+- Q&A 형식의 FAQ
+- 바로 사용하는 방법
+- 5점 만점 평가
+
+**이런 분들에게 추천**:
+- 프로젝트 현상태를 빠르게 파악하고 싶은 분
+- 의사결정에 필요한 핵심 정보만 원하는 분
+- 5분 안에 전체 상황을 이해하고 싶은 분
+
+---
 
 ### 시작 가이드 (Getting Started)
 
@@ -222,9 +261,10 @@
 
 ### 상황 4: "프로젝트 품질이 궁금해요"
 ```
-1. REVIEW_SUMMARY_KO.md ⭐ (한글 요약)
-2. CODE_REVIEW_REPORT.md (상세 보고서)
-3. PROJECT_COMPLETION_REPORT.md (완성 보고)
+1. CURRENT_STATUS_QUICK_KO.md ⭐ (최신 현상태 빠른 요약)
+2. CURRENT_STATUS_REVIEW.md (최신 상세 검토)
+3. REVIEW_SUMMARY_KO.md (한글 요약)
+4. CODE_REVIEW_REPORT.md (상세 보고서)
 ```
 
 ### 상황 5: "무엇을 개선해야 하나요?"
@@ -262,12 +302,14 @@ README.md → REVIEW_SUMMARY_KO.md → PROJECT_COMPLETION_REPORT.md → IMPROVEM
 
 ## 🆕 최근 추가된 문서
 
-1. **INSTALL.md** - 설치 가이드 (신규! 2025-10-21)
-2. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 보고서
-3. **REVIEW_SUMMARY_KO.md** - 한글 요약 (추천)
-4. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 체크리스트
-5. **TROUBLESHOOTING.md** - 빠른 문제 해결 가이드
-6. **DOCUMENTATION_INDEX.md** - 이 문서
+1. **CURRENT_STATUS_REVIEW.md** - 현상태 검토 보고서 (신규! 2025-10-21) ⭐
+2. **CURRENT_STATUS_QUICK_KO.md** - 현상태 빠른 요약 (신규! 2025-10-21) ⭐
+3. **INSTALL.md** - 설치 가이드 (2025-10-21)
+4. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 보고서
+5. **REVIEW_SUMMARY_KO.md** - 한글 요약 (추천)
+6. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 체크리스트
+7. **TROUBLESHOOTING.md** - 빠른 문제 해결 가이드
+8. **DOCUMENTATION_INDEX.md** - 이 문서
 
 ---
 
