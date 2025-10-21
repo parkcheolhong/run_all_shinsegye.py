@@ -1,7 +1,7 @@
 """
 창조적 아이디어 75% 확률 테스트
 """
-from modules.sorisay_core_controller import SorisayCore # type: ignore
+from modules.ai_code_manager.sorisay_core_controller import SorisayCore
 import time
 
 print("🎨 창조적 소리새 테스트 (75% 확률)")
