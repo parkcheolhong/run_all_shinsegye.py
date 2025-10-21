@@ -7,9 +7,10 @@
 ## 🎯 어디서 시작해야 할까요?
 
 ### 처음 사용하시는 분
-1. **README.md** - 프로젝트 전체 개요
-2. **QUICKSTART.md** - 5분 만에 시작하기
-3. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
+1. **INSTALL.md** - 설치 가이드 (신규!)
+2. **README.md** - 프로젝트 전체 개요
+3. **QUICKSTART.md** - 5분 만에 시작하기
+4. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
 
 ### 개발자/기여자
 1. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 (영문)
@@ -25,6 +26,23 @@
 ## 📖 전체 문서 목록
 
 ### 시작 가이드 (Getting Started)
+
+#### 📦 INSTALL.md ⭐ 신규!
+**대상**: 처음 설치하는 모든 사용자  
+**내용**: 
+- 자동 설치 스크립트 (install.sh, install.bat)
+- 수동 설치 단계별 가이드
+- 개별 패키지 설치 문제 해결
+- 프록시 환경에서 설치
+- 설치 확인 방법
+- Docker를 사용한 설치
+
+**이런 분들에게 추천**:
+- 처음 소리새 AI를 설치하는 분
+- 설치 중 문제가 발생한 분
+- 상세한 설치 가이드가 필요한 분
+
+---
 
 #### 📘 README.md
 **대상**: 모든 사용자  
@@ -202,9 +220,10 @@
 
 ### 상황 1: "처음 시작하는데 어떻게 해야 하나요?"
 ```
-1. README.md (전체 이해)
-2. QUICKSTART.md (빠른 시작)
-3. HOW_TO_RUN.md (실행 방법)
+1. INSTALL.md ⭐ (설치)
+2. README.md (전체 이해)
+3. QUICKSTART.md (빠른 시작)
+4. HOW_TO_RUN.md (실행 방법)
 ```
 
 ### 상황 2: "오류가 발생했어요!"
@@ -249,7 +268,7 @@
 
 ### 초급 사용자
 ```
-README.md → QUICKSTART.md → HOW_TO_RUN.md → TROUBLESHOOTING.md
+INSTALL.md → README.md → QUICKSTART.md → HOW_TO_RUN.md → TROUBLESHOOTING.md
 ```
 
 ### 중급 사용자
