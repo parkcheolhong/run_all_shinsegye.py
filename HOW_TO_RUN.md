@@ -72,6 +72,28 @@ Linux/Mac:
 source venv/bin/activate
 ```
 
+## 📦 필수 시스템 의존성 설치
+
+음성 합성(TTS) 기능을 사용하려면 espeak을 설치해야 합니다:
+
+### Ubuntu/Debian:
+```bash
+sudo apt-get install espeak espeak-ng
+```
+
+### macOS:
+```bash
+brew install espeak
+```
+
+### Windows:
+- https://espeak.sourceforge.net/ 에서 설치 프로그램 다운로드 후 설치
+
+### Python 패키지 설치:
+```bash
+pip install -r requirements.txt
+```
+
 ## 🆘 문제 해결
 
 ### "프로그램 이름을 찾을 수 없다" 오류
@@ -89,6 +111,12 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
+### espeak/TTS 관련 오류
+
+**오류**: `RuntimeError: This means you probably do not have eSpeak or eSpeak-ng installed!`
+
+**해결 방법**: 위의 "필수 시스템 의존성 설치" 섹션을 참고하여 espeak을 설치하세요.
 
 ## 📞 추가 도움
 
