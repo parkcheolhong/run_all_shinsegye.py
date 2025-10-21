@@ -200,7 +200,7 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu
 ### transformers 설치 문제
 
 ```bash
-# 최신 버전 대신 안정 버전 설치
+# 최신 버전 대신 안정 버전 설치 (권장: 4.35.0)
 pip install transformers==4.35.0
 ```
 
