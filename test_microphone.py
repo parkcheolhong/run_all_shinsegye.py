@@ -81,7 +81,7 @@ def test_microphone():
             recognizer.adjust_for_ambient_noise(source, duration=0.5)
             
             # 오디오 듣기
-            audio = recognizer.listen(source, timeout=5, phrase_time_limit=3)
+            audio = recognizer.listen(source, timeout=LISTEN_TIMEOUT, phrase_time_limit=PHRASE_TIME_LIMIT)
             print("✅ 오디오 캡처 성공!")
             print(f"   오디오 데이터 크기: {len(audio.get_raw_data())} bytes")
             print()
