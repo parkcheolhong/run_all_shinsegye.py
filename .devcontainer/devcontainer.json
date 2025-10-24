@@ -1,0 +1,24 @@
+mkdir -p .devcontainer
+cat > .devcontainer/devcontainer.json <<'EOF'
+{
+  "name": "소리새 Dev Container",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "sorisae",
+  "workspaceFolder": "/app",
+  "forwardPorts": [
+    5050
+  ],
+  "extensions": [
+    "ms-python.python"
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "/usr/local/bin/python"
+  },
+  "postCreateCommand": "if [ -f requirements.txt ]; then pip install --no-cache-dir -r requirements.txt; fi",
+  "shutdownAction": "stopCompose"
+}
+EOF
+      # 필요한 환경변수는 여기에 추가하세요 (민감값은 .env 또는 시크릿으로 관리)
+    restart: unless-stopped

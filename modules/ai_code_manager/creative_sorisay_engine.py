@@ -202,6 +202,28 @@ class {idea["implementation"].title().replace("_", "")}:
         
         return random.sample(suggestions, min(3, len(suggestions)))
     
+    def web_search_and_learn(self, topic: str) -> str:
+        """웹 검색 시뮬레이션을 통한 학습"""
+        # 실제 웹 검색 대신 시뮬레이션된 학습 결과 반환
+        learning_results = {
+            "AI 개발": "AI 개발에서 최신 트렌드는 대규모 언어 모델과 멀티모달 학습입니다.",
+            "음성 인식": "음성 인식 기술은 딥러닝 기반 End-to-End 모델로 발전하고 있습니다.",
+            "자동화": "자동화는 RPA와 AI를 결합하여 더 지능적으로 진화하고 있습니다.",
+            "default": f"'{topic}'에 대한 최신 정보를 학습했습니다. 더 많은 데이터로 계속 발전하겠습니다!"
+        }
+        
+        result = learning_results.get(topic, learning_results["default"])
+        
+        # 학습 기록에 추가
+        self.innovation_history.append({
+            "type": "web_learning",
+            "topic": topic,
+            "result": result,
+            "timestamp": datetime.datetime.now().isoformat()
+        })
+        
+        return result
+    
     def evolve_creativity(self):
         """창조성 레벨 진화"""
         self.creativity_level += 0.1

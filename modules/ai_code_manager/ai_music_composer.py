@@ -377,3 +377,276 @@ class AIMusicComposer:
         result += "✨ 이 음악이 마음에 드시나요? 다른 감정으로도 작곡해드릴 수 있어요!"
         
         return result
+
+class AILyricsWriter:
+    """
+    AI 작사가 클래스
+    
+    감정과 테마를 기반으로 자동으로 가사를 생성하는 시스템
+    """
+    
+    def __init__(self):
+        """AI 작사가 초기화"""
+        
+        # 감정별 기본 단어 데이터베이스
+        self.emotion_words = {
+            'happy': {
+                '형용사': ['행복한', '즐거운', '밝은', '웃는', '기쁜', '환한', '빛나는', '따뜻한'],
+                '명사': ['웃음', '햇빛', '꿈', '희망', '사랑', '봄', '꽃', '하늘', '별'],
+                '동사': ['웃다', '노래하다', '춤추다', '달리다', '날아가다', '빛나다', '피어나다']
+            },
+            'sad': {
+                '형용사': ['슬픈', '외로운', '쓸쓸한', '아픈', '그리운', '차가운', '어두운', '무거운'],
+                '명사': ['눈물', '비', '이별', '그리움', '밤', '달', '바람', '기억', '아픔'],
+                '동사': ['울다', '그리워하다', '떠나다', '사라지다', '기다리다', '흘러가다', '잊다']
+            },
+            'romantic': {
+                '형용사': ['사랑스러운', '로맨틱한', '달콤한', '부드러운', '포근한', '따스한', '예쁜'],
+                '명사': ['사랑', '연인', '마음', '키스', '포옹', '약속', '데이트', '꽃', '하트'],
+                '동사': ['사랑하다', '안다', '키스하다', '약속하다', '만나다', '걷다', '속삭이다']
+            },
+            'energetic': {
+                '형용사': ['역동적인', '강한', '뜨거운', '활기찬', '파워풀한', '멋진', '자유로운'],
+                '명사': ['힘', '에너지', '열정', '도전', '승리', '자유', '꿈', '미래', '무대'],
+                '동사': ['달리다', '뛰다', '싸우다', '도전하다', '이기다', '외치다', '넘어서다']
+            }
+        }
+        
+        # 가사 구조 템플릿
+        self.lyric_templates = {
+            'verse': [
+                "{형용사} {명사}가 {동사}",
+                "{명사} 속에서 {동사}는",
+                "언제나 {형용사} {명사}를",
+                "{동사}면서 {명사}를 생각해"
+            ],
+            'chorus': [
+                "{명사}야, {명사}야",
+                "{형용사} {명사}처럼",
+                "우리 함께 {동사}자",
+                "{명사}가 {형용사} 세상에서"
+            ],
+            'bridge': [
+                "이제는 {동사} 시간",
+                "{형용사} {명사}들이",
+                "모든 {명사}를 넘어서",
+                "{동사}는 그 순간"
+            ]
+        }
+        
+        # 운율 패턴
+        self.rhyme_patterns = ['AABA', 'ABAB', 'AABB', 'ABCB']
+        
+        # 생성된 가사 저장
+        self.lyrics_history = []
+    
+    def generate_lyrics(self, emotion: str = 'happy', theme: str = None, lines: int = 8) -> Dict[str, Any]:
+        """
+        감정과 테마를 기반으로 가사 생성
+        
+        Args:
+            emotion (str): 감정 ('happy', 'sad', 'romantic', 'energetic')
+            theme (str): 가사 주제 (선택사항)
+            lines (int): 생성할 가사 줄 수
+            
+        Returns:
+            Dict[str, Any]: 생성된 가사 정보
+        """
+        if emotion not in self.emotion_words:
+            emotion = 'happy'
+        
+        # 가사 구조 결정
+        structure = self._determine_structure(lines)
+        
+        # 가사 생성
+        lyrics_lines = []
+        for section_type, section_lines in structure.items():
+            section_lyrics = self._generate_section(emotion, section_type, section_lines)
+            lyrics_lines.extend(section_lyrics)
+        
+        # 가사 정보 구성
+        lyrics_info = {
+            'emotion': emotion,
+            'theme': theme,
+            'lines': lyrics_lines,
+            'structure': structure,
+            'rhyme_pattern': random.choice(self.rhyme_patterns),
+            'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'title': self._generate_title(emotion, theme)
+        }
+        
+        # 히스토리에 추가
+        self.lyrics_history.append(lyrics_info)
+        
+        return lyrics_info
+    
+    def _determine_structure(self, total_lines: int) -> Dict[str, int]:
+        """가사 구조 결정"""
+        if total_lines <= 4:
+            return {'verse': total_lines}
+        elif total_lines <= 8:
+            return {'verse': total_lines // 2, 'chorus': total_lines // 2}
+        else:
+            verse_lines = total_lines // 3
+            chorus_lines = total_lines // 3
+            bridge_lines = total_lines - verse_lines - chorus_lines
+            return {'verse': verse_lines, 'chorus': chorus_lines, 'bridge': bridge_lines}
+    
+    def _generate_section(self, emotion: str, section_type: str, num_lines: int) -> List[str]:
+        """특정 섹션의 가사 생성"""
+        words = self.emotion_words[emotion]
+        templates = self.lyric_templates.get(section_type, self.lyric_templates['verse'])
+        
+        section_lines = []
+        for _ in range(num_lines):
+            template = random.choice(templates)
+            
+            # 템플릿에 단어 대입
+            line = template
+            if '{형용사}' in line:
+                line = line.replace('{형용사}', random.choice(words['형용사']))
+            if '{명사}' in line:
+                line = line.replace('{명사}', random.choice(words['명사']))
+            if '{동사}' in line:
+                line = line.replace('{동사}', random.choice(words['동사']))
+            
+            section_lines.append(line)
+        
+        return section_lines
+    
+    def _generate_title(self, emotion: str, theme: str = None) -> str:
+        """가사 제목 생성"""
+        if theme:
+            return f"{theme}의 노래"
+        
+        emotion_titles = {
+            'happy': ['행복한 하루', '웃음의 노래', '밝은 세상', '기쁨의 춤'],
+            'sad': ['슬픈 이별', '그리운 사람', '눈물의 기억', '외로운 밤'],
+            'romantic': ['사랑의 고백', '달콤한 약속', '로맨틱한 밤', '첫사랑'],
+            'energetic': ['열정의 노래', '힘찬 도전', '꿈을 향해', '승리의 함성']
+        }
+        
+        return random.choice(emotion_titles.get(emotion, emotion_titles['happy']))
+    
+    def format_lyrics_display(self, lyrics_info: Dict[str, Any]) -> str:
+        """가사를 보기 좋게 포맷팅"""
+        result = f"🎤 **{lyrics_info['title']}**\n"
+        result += f"📝 감정: {lyrics_info['emotion']} | 운율: {lyrics_info['rhyme_pattern']}\n"
+        result += f"⏰ 작성시간: {lyrics_info['created_at']}\n\n"
+        
+        result += "📜 **가사:**\n"
+        result += "=" * 40 + "\n\n"
+        
+        for i, line in enumerate(lyrics_info['lines'], 1):
+            result += f"{i:2d}. {line}\n"
+        
+        result += "\n" + "=" * 40 + "\n"
+        result += "✨ 이 가사가 마음에 드시나요? 다른 감정으로도 작사해드릴 수 있어요!"
+        
+        return result
+    
+    def get_lyrics_history(self) -> str:
+        """작사 히스토리 조회"""
+        if not self.lyrics_history:
+            return "📝 아직 작성된 가사가 없습니다."
+        
+        result = f"📚 **작사 히스토리** ({len(self.lyrics_history)}곡):\n\n"
+        
+        for i, lyrics in enumerate(self.lyrics_history, 1):
+            result += f"{i}. **{lyrics['title']}**\n"
+            result += f"   감정: {lyrics['emotion']} | 줄수: {len(lyrics['lines'])}줄\n"
+            result += f"   작성: {lyrics['created_at'][:16]}\n\n"
+        
+        return result
+
+class AIMusicLyricsStudio:
+    """
+    AI 음악 작곡 & 작사 통합 스튜디오
+    
+    작곡과 작사를 함께 수행하는 통합 시스템
+    """
+    
+    def __init__(self):
+        """AI 음악 스튜디오 초기화"""
+        self.composer = AIMusicComposer()
+        self.lyricist = AILyricsWriter()
+        self.complete_songs = []
+    
+    def create_complete_song(self, emotion: str = 'happy', theme: str = None, 
+                           code: str = None) -> Dict[str, Any]:
+        """
+        완전한 노래 (작곡 + 작사) 생성
+        
+        Args:
+            emotion (str): 감정
+            theme (str): 주제
+            code (str): 작곡에 사용할 코드 (선택사항)
+            
+        Returns:
+            Dict[str, Any]: 완성된 노래 정보
+        """
+        # 작곡 생성
+        if code:
+            composition = self.composer.compose_from_code(code, emotion)
+        else:
+            composition = self.composer.compose_by_emotion(emotion)
+        
+        # 작사 생성  
+        lyrics = self.lyricist.generate_lyrics(emotion, theme, lines=8)
+        
+        # 완성된 노래 정보
+        complete_song = {
+            'title': theme or f"{emotion.title()} Song",
+            'emotion': emotion,
+            'theme': theme,
+            'composition': composition,
+            'lyrics': lyrics,
+            'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+            'song_id': len(self.complete_songs) + 1
+        }
+        
+        # 완성된 노래 목록에 추가
+        self.complete_songs.append(complete_song)
+        
+        return complete_song
+    
+    def display_complete_song(self, song: Dict[str, Any]) -> str:
+        """완성된 노래를 보기 좋게 표시"""
+        result = f"🎼🎤 **{song['title']}**\n"
+        result += f"🎭 감정: {song['emotion']} | 테마: {song.get('theme', 'None')}\n"
+        result += f"⏰ 작성: {song['created_at']}\n\n"
+        
+        result += "🎵 **작곡 정보:**\n"
+        result += f"   조성: {song['composition']['style']['key']} {song['composition']['style']['scale']}\n"
+        result += f"   템포: {song['composition']['style']['tempo']}\n\n"
+        
+        result += "🎼 **악보:**\n"
+        result += song['composition']['ascii_notation'] + "\n\n"
+        
+        result += "🎤 **가사:**\n"
+        result += "=" * 40 + "\n"
+        for i, line in enumerate(song['lyrics']['lines'], 1):
+            result += f"{i:2d}. {line}\n"
+        result += "=" * 40 + "\n\n"
+        
+        result += "🎶 **화음 진행:**\n"
+        chord_line = " → ".join(song['composition']['chords'])
+        result += f"   {chord_line}\n\n"
+        
+        result += "✨ 완성된 노래입니다! 다른 감정이나 테마로도 만들어드릴 수 있어요!"
+        
+        return result
+    
+    def get_song_catalog(self) -> str:
+        """완성된 노래 카탈로그 조회"""
+        if not self.complete_songs:
+            return "🎼 아직 완성된 노래가 없습니다."
+        
+        result = f"📻 **완성된 노래 목록** ({len(self.complete_songs)}곡):\n\n"
+        
+        for song in self.complete_songs:
+            result += f"🎵 **{song['title']}**\n"
+            result += f"   감정: {song['emotion']} | ID: {song['song_id']}\n"
+            result += f"   작성: {song['created_at'][:16]}\n\n"
+        
+        return result

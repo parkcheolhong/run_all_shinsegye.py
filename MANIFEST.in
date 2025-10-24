@@ -1,0 +1,33 @@
+# MANIFEST.in - Include additional files in the distribution package
+
+# Include documentation
+include README.md
+include LICENSE
+include INSTALL.md
+include QUICKSTART.md
+include HOW_TO_RUN.md
+include TROUBLESHOOTING.md
+include SECURITY_GUIDE.md
+
+# Include configuration templates
+recursive-include config *.template.json
+recursive-include config *.json.example
+
+# Include NLP patterns and data
+include nlp_patterns.json
+
+# Include scripts
+include *.sh
+include *.bat
+include *.ps1
+
+# Include example scripts
+recursive-include example_scripts *.py
+
+# Exclude certain files and directories
+recursive-exclude tests *
+recursive-exclude backup *
+recursive-exclude __pycache__ *
+recursive-exclude .history *
+recursive-exclude venv *
+exclude .gitignore

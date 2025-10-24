@@ -2,6 +2,7 @@ from flask import Flask, render_template_string, jsonify, request
 from flask_socketio import SocketIO, emit
 import json
 import os
+import logging
 from datetime import datetime
 from threading import Lock
 import threading
@@ -9,13 +10,50 @@ import time
 import hashlib
 from functools import wraps
 
+# 로깅 설정 import
+try:
+    from modules.logging_config import setup_logger
+    logger = setup_logger('sorisay_dashboard_web', level='INFO')
+except ImportError:
+    # 백업: 기본 로깅 설정
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger('sorisay_dashboard_web')
+
+# 🎵 음악 채팅 시스템 통합
+try:
+    from ai_code_manager.music_chat_system import MusicChatSystem
+    music_chat_available = True
+except ImportError:
+    music_chat_available = False
+
 # 🔒 보안 설정 로드
 def load_security_config():
     try:
         with open("config/security_config.json", "r", encoding="utf-8") as f:
-            return json.load(f)
+            config = json.load(f)
+            logger.info("보안 설정 파일 로드 완료")
+            return config
     except FileNotFoundError:
+        logger.warning("보안 설정 파일이 없습니다. 기본 설정을 사용합니다.")
         print("⚠️ 보안 설정 파일이 없습니다. 기본 설정을 사용합니다.")
+        return {
+            "security": {
+                "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],
+                "max_failed_attempts": 5
+            }
+        }
+    except json.JSONDecodeError as e:
+        logger.error(f"보안 설정 파일 JSON 파싱 오류: {e}", exc_info=True)
+        print(f"⚠️ 보안 설정 파일 형식 오류: {e}")
+        return {
+            "security": {
+                "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],
+                "max_failed_attempts": 5
+            }
+        }
+    except Exception as e:
+        logger.error(f"보안 설정 로드 중 예상치 못한 오류: {e}", exc_info=True)
+        print(f"⚠️ 보안 설정 로드 실패: {e}")
         return {
             "security": {
                 "allowed_commands": ["리팩터링", "동기화", "상태", "테스트", "정리", "도움말"],
@@ -86,6 +124,12 @@ app = Flask(__name__)
 app.secret_key = "sorisay_secure_key_2025"  # 보안키 추가
 socketio = SocketIO(app, cors_allowed_origins=["http://localhost:5050", "http://127.0.0.1:5050"])  # CORS 제한
 
+# 🎵 음악 채팅 시스템 초기화
+if music_chat_available:
+    music_chat_system = MusicChatSystem()
+else:
+    music_chat_system = None
+
 # 실시간 상태 관리
 class DashboardState:
     def __init__(self):
@@ -103,6 +147,10 @@ class DashboardState:
         self.ai_collaborations = 0
         self.memory_count = 0
         self.generated_plugins = 0
+        # 🎵 음악 채팅 상태
+        self.music_chat_rooms = []
+        self.active_chat_users = 0
+        self.total_chat_messages = 0
     
     def add_voice_command(self, command, status="성공", plugin_name=None):
         with self.lock:
@@ -153,7 +201,11 @@ class DashboardState:
                 "ai_collaborations": self.ai_collaborations,
                 "memory_count": self.memory_count,
                 "generated_plugins": self.generated_plugins,
-                "creative_activities": len(self.creative_activities)
+                "creative_activities": len(self.creative_activities),
+                # 🎵 음악 채팅 통계
+                "chat_rooms": len(music_chat_system.list_rooms()) if music_chat_system else 0,
+                "chat_users": sum(len(room.current_users) for room in music_chat_system.list_rooms().values()) if music_chat_system else 0,
+                "total_chat_messages": self.total_chat_messages
             }
     
     def update_persona(self, persona):
@@ -332,6 +384,14 @@ button:hover {
                     <div class="stat-number" id="generated-plugins">0</div>
                     <div>생성된 플러그인</div>
                 </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="chat-rooms">0</div>
+                    <div>채팅방 수</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="chat-users">0</div>
+                    <div>채팅 사용자</div>
+                </div>
             </div>
         </div>
         
@@ -354,7 +414,7 @@ button:hover {
         </div>
     </div>
     
-    <div class="card">
+        <div class="card">
         <h3>🎮 원격 제어</h3>
         <div class="controls">
             <button onclick="sendCommand('리팩터링')">🔧 리팩터링</button>
@@ -363,6 +423,15 @@ button:hover {
             <button onclick="sendCommand('테스트')">🧪 테스트 실행</button>
             <button onclick="sendCommand('정리')">🧹 프로젝트 정리</button>
             <button onclick="sendCommand('도움말')">❓ 도움말</button>
+        </div>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <h4>🎵 음악 & 채팅</h4>
+            <div class="controls">
+                <button onclick="window.open('/music-chat', '_blank')">🎵 음악 채팅방</button>
+                <button onclick="sendCommand('작곡 시작')">🎼 작곡하기</button>
+                <button onclick="sendCommand('작사 시작')">📝 작사하기</button>
+                <button onclick="sendCommand('채팅방 목록')">💬 채팅 목록</button>
+            </div>
         </div>
     </div>
 </div>
@@ -405,6 +474,13 @@ socket.on('stats_update', function(data) {
     }
     if (data.generated_plugins !== undefined) {
         document.getElementById('generated-plugins').textContent = data.generated_plugins;
+    }
+    // 🎵 음악 채팅 통계 업데이트
+    if (data.chat_rooms !== undefined) {
+        document.getElementById('chat-rooms').textContent = data.chat_rooms;
+    }
+    if (data.chat_users !== undefined) {
+        document.getElementById('chat-users').textContent = data.chat_users;
     }
 });
 
@@ -723,6 +799,198 @@ def handle_remote_command(data):
 def handle_get_stats():
     stats = dashboard_state.get_stats()
     emit("stats_update", stats)
+
+# 🎵 음악 채팅 라우트
+@app.route("/music-chat")
+def music_chat():
+    """음악 채팅 페이지"""
+    if not music_chat_available:
+        return jsonify({"error": "음악 채팅 시스템을 사용할 수 없습니다"}), 503
+    
+    return """
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>🎵 음악 채팅방</title>
+        <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    </head>
+    <body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-family: Arial, sans-serif;">
+        <div id="chatContainer" style="max-width: 800px; margin: 20px auto; padding: 20px;">
+            <h1>🎵 소리새 음악 채팅방</h1>
+            <div id="roomList" style="margin: 20px 0;"></div>
+            <div id="chatArea" style="display: none;">
+                <div id="messages" style="height: 400px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; margin: 10px 0; background: rgba(255,255,255,0.1);"></div>
+                <input type="text" id="messageInput" placeholder="메시지를 입력하세요..." style="width: 70%; padding: 10px;">
+                <button onclick="sendMessage()">전송</button>
+                <button onclick="leaveRoom()">나가기</button>
+            </div>
+        </div>
+        
+        <script>
+            const socket = io();
+            let currentRoom = null;
+            let currentUser = null;
+            
+            // 방 목록 로드
+            function loadRooms() {
+                fetch('/api/music-chat/rooms')
+                    .then(r => r.json())
+                    .then(rooms => {
+                        const roomList = document.getElementById('roomList');
+                        roomList.innerHTML = '<h3>채팅방 목록</h3>';
+                        rooms.forEach(room => {
+                            roomList.innerHTML += `
+                                <div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 5px;">
+                                    <strong>${room.name}</strong> (${room.user_count}명)
+                                    <button onclick="joinRoom('${room.id}', '${room.name}')">참여</button>
+                                </div>
+                            `;
+                        });
+                        roomList.innerHTML += `
+                            <div style="margin: 20px 0;">
+                                <input type="text" id="newRoomName" placeholder="새 방 이름">
+                                <button onclick="createRoom()">방 만들기</button>
+                            </div>
+                        `;
+                    });
+            }
+            
+            function createRoom() {
+                const name = document.getElementById('newRoomName').value;
+                if (!name) return;
+                
+                fetch('/api/music-chat/create-room', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name: name})
+                }).then(() => loadRooms());
+            }
+            
+            function joinRoom(roomId, roomName) {
+                const username = prompt('사용자 이름을 입력하세요:');
+                if (!username) return;
+                
+                currentRoom = roomId;
+                currentUser = username;
+                
+                fetch('/api/music-chat/join-room', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({room_id: roomId, username: username})
+                }).then(() => {
+                    document.getElementById('roomList').style.display = 'none';
+                    document.getElementById('chatArea').style.display = 'block';
+                    socket.emit('join_room', {room_id: roomId, username: username});
+                });
+            }
+            
+            function sendMessage() {
+                const input = document.getElementById('messageInput');
+                if (!input.value || !currentRoom) return;
+                
+                socket.emit('send_message', {
+                    room_id: currentRoom,
+                    message: input.value
+                });
+                input.value = '';
+            }
+            
+            function leaveRoom() {
+                if (currentRoom) {
+                    socket.emit('leave_room', {room_id: currentRoom});
+                    currentRoom = null;
+                    currentUser = null;
+                    document.getElementById('roomList').style.display = 'block';
+                    document.getElementById('chatArea').style.display = 'none';
+                    loadRooms();
+                }
+            }
+            
+            // 소켓 이벤트
+            socket.on('new_message', (data) => {
+                const messages = document.getElementById('messages');
+                messages.innerHTML += `<div><strong>${data.username}:</strong> ${data.message}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            });
+            
+            // 페이지 로드 시 방 목록 로드
+            loadRooms();
+        </script>
+    </body>
+    </html>
+    """
+
+@app.route("/api/music-chat/rooms")
+def get_chat_rooms():
+    """채팅방 목록 API"""
+    if not music_chat_system:
+        return jsonify([])
+    
+    rooms = music_chat_system.list_rooms()
+    return jsonify([{
+        "id": room_id,
+        "name": room.name,
+        "user_count": len(room.current_users),
+        "created_at": room.created_at.strftime("%Y-%m-%d %H:%M")
+    } for room_id, room in rooms.items()])
+
+@app.route("/api/music-chat/create-room", methods=["POST"])
+def create_chat_room():
+    """채팅방 생성 API"""
+    if not music_chat_system:
+        return jsonify({"error": "채팅 시스템 사용 불가"}), 503
+    
+    data = request.json
+    room_name = data.get("name", "새 방")
+    room_id = music_chat_system.create_room(room_name)
+    return jsonify({"room_id": room_id, "status": "created"})
+
+@app.route("/api/music-chat/join-room", methods=["POST"])
+def join_chat_room():
+    """채팅방 참여 API"""
+    if not music_chat_system:
+        return jsonify({"error": "채팅 시스템 사용 불가"}), 503
+    
+    data = request.json
+    room_id = data.get("room_id")
+    username = data.get("username")
+    
+    success = music_chat_system.join_room(room_id, username)
+    return jsonify({"success": success})
+
+# 🎵 음악 채팅 소켓 이벤트
+@socketio.on("join_room")
+def handle_join_room(data):
+    """채팅방 입장"""
+    if music_chat_system:
+        room_id = data.get("room_id")
+        username = data.get("username")
+        music_chat_system.join_room(room_id, username)
+        emit("room_joined", {"room_id": room_id}, room=room_id)
+
+@socketio.on("leave_room")
+def handle_leave_room(data):
+    """채팅방 나가기"""
+    if music_chat_system:
+        room_id = data.get("room_id")
+        emit("room_left", {"room_id": room_id}, room=room_id)
+
+@socketio.on("send_message")
+def handle_send_message(data):
+    """메시지 전송"""
+    if music_chat_system:
+        room_id = data.get("room_id")
+        message = data.get("message")
+        username = data.get("username", "익명")
+        
+        # 메시지 저장 및 브로드캐스트
+        music_chat_system.send_message(room_id, username, message)
+        emit("new_message", {
+            "username": username,
+            "message": message,
+            "timestamp": datetime.now().strftime("%H:%M")
+        }, room=room_id)
 
 def broadcast_voice_command(command, status="success"):
     """음성 명령을 대시보드에 브로드캐스트"""

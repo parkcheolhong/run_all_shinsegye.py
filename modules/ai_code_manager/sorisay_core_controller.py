@@ -1,11 +1,11 @@
-import speech_recognition as sr
+﻿import speech_recognition as sr
 import pyttsx3
 import time
 import json
 import os
 import random
 import sys
-import os
+import logging
 from datetime import datetime
 
 # 모듈 경로 추가
@@ -16,18 +16,20 @@ sys.path.append(root_dir)
 sys.path.append(parent_dir)
 sys.path.append(current_dir)
 
+from modules.logging_config import setup_logger
 from modules.plugins.plugin_manager import PluginManager
 from modules.sorisay_dashboard_web import broadcast_voice_command, broadcast_system_status, broadcast_persona_change, broadcast_creative_activity
-from nlp_processor import NLPProcessor
-from self_learning_engine import SelfLearningEngine
-from auto_feature_expansion import AutoFeatureExpansion
-from creative_sorisay_engine import CreativeSorisayEngine
-from persona_system import PersonaSystem
-from memory_palace import MemoryPalace
-from ai_collaboration_network import AICollaborationNetwork
-from creative_coding_assistant import CreativeCodingAssistant
-from smart_plugin_generator import SmartPluginGenerator
-from ai_music_composer import AIMusicComposer
+from modules.ai_code_manager.nlp_processor import NLPProcessor
+from modules.ai_code_manager.self_learning_engine import SelfLearningEngine
+from modules.ai_code_manager.auto_feature_expansion import AutoFeatureExpansion
+from modules.ai_code_manager.creative_sorisay_engine import CreativeSorisayEngine
+from modules.ai_code_manager.persona_system import PersonaSystem
+from modules.ai_code_manager.memory_palace import MemoryPalace
+from modules.ai_code_manager.ai_collaboration_network import AICollaborationNetwork
+from modules.ai_code_manager.creative_coding_assistant import CreativeCodingAssistant
+from modules.ai_code_manager.smart_plugin_generator import SmartPluginGenerator
+from ai_music_composer import AIMusicComposer, AILyricsWriter, AIMusicLyricsStudio
+from music_chat_system import get_chat_system
 from dream_interpreter import DreamInterpreter
 from virtual_dev_team import VirtualDevelopmentTeam
 from future_prediction_engine import FuturePredictionEngine
@@ -39,7 +41,11 @@ from multi_agent_shopping_system import MultiAgentShoppingSystem, create_multi_a
 from autonomous_marketing_system import AutonomousMarketingSystem, create_autonomous_marketing_response
 
 class SorisayCore:
-    def __init__(self, config_path="config/settings.json"):
+    def __init__(self, config_path="modules/ai_code_manager/settings.json"):
+        # 로거 설정
+        self.logger = setup_logger('SorisayCore', level='INFO')
+        self.logger.info("소리새 코어 시스템 초기화 시작")
+        
         # 설정 로드
         self.config = self.load_config(config_path)
         
@@ -90,6 +96,15 @@ class SorisayCore:
         # 🎵 AI 음악 작곡가 초기화
         self.music_composer = AIMusicComposer()
         
+        # 📝 AI 작사가 초기화  
+        self.lyrics_writer = AILyricsWriter()
+        
+        # 🎼 AI 음악 작사 스튜디오 통합 시스템 초기화
+        self.music_studio = AIMusicLyricsStudio()
+        
+        # 💬 음악 채팅 시스템 초기화
+        self.chat_system = get_chat_system()
+        
         # 🌙 꿈 해석 시스템 초기화
         self.dream_interpreter = DreamInterpreter()
         
@@ -135,12 +150,24 @@ class SorisayCore:
         try:
             if os.path.exists(config_path):
                 with open(config_path, 'r', encoding='utf-8') as f:
-                    return json.load(f)
+                    config = json.load(f)
+                    self.logger.info(f"설정 파일 로드 완료: {config_path}")
+                    return config
             else:
-                print(f"⚠ 설정 파일을 찾을 수 없습니다: {config_path}")
+                self.logger.warning(f"설정 파일을 찾을 수 없습니다: {config_path}. 기본 설정을 사용합니다.")
+                print(f"[WARNING] 설정 파일을 찾을 수 없습니다: {config_path}")
                 return self.get_default_config()
+        except json.JSONDecodeError as e:
+            self.logger.error(f"설정 파일 JSON 파싱 오류: {e}", exc_info=True)
+            print(f"[WARNING] 설정 파일 형식 오류: {e}")
+            return self.get_default_config()
+        except PermissionError as e:
+            self.logger.error(f"설정 파일 읽기 권한 없음: {e}")
+            print(f"[WARNING] 설정 파일 읽기 권한이 없습니다: {e}")
+            return self.get_default_config()
         except Exception as e:
-            print(f"⚠ 설정 파일 로드 실패: {e}")
+            self.logger.error(f"설정 파일 로드 중 예상치 못한 오류: {e}", exc_info=True)
+            print(f"[WARNING] 설정 파일 로드 실패: {e}")
             return self.get_default_config()
     
     def get_default_config(self):
@@ -207,21 +234,32 @@ class SorisayCore:
                 selected_voice = None
                 if korean_voices:
                     selected_voice = korean_voices[0]
-                    print(f"🎤 한국어 음성 선택: {selected_voice[1].name}")
+                    self.logger.info(f"한국어 음성 선택: {selected_voice[1].name}")
+                    print(f"[VOICE] 한국어 음성 선택: {selected_voice[1].name}")
                 elif female_voices:
                     selected_voice = female_voices[0]
-                    print(f"🎤 여성 음성 선택: {selected_voice[1].name}")
+                    self.logger.info(f"여성 음성 선택: {selected_voice[1].name}")
+                    print(f"[VOICE] 여성 음성 선택: {selected_voice[1].name}")
                 elif voice_index < len(voices):
                     selected_voice = (voice_index, voices[voice_index])
-                    print(f"🎤 음성 선택: {selected_voice[1].name}")
+                    self.logger.info(f"음성 선택 (인덱스 {voice_index}): {selected_voice[1].name}")
+                    print(f"[VOICE] 음성 선택: {selected_voice[1].name}")
                 
                 if selected_voice:
                     self.engine.setProperty('voice', selected_voice[1].id)
                 
-            print(f"🔊 TTS 설정 완료 - 속도: {rate}, 볼륨: {volume}")
+            self.logger.info(f"TTS 설정 완료 - 속도: {rate}, 볼륨: {volume}")
+            print(f"[TTS] 설정 완료 - 속도: {rate}, 볼륨: {volume}")
             
+        except RuntimeError as e:
+            self.logger.error(f"TTS 엔진 런타임 오류: {e}", exc_info=True)
+            print(f"[WARNING] TTS 엔진 오류가 발생했습니다. 기본 설정을 사용합니다: {e}")
+        except AttributeError as e:
+            self.logger.error(f"TTS 속성 설정 오류: {e}", exc_info=True)
+            print(f"[WARNING] TTS 속성 오류: {e}")
         except Exception as e:
-            print(f"⚠ TTS 설정 중 오류: {e}")
+            self.logger.error(f"TTS 설정 중 예상치 못한 오류: {e}", exc_info=True)
+            print(f"[WARNING] TTS 설정 중 오류: {e}")
 
     def speak_with_emotion(self, text, emotion="neutral", speed_modifier=1.0):
         """감정과 속도 조절이 가능한 음성 출력"""
@@ -265,8 +303,14 @@ class SorisayCore:
             # 원래 속도로 복원
             self.engine.setProperty('rate', original_rate)
             
+        except RuntimeError as e:
+            self.logger.error(f"TTS 음성 출력 런타임 오류: {e}", exc_info=True)
+            print(f"[WARNING] 음성 출력 오류: {e}")
+            # 기본 speak 메서드로 fallback
+            self.speak(text)
         except Exception as e:
-            print(f"⚠ 음성 출력 오류: {e}")
+            self.logger.error(f"음성 출력 중 예상치 못한 오류: {e}", exc_info=True)
+            print(f"[WARNING] 음성 출력 오류: {e}")
             # 기본 speak 메서드로 fallback
             self.speak(text)
 
@@ -331,7 +375,7 @@ class SorisayCore:
             print("⏱ 음성 입력 대기 시간 초과")
             return None
         except sr.UnknownValueError:
-            print("⚠ 음성을 인식하지 못했습니다")
+            print("[WARNING] 음성을 인식하지 못했습니다")
             self.speak("다시 말씀해 주세요")
             return None
         except sr.RequestError as e:
@@ -435,7 +479,22 @@ class SorisayCore:
                                     self.running = False
                                     broadcast_system_status("시스템 종료 중")
                                     
+                            except ImportError as e:
+                                self.logger.error(f"플러그인 모듈 로드 실패: {e}", exc_info=True)
+                                error_msg = f"플러그인을 찾을 수 없습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg, "error")
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
+                            except AttributeError as e:
+                                self.logger.error(f"명령어 속성 오류: {e}", exc_info=True)
+                                error_msg = f"명령어 실행 방법이 잘못되었습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg, "error")
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
                             except Exception as e:
+                                self.logger.error(f"명령어 실행 중 예상치 못한 오류: {e}", exc_info=True)
                                 error_msg = f"명령어 실행 중 오류가 발생했습니다: {str(e)}"
                                 print(f"❌ {error_msg}")
                                 self.speak(error_msg, "error")
@@ -452,7 +511,7 @@ class SorisayCore:
                             broadcast_voice_command(cmd, "success")
                             yield cmd
                     else:
-                        print(f"⚠ 매핑되지 않은 의도: '{intent}'")
+                        print(f"[WARNING] 매핑되지 않은 의도: '{intent}'")
                         response_text = nlp_result["response"]
                         self.speak(response_text, emotion)
                         final_response = response_text
@@ -501,7 +560,22 @@ class SorisayCore:
                                     self.running = False
                                     broadcast_system_status("시스템 종료 중")
                                     
+                            except ImportError as e:
+                                self.logger.error(f"플러그인 모듈 로드 실패: {e}", exc_info=True)
+                                error_msg = f"플러그인을 찾을 수 없습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg)
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
+                            except AttributeError as e:
+                                self.logger.error(f"명령어 속성 오류: {e}", exc_info=True)
+                                error_msg = f"명령어 실행 방법이 잘못되었습니다: {str(e)}"
+                                print(f"❌ {error_msg}")
+                                self.speak(error_msg)
+                                final_response = error_msg
+                                broadcast_voice_command(cmd, "failed")
                             except Exception as e:
+                                self.logger.error(f"명령어 실행 중 예상치 못한 오류: {e}", exc_info=True)
                                 error_msg = f"명령어 실행 중 오류가 발생했습니다: {str(e)}"
                                 print(f"❌ {error_msg}")
                                 self.speak(error_msg)
@@ -1061,7 +1135,7 @@ class SorisayCore:
             self.memory_palace.remember_conversation(cmd, response, "color_therapy")
             return response
         
-        # �🎵 음악 작곡 요청
+        # 🎵 음악 작곡 요청
         elif any(keyword in cmd_lower for keyword in ["음악", "작곡", "멜로디", "노래"]):
             if "코드" in cmd_lower and ("음악" in cmd_lower or "작곡" in cmd_lower):
                 # 코드를 음악으로 변환
@@ -1079,7 +1153,124 @@ class SorisayCore:
             
             self.memory_palace.remember_conversation(cmd, response, "creative")
             return response
-        
+
+        # 📝 작사 요청
+        elif any(keyword in cmd_lower for keyword in ["작사", "가사", "lyrics", "시"]):
+            # 명령어에서 감정과 테마 추출
+            emotion = "happy"  # 기본값
+            theme = None
+            
+            if any(word in cmd_lower for word in ["슬픈", "sad", "우울"]):
+                emotion = "sad"
+            elif any(word in cmd_lower for word in ["사랑", "로맨틱", "romantic"]):
+                emotion = "romantic"  
+            elif any(word in cmd_lower for word in ["신나는", "에너지", "energetic", "활기"]):
+                emotion = "energetic"
+            
+            # 테마 추출 (간단한 키워드 기반)
+            theme_keywords = ["사랑", "이별", "꿈", "희망", "우정", "가족"]
+            for keyword in theme_keywords:
+                if keyword in cmd_lower:
+                    theme = keyword
+                    break
+            
+            # 가사 생성
+            lyrics_info = self.lyrics_writer.generate_lyrics(emotion, theme, lines=8)
+            response = self.lyrics_writer.format_lyrics_display(lyrics_info)
+            
+            broadcast_creative_activity("lyrics_writing", f"작사 완성: {lyrics_info['title']}")
+            self.memory_palace.remember_conversation(cmd, response, "creative")
+            return response
+
+        # 🎼 완전한 노래 생성 (작곡 + 작사)
+        elif any(keyword in cmd_lower for keyword in ["완전한 노래", "전체 노래", "노래 만들기", "송 크리에이트"]):
+            # 명령어에서 감정과 테마 추출
+            emotion = "happy"  # 기본값
+            theme = None
+            
+            if any(word in cmd_lower for word in ["슬픈", "sad", "우울"]):
+                emotion = "sad"
+            elif any(word in cmd_lower for word in ["사랑", "로맨틱", "romantic"]):
+                emotion = "romantic"  
+            elif any(word in cmd_lower for word in ["신나는", "에너지", "energetic", "활기"]):
+                emotion = "energetic"
+            
+            # 테마 추출
+            if "테마" in cmd_lower or "주제" in cmd_lower:
+                theme_words = cmd_lower.split()
+                for i, word in enumerate(theme_words):
+                    if word in ["테마", "주제"] and i + 1 < len(theme_words):
+                        theme = theme_words[i + 1]
+                        break
+            
+            # 완전한 노래 생성
+            complete_song = self.music_studio.create_complete_song(emotion, theme)
+            response = self.music_studio.display_complete_song(complete_song)
+            
+            broadcast_creative_activity("complete_song", f"완전한 노래 생성: {complete_song['title']}")
+            self.memory_palace.remember_conversation(cmd, response, "creative")
+            return response
+
+        # 💬 음악 채팅장 요청
+        elif any(keyword in cmd_lower for keyword in ["채팅", "채팅장", "음악채팅", "채팅방", "대화방"]):
+            if "생성" in cmd_lower or "만들기" in cmd_lower or "만들어" in cmd_lower:
+                # 채팅방 생성 요청
+                response = "💬 음악 채팅방을 만드시겠어요?\n\n"
+                response += "🎵 **음악 채팅장 기능:**\n"
+                response += "- 실시간 음악 작품 공유\n"
+                response += "- 작곡/작사 협업 프로젝트\n"
+                response += "- 장르별 전문 채팅방\n"
+                response += "- AI 음악 생성 도구 내장\n\n"
+                response += "📝 **채팅방 유형:**\n"
+                response += "- 🎼 일반 음악 채팅\n"
+                response += "- 🤝 작곡 협업실\n"
+                response += "- 📝 작사 워크샵\n"
+                response += "- 🎸 실시간 잼 세션\n\n"
+                response += "웹 브라우저에서 /music-chat으로 접속하세요!"
+            elif "목록" in cmd_lower or "리스트" in cmd_lower:
+                # 채팅방 목록 조회
+                rooms = self.chat_system.get_room_list()
+                response = f"💬 **활성 채팅방 목록** ({len(rooms)}개):\n\n"
+                
+                for room in rooms:
+                    response += f"🎵 **{room['room_name']}**\n"
+                    response += f"   📝 {room['description']}\n"
+                    response += f"   👥 {room['current_users']}/{room['max_users']}명\n"
+                    response += f"   🎶 장르: {room['genre']}\n\n"
+                
+                if not rooms:
+                    response += "아직 생성된 채팅방이 없습니다.\n"
+                    response += "'채팅방 만들어줘'라고 말씀해보세요!"
+            elif "통계" in cmd_lower or "현황" in cmd_lower:
+                # 채팅 시스템 통계
+                stats = self.chat_system.get_chat_statistics()
+                response = "📊 **음악 채팅장 현황:**\n\n"
+                response += f"👥 총 사용자: {stats['total_users']}명\n"
+                response += f"🏠 총 채팅방: {stats['total_rooms']}개\n"
+                response += f"💬 총 메시지: {stats['total_messages']}개\n"
+                response += f"🤝 활성 협업: {stats['active_collaborations']}개\n"
+                response += f"🟢 온라인 사용자: {stats['online_users']}명\n\n"
+                response += "웹에서 실시간 채팅을 즐겨보세요!"
+            else:
+                # 기본 채팅장 소개
+                response = "🎵💬 **AI 음악 채팅장에 오신 것을 환영합니다!**\n\n"
+                response += "✨ **주요 기능:**\n"
+                response += "- 🎼 실시간 음악 작품 공유\n"
+                response += "- 📝 가사 창작 및 피드백\n"
+                response += "- 🤝 협업 작곡/작사 프로젝트\n"
+                response += "- 🎸 라이브 잼 세션\n"
+                response += "- 🤖 AI 음악 생성 도구\n\n"
+                response += "🌐 **접속 방법:**\n"
+                response += "웹 브라우저에서 '/music-chat'으로 접속하세요!\n\n"
+                response += "💡 **명령어:**\n"
+                response += "- '채팅방 만들어줘' - 새 방 생성\n"
+                response += "- '채팅방 목록' - 방 리스트 보기\n"
+                response += "- '채팅 통계' - 시스템 현황\n"
+            
+            broadcast_creative_activity("music_chat", "음악 채팅장 활용")
+            self.memory_palace.remember_conversation(cmd, response, "social")
+            return response
+
         # 🛒 지능형 자율 쇼핑몰 요청
         elif any(keyword in cmd_lower for keyword in ["쇼핑몰", "온라인쇼핑", "상품판매", "자율쇼핑", "스마트쇼핑"]):
             mall_response = create_autonomous_mall_response(cmd)

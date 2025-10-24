@@ -24,7 +24,7 @@ class PluginManager:
         self.register_plugin(SystemPlugin())
         self.register_plugin(DevToolsPlugin())
         
-        print(f"✅ 총 {len(self.plugins)}개의 플러그인이 로드되었습니다.")
+        print(f"[SUCCESS] 총 {len(self.plugins)}개의 플러그인이 로드되었습니다.")
         
     def register_plugin(self, plugin: SorisayPlugin):
         """플러그인 등록"""
@@ -36,7 +36,7 @@ class PluginManager:
             for keyword in keywords:
                 self.command_map[keyword.lower()] = (plugin.name, command)
         
-        print(f"📌 플러그인 등록됨: {plugin.name}")
+        print(f"[PLUGIN] 플러그인 등록됨: {plugin.name}")
     
     def find_command(self, text: str) -> tuple:
         """
