@@ -60,3 +60,6 @@ config/secrets.json
 # Temporary files
 temp/
 tmp/
+
+# History files (VSCode extension)
+.history/
