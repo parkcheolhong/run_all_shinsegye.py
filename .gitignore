@@ -1,5 +1,3 @@
-# 소리새 프로젝트 .gitignore
-
 # Python
 __pycache__/
 *.py[cod]
@@ -18,6 +16,8 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -25,8 +25,9 @@ MANIFEST
 
 # Virtual Environment
 venv/
-env/
 ENV/
+env/
+.venv
 
 # IDE
 .vscode/
@@ -43,23 +44,34 @@ Thumbs.db
 *.log
 logs/*.log
 
-# Backups
-backups/
+# Config (keep templates only)
+config/*.json
+!config/*.template.json
+
+# Data files
+data/*.db
+data/*.sqlite
+data/temp_*
+
+# History (VSCode history plugin)
+.history/
+
+# Backup files
+backup/
 *.bak
-*.old
-*.tmp
-
-# Config (민감한 정보)
-config/api_keys.json
-config/secrets.json
-
-# Cache
-.cache/
-.pytest_cache/
+*.backup
 
 # Temporary files
-temp/
 tmp/
+temp/
+*.tmp
 
-# History files (VSCode extension)
-.history/
+# PyCharm
+.idea/
+
+# Security (sensitive files)
+*.key
+*.pem
+*.crt
+secrets.json
+.pytest_cache/
