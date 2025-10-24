@@ -38,6 +38,73 @@ if ! command -v pip3 &> /dev/null; then
 fi
 echo -e "${GREEN}✅ pip 발견${NC}"
 
+# Install system dependencies (Linux only)
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    echo ""
+    echo "🔧 시스템 의존성 확인 중..."
+    
+    # Check if running on a Debian/Ubuntu-based system
+    if command -v apt-get &> /dev/null; then
+        echo "📦 시스템 패키지 설치 중 (portaudio19-dev, python3-pyaudio, espeak)..."
+        echo -e "${YELLOW}⚠️  이 작업은 sudo 권한이 필요합니다.${NC}"
+        
+        # Check if packages are already installed
+        MISSING_PACKAGES=""
+        
+        if ! dpkg -l | grep -q "portaudio19-dev"; then
+            MISSING_PACKAGES="$MISSING_PACKAGES portaudio19-dev"
+        fi
+        
+        if ! dpkg -l | grep -q "python3-pyaudio"; then
+            MISSING_PACKAGES="$MISSING_PACKAGES python3-pyaudio"
+        fi
+        
+        if ! dpkg -l | grep -q "^ii.*espeak[^-]"; then
+            MISSING_PACKAGES="$MISSING_PACKAGES espeak"
+        fi
+        
+        if [ -n "$MISSING_PACKAGES" ]; then
+            echo "설치가 필요한 패키지:$MISSING_PACKAGES"
+            echo ""
+            
+            # Try to install packages
+            if sudo apt-get update && sudo apt-get install -y$MISSING_PACKAGES; then
+                echo -e "${GREEN}✅ 시스템 패키지 설치 완료${NC}"
+            else
+                echo -e "${YELLOW}⚠️  시스템 패키지 설치에 실패했습니다.${NC}"
+                echo "수동으로 다음 명령을 실행해주세요:"
+                echo "  sudo apt-get update"
+                echo "  sudo apt-get install -y portaudio19-dev python3-pyaudio espeak"
+                echo ""
+                echo -e "${YELLOW}계속 진행하시겠습니까? (y/n)${NC}"
+                read -r response
+                if [[ ! "$response" =~ ^[Yy]$ ]]; then
+                    echo "설치를 중단합니다."
+                    exit 1
+                fi
+            fi
+        else
+            echo -e "${GREEN}✅ 필요한 시스템 패키지가 이미 설치되어 있습니다${NC}"
+        fi
+    else
+        echo -e "${YELLOW}⚠️  Debian/Ubuntu 기반 시스템이 아닙니다.${NC}"
+        echo "수동으로 다음 패키지를 설치해주세요:"
+        echo "  - portaudio19-dev"
+        echo "  - python3-pyaudio"
+        echo "  - espeak"
+    fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo ""
+    echo "🍎 macOS 감지됨"
+    echo -e "${YELLOW}⚠️  Homebrew를 사용하여 다음 패키지를 설치해주세요:${NC}"
+    echo "  brew install portaudio"
+    echo "  brew install espeak"
+else
+    echo ""
+    echo -e "${YELLOW}⚠️  알 수 없는 운영체제입니다.${NC}"
+    echo "수동으로 필요한 시스템 의존성을 설치해주세요."
+fi
+
 # Create virtual environment
 echo ""
 echo "📦 가상환경 생성 중..."
