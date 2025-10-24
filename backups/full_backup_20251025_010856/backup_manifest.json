@@ -1,0 +1,72 @@
+{
+  "timestamp": "20251025_010856",
+  "items": {
+    "run_all_shinsegye.py": {
+      "type": "file",
+      "size": 10773,
+      "backed_up": true
+    },
+    "README.md": {
+      "type": "file",
+      "size": 21097,
+      "backed_up": true
+    },
+    "requirements.txt": {
+      "type": "file",
+      "size": 616,
+      "backed_up": true
+    },
+    "stock_prediction_200_percent.py": {
+      "type": "file",
+      "size": 26666,
+      "backed_up": true
+    },
+    "sorisay_dual_brain_stock_system.py": {
+      "type": "file",
+      "size": 26767,
+      "backed_up": true
+    },
+    "sorisay_investment_advisor_200.py": {
+      "type": "file",
+      "size": 15012,
+      "backed_up": true
+    },
+    "next_gen_features_102_percent.py": {
+      "type": "file",
+      "size": 17128,
+      "backed_up": true
+    },
+    "modules/": {
+      "type": "directory",
+      "size": 1112363,
+      "file_count": 74,
+      "backed_up": true
+    },
+    "config/": {
+      "type": "directory",
+      "size": 10413,
+      "file_count": 4,
+      "backed_up": true
+    },
+    "data/": {
+      "type": "directory",
+      "size": 53377,
+      "file_count": 3,
+      "backed_up": true
+    },
+    "memories/": {
+      "type": "directory",
+      "size": 43429,
+      "file_count": 1,
+      "backed_up": true
+    },
+    "tests/": {
+      "type": "directory",
+      "size": 20227,
+      "file_count": 8,
+      "backed_up": true
+    }
+  },
+  "total_size": 1357868,
+  "file_count": 97
+}

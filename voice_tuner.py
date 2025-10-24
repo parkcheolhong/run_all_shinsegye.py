@@ -295,13 +295,6 @@ class VoiceTuner:
                 self.save_settings()
             else:
                 print("❌ 잘못된 선택입니다")
-            
-            # 최우선 종료 명령 체크 (새로 추가됨)
-            if any(keyword in cmd_lower for keyword in ["종료", "끝", "그만"...]):
-                print("🛑 종료 명령 감지됨!")
-                self.speak("소리새를 종료합니다. 안녕히 가세요!")
-                self.running = False
-                break
 
 def main():
     """메인 함수"""
