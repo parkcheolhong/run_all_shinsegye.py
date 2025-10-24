@@ -23,7 +23,7 @@ except ImportError as e:
     SORISAY_AVAILABLE = False
 
 try:
-    from modules.web_dashboard.app import create_app
+    from modules.sorisay_dashboard_web import app # type: ignore
     WEB_AVAILABLE = True
 except ImportError as e:
     print(f"[WARNING] 웹 모듈 로드 실패: {e}")

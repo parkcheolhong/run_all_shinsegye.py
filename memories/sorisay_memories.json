@@ -575,6 +575,114 @@
       "emotion_detected": "creative",
       "context_tags": [],
       "importance_score": 1
+    },
+    {
+      "id": "c341879f",
+      "timestamp": "2025-10-24T15:24:11.259080",
+      "user_input": "채팅방 목록",
+      "ai_response": "💬 **활성 채팅방 목록** (4개):\n\n🎵 **🎵 일반 음악 채팅**\n   📝 자유로운 음악 이야기를 나누는 공간\n   👥 0/10명\n   🎶 장르: pop\n\n🎵 **🎼 작곡 협업실**\n   📝 함께 작곡하고 아이디어를 나누는 공간\n   👥 0/10명\n   🎶 장르: all\n\n🎵 **📝 작사 워크샵**\n   📝 가사 창작과 시 쓰기를 위한 공간\n   👥 0/10명\n   🎶 장르: lyrics\n\n🎵 **🎸 잼 세션**\n   📝 실시간 음악 잼 세션을 위한 공간\n   👥 0/10명\n   🎶 장르: rock\n\n",
+      "emotion_detected": "social",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "a4c3a8c6",
+      "timestamp": "2025-10-24T15:24:11.281390",
+      "user_input": "채팅 통계",
+      "ai_response": "📊 **음악 채팅장 현황:**\n\n👥 총 사용자: 0명\n🏠 총 채팅방: 4개\n💬 총 메시지: 0개\n🤝 활성 협업: 0개\n🟢 온라인 사용자: 0명\n\n웹에서 실시간 채팅을 즐겨보세요!",
+      "emotion_detected": "social",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "d0b2bb13",
+      "timestamp": "2025-10-24T15:24:11.292447",
+      "user_input": "작곡 시작",
+      "ai_response": "🎵 **Calm Mood in F** 연주 중...\n\n🎭 감정: calm\n🎹 조성: F pentatonic\n🥁 템포: moderate\n\n🎵 ASCII 음악 표기:\n========================================\nMelody: F♩ G♩ A♩ F♩ D♩ D♩ F♪ A♪ \n\nVisual:\n  ●\n   ●\n    ●\n  ●\n ●\n ●\n  ●\n    ●\n\n🎶 화음 진행:\n   C → F → G → C\n\n✨ 이 음악이 마음에 드시나요? 다른 감정으로도 작곡해드릴 수 있어요!",
+      "emotion_detected": "creative",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "dcd22086",
+      "timestamp": "2025-10-24T15:24:11.305454",
+      "user_input": "작사 시작",
+      "ai_response": "🎤 **밝은 세상**\n📝 감정: happy | 운율: AABB\n⏰ 작성시간: 2025-10-24 15:24:11\n\n📜 **가사:**\n========================================\n\n 1. 즐거운 꿈가 춤추다\n 2. 밝은 웃음가 빛나다\n 3. 기쁜 봄가 피어나다\n 4. 하늘 속에서 달리다는\n 5. 봄야, 봄야\n 6. 사랑가 웃는 세상에서\n 7. 꿈가 환한 세상에서\n 8. 우리 함께 빛나다자\n\n========================================\n✨ 이 가사가 마음에 드시나요? 다른 감정으로도 작사해드릴 수 있어요!",
+      "emotion_detected": "creative",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "f46a8390",
+      "timestamp": "2025-10-24T15:25:52.167308",
+      "user_input": "채팅방 목록",
+      "ai_response": "💬 **활성 채팅방 목록** (4개):\n\n🎵 **🎵 일반 음악 채팅**\n   📝 자유로운 음악 이야기를 나누는 공간\n   👥 0/10명\n   🎶 장르: pop\n\n🎵 **🎼 작곡 협업실**\n   📝 함께 작곡하고 아이디어를 나누는 공간\n   👥 0/10명\n   🎶 장르: all\n\n🎵 **📝 작사 워크샵**\n   📝 가사 창작과 시 쓰기를 위한 공간\n   👥 0/10명\n   🎶 장르: lyrics\n\n🎵 **🎸 잼 세션**\n   📝 실시간 음악 잼 세션을 위한 공간\n   👥 0/10명\n   🎶 장르: rock\n\n",
+      "emotion_detected": "social",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "76c247d5",
+      "timestamp": "2025-10-24T15:25:52.206150",
+      "user_input": "채팅 통계",
+      "ai_response": "📊 **음악 채팅장 현황:**\n\n👥 총 사용자: 0명\n🏠 총 채팅방: 4개\n💬 총 메시지: 0개\n🤝 활성 협업: 0개\n🟢 온라인 사용자: 0명\n\n웹에서 실시간 채팅을 즐겨보세요!",
+      "emotion_detected": "social",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "93e008e7",
+      "timestamp": "2025-10-24T15:25:52.221154",
+      "user_input": "작곡 시작",
+      "ai_response": "🎵 **Calm Mood in F** 연주 중...\n\n🎭 감정: calm\n🎹 조성: F pentatonic\n🥁 템포: moderate\n\n🎵 ASCII 음악 표기:\n========================================\nMelody: C♩ G♩ C♩ G♩ G♩ G♪ C♪ F♪ \n\nVisual:\n●\n   ●\n●\n   ●\n   ●\n   ●\n●\n  ●\n\n🎶 화음 진행:\n   C → F → G → C\n\n✨ 이 음악이 마음에 드시나요? 다른 감정으로도 작곡해드릴 수 있어요!",
+      "emotion_detected": "creative",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "446e8ed8",
+      "timestamp": "2025-10-24T15:25:52.237155",
+      "user_input": "작사 시작",
+      "ai_response": "🎤 **웃음의 노래**\n📝 감정: happy | 운율: ABCB\n⏰ 작성시간: 2025-10-24 15:25:52\n\n📜 **가사:**\n========================================\n\n 1. 피어나다면서 웃음를 생각해\n 2. 언제나 기쁜 꽃를\n 3. 달리다면서 햇빛를 생각해\n 4. 언제나 따뜻한 꽃를\n 5. 희망야, 희망야\n 6. 웃음야, 웃음야\n 7. 따뜻한 봄처럼\n 8. 웃음야, 웃음야\n\n========================================\n✨ 이 가사가 마음에 드시나요? 다른 감정으로도 작사해드릴 수 있어요!",
+      "emotion_detected": "creative",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "87a54778",
+      "timestamp": "2025-10-24T15:34:03.047187",
+      "user_input": "채팅방 목록",
+      "ai_response": "💬 **활성 채팅방 목록** (4개):\n\n🎵 **🎵 일반 음악 채팅**\n   📝 자유로운 음악 이야기를 나누는 공간\n   👥 0/10명\n   🎶 장르: pop\n\n🎵 **🎼 작곡 협업실**\n   📝 함께 작곡하고 아이디어를 나누는 공간\n   👥 0/10명\n   🎶 장르: all\n\n🎵 **📝 작사 워크샵**\n   📝 가사 창작과 시 쓰기를 위한 공간\n   👥 0/10명\n   🎶 장르: lyrics\n\n🎵 **🎸 잼 세션**\n   📝 실시간 음악 잼 세션을 위한 공간\n   👥 0/10명\n   🎶 장르: rock\n\n",
+      "emotion_detected": "social",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "b661788f",
+      "timestamp": "2025-10-24T15:34:03.247107",
+      "user_input": "채팅 통계",
+      "ai_response": "📊 **음악 채팅장 현황:**\n\n👥 총 사용자: 0명\n🏠 총 채팅방: 4개\n💬 총 메시지: 0개\n🤝 활성 협업: 0개\n🟢 온라인 사용자: 0명\n\n웹에서 실시간 채팅을 즐겨보세요!",
+      "emotion_detected": "social",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "8281ff2f",
+      "timestamp": "2025-10-24T15:34:03.268639",
+      "user_input": "작곡 시작",
+      "ai_response": "🎵 **Calm Mood in F** 연주 중...\n\n🎭 감정: calm\n🎹 조성: F pentatonic\n🥁 템포: moderate\n\n🎵 ASCII 음악 표기:\n========================================\nMelody: D♩ C♩ F♩ F♩ A♩ D♪ D♪ A♩ \n\nVisual:\n ●\n●\n  ●\n  ●\n    ●\n ●\n ●\n    ●\n\n🎶 화음 진행:\n   C → F → G → C\n\n✨ 이 음악이 마음에 드시나요? 다른 감정으로도 작곡해드릴 수 있어요!",
+      "emotion_detected": "creative",
+      "context_tags": [],
+      "importance_score": 1
+    },
+    {
+      "id": "a735e847",
+      "timestamp": "2025-10-24T15:34:03.286009",
+      "user_input": "작사 시작",
+      "ai_response": "🎤 **웃음의 노래**\n📝 감정: happy | 운율: ABAB\n⏰ 작성시간: 2025-10-24 15:34:03\n\n📜 **가사:**\n========================================\n\n 1. 꿈 속에서 날아가다는\n 2. 웃다면서 하늘를 생각해\n 3. 기쁜 꿈가 웃다\n 4. 사랑 속에서 빛나다는\n 5. 웃는 사랑처럼\n 6. 희망가 따뜻한 세상에서\n 7. 희망야, 희망야\n 8. 우리 함께 빛나다자\n\n========================================\n✨ 이 가사가 마음에 드시나요? 다른 감정으로도 작사해드릴 수 있어요!",
+      "emotion_detected": "creative",
+      "context_tags": [],
+      "importance_score": 1
     }
   ],
   "user_profile": {},
