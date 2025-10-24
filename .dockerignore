@@ -3,36 +3,108 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.pyc
+.Python
 
 # Virtual environment
 venv/
 env/
 ENV/
+.venv/
 
-# IDE
+# IDE and editors
 .vscode/
 .history/
 .devcontainer/
+.idea/
+*.swp
+*.swo
+*~
 
 # Git
 .git/
 .gitignore
+.gitattributes
 
-# Logs
+# Logs and temporary files
 logs/*.log
+*.log
+*.tmp
+*.bak
+*.old
 
 # Backup
 backup/
+backups/
 
-# Documentation
+# Documentation (keep essential docs)
+docs/reports/
+docs/archive/
 *.md
 !README.md
+!QUICKSTART.md
+!SECURITY.md
 
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Test files
 tests/
 test_*.py
 *_test.py
+pytest_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Data directories (exclude for security and size)
+data/
+memories/
+output.txt
+
+# Scripts and utilities not needed in container
+install.sh
+install.bat
+setup_powershell.ps1
+powershell_aliases.ps1
+example_commands.sh
+example_scripts/
+
+# Analysis and demo files
+analyze_architecture.py
+autonomous_shopping_demo.py
+completion_checker.py
+control_tower_analysis.py
+detailed_technical_report.py
+new_features_demo.py
+security_demo.py
+security_test_suite.py
+shopping_mall_dashboard.py
+shopping_mall_visual.html
+simple_dashboard.py
+sorisay_dual_brain_comparison.py
+structure_cleaner.py
+syno_check.py
+system_cleanup.py
+test_creative_probability.py
+test_music_chat_integration.py
+trend_idea_generator.py
+verify_install.py
+voice_tuner.py
+run_all_tests.py
+
+# Launcher scripts (use CMD in Dockerfile instead)
+start_sorisay.bat
+start_sorisay.ps1
+start_sorisay.sh
+start_music_chat_server.py
+launch_dashboard.py
+app_Sorisay.py

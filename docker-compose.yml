@@ -1,12 +1,43 @@
 version: "3.8"
+
 services:
   sorisae:
-    image: parkcheolhong/sorisae:v1
+    image: parkcheolhong/sorisae:latest
+    container_name: sorisay-brain
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - BUILD_DATE=${BUILD_DATE:-2025-10-24}
+        - VERSION=${VERSION:-1.0.0}
     ports:
       - "5050:5050"
     environment:
       - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - TZ=Asia/Seoul
+    volumes:
+      # Persist logs, data, and memories
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./memories:/app/memories
+      - ./config:/app/config:ro  # Read-only config
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - sorisay-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  sorisay-network:
+    driver: bridge
+    name: sorisay-brain-network
