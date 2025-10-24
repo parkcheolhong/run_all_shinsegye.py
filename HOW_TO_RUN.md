@@ -74,16 +74,22 @@ source venv/bin/activate
 
 ## 📦 필수 시스템 의존성 설치
 
+**참고**: `install.sh` (Linux/Mac) 또는 `install.bat` (Windows) 자동 설치 스크립트를 사용하면 이 단계가 자동으로 처리됩니다.
+
 음성 합성(TTS) 기능을 사용하려면 espeak을 설치해야 합니다:
 
 ### Ubuntu/Debian:
 ```bash
-sudo apt-get install espeak espeak-ng
+# 자동 설치 사용 시 (권장):
+./install.sh
+
+# 또는 수동 설치:
+sudo apt-get install espeak espeak-ng portaudio19-dev python3-pyaudio
 ```
 
 ### macOS:
 ```bash
-brew install espeak
+brew install espeak portaudio
 ```
 
 ### Windows:

@@ -33,6 +33,7 @@ install.bat
 
 자동 설치 스크립트가 다음 작업을 수행합니다:
 - ✅ Python 및 pip 확인
+- ✅ 시스템 의존성 자동 설치 (portaudio19-dev, python3-pyaudio, espeak)
 - ✅ 가상환경 생성 및 활성화
 - ✅ 모든 필수 패키지 설치
 - ✅ 필요한 디렉토리 생성
@@ -169,6 +170,10 @@ python run_all_shinsegye.py --test
    - 설치 후 다시 `pip install pyaudio` 실행
 
 ### pyaudio 설치 문제 (Linux)
+
+**참고**: `install.sh` 자동 설치 스크립트는 이제 Ubuntu/Debian 시스템에서 이러한 의존성을 자동으로 설치합니다.
+
+수동 설치가 필요한 경우:
 
 ```bash
 # Ubuntu/Debian

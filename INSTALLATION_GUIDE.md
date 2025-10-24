@@ -99,6 +99,8 @@ sudo apt install -y espeak espeak-data libespeak1 libespeak-dev
 sudo apt install -y festival festvox-kallpc16k
 ```
 
+**참고**: `install.sh` 자동 설치 스크립트는 portaudio19-dev, python3-pyaudio, espeak을 자동으로 설치합니다.
+
 #### macOS
 ```bash
 # Homebrew 설치 (미설치시)
