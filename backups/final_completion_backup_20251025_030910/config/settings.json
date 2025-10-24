@@ -1,0 +1,13 @@
+{
+  "voice_recognition": {
+    "energy_threshold": 300,
+    "dynamic_energy_threshold": true,
+    "pause_threshold": 0.8
+  },
+  "tts": {
+    "rate": 120,
+    "volume": 0.9,
+    "voice_id": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_KO-KR_HEAMI_11.0"
+  },
+  "creative_probability": 0.75
+}
