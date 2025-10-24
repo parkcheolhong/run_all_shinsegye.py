@@ -185,11 +185,11 @@ class {plugin_name.title().replace('_', '')}(SorisayPlugin):
     def _calculate(self, text: str) -> str:
         try:
             # 숫자와 기본 연산자 추출
-            expression = re.findall(r'[0-9+\-*/().\\s]+', text)
+            expression = re.findall(r'[0-9+\\-*/().\\s]+', text)
             if expression:
                 # 안전한 계산 (eval 대신 제한된 연산만)
                 expr = expression[0].strip()
-                if re.match(r'^[0-9+\-*/().\\s]+$', expr):
+                if re.match(r'^[0-9+\\-*/().\\s]+$', expr):
                     result = eval(expr)
                     return f"계산 결과: {{result}}"
             return "계산할 수 있는 식을 찾지 못했습니다. 예: 2 + 3"
