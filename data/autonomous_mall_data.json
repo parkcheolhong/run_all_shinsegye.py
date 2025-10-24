@@ -208,6 +208,34 @@
       "status": "출시됨",
       "launch_date": "2025-10-19T18:50:46.895260",
       "stock": 258
+    },
+    {
+      "id": "PRD_0008",
+      "name": "혁신 제품",
+      "category": "웨어러블",
+      "description": "혁신적인 혁신 제품으로 새로운 경험을 만나보세요!",
+      "price": 62537,
+      "cost": 25619.609011841803,
+      "target_audience": [
+        "일반 소비자"
+      ],
+      "launch_strategy": {
+        "timeline": "2주 후 출시",
+        "marketing_channels": [
+          "온라인 광고",
+          "소셜미디어"
+        ],
+        "promotion_events": [
+          "출시 기념 30% 할인",
+          "얼리버드 특가"
+        ],
+        "expected_sales": 92
+      },
+      "created_by": "트렌드 헌터",
+      "created_at": "2025-10-24T17:21:03.568773",
+      "status": "출시됨",
+      "launch_date": "2025-10-24T17:21:03.568773",
+      "stock": 184
     }
   ],
   "customers": [],
@@ -1141,23 +1169,254 @@
       "seller_agent": "트렌드 헌터",
       "order_date": "2025-10-19T18:50:47.156209",
       "status": "완료"
+    },
+    {
+      "order_id": "ORD_000094",
+      "product_id": "PRD_0001",
+      "product_name": "개인 맞춤 영양제",
+      "price": 163141,
+      "customer": "고객_7426",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000096",
+      "product_id": "PRD_0001",
+      "product_name": "개인 맞춤 영양제",
+      "price": 163141,
+      "customer": "고객_9752",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000096",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_4025",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000098",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_7553",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000100",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_9151",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000099",
+      "product_id": "PRD_0003",
+      "product_name": "스마트 노트",
+      "price": 197640,
+      "customer": "고객_5183",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000101",
+      "product_id": "PRD_0003",
+      "product_name": "스마트 노트",
+      "price": 197640,
+      "customer": "고객_3568",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000103",
+      "product_id": "PRD_0003",
+      "product_name": "스마트 노트",
+      "price": 197640,
+      "customer": "고객_3740",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:18:13.020890",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000102",
+      "product_id": "PRD_0001",
+      "product_name": "개인 맞춤 영양제",
+      "price": 163141,
+      "customer": "고객_4560",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:20:57.515789",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000103",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_1772",
+      "seller_agent": "마케팅 마스터",
+      "order_date": "2025-10-24T17:20:57.515789",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000105",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_6704",
+      "seller_agent": "마케팅 마스터",
+      "order_date": "2025-10-24T17:20:57.515789",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000105",
+      "product_id": "PRD_0003",
+      "product_name": "스마트 노트",
+      "price": 197640,
+      "customer": "고객_5830",
+      "seller_agent": "트렌드 헌터",
+      "order_date": "2025-10-24T17:20:57.515789",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000106",
+      "product_id": "PRD_0001",
+      "product_name": "개인 맞춤 영양제",
+      "price": 163141,
+      "customer": "고객_5713",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000108",
+      "product_id": "PRD_0001",
+      "product_name": "개인 맞춤 영양제",
+      "price": 163141,
+      "customer": "고객_4309",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000110",
+      "product_id": "PRD_0001",
+      "product_name": "개인 맞춤 영양제",
+      "price": 163141,
+      "customer": "고객_9130",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000112",
+      "product_id": "PRD_0001",
+      "product_name": "개인 맞춤 영양제",
+      "price": 163141,
+      "customer": "고객_5221",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000110",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_3572",
+      "seller_agent": "마케팅 마스터",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000112",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_2768",
+      "seller_agent": "마케팅 마스터",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000114",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_5228",
+      "seller_agent": "마케팅 마스터",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000116",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_5950",
+      "seller_agent": "마케팅 마스터",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000118",
+      "product_id": "PRD_0002",
+      "product_name": "스마트 기기",
+      "price": 68322,
+      "customer": "고객_1603",
+      "seller_agent": "마케팅 마스터",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000115",
+      "product_id": "PRD_0003",
+      "product_name": "스마트 노트",
+      "price": 197640,
+      "customer": "고객_6112",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
+    },
+    {
+      "order_id": "ORD_000117",
+      "product_id": "PRD_0003",
+      "product_name": "스마트 노트",
+      "price": 197640,
+      "customer": "고객_7644",
+      "seller_agent": "고객 친화형",
+      "order_date": "2025-10-24T17:21:03.568773",
+      "status": "완료"
     }
   ],
   "inventory": {
-    "PRD_0001": 149,
-    "PRD_0002": 146,
-    "PRD_0003": 150,
+    "PRD_0001": 142,
+    "PRD_0002": 136,
+    "PRD_0003": 144,
     "PRD_0004": 224,
     "PRD_0005": 204,
     "PRD_0006": 156,
-    "PRD_0007": 258
+    "PRD_0007": 258,
+    "PRD_0008": 184
   },
   "mall_stats": {
-    "total_revenue": 12776243,
-    "total_sales": 93,
-    "active_products": 7,
+    "total_revenue": 15787290,
+    "total_sales": 116,
+    "active_products": 8,
     "customer_satisfaction": 85.0,
     "market_position": "성장중"
   },
-  "last_updated": "2025-10-19T18:50:47.157209"
+  "last_updated": "2025-10-24T17:21:03.569774"
 }
