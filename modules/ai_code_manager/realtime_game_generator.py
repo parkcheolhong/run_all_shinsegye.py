@@ -294,7 +294,7 @@ class RealTimeGameGenerator:
                 if game["attempts"] >= game_data.get("max_attempts", 10):
                     result["message"] += f" 정답은 {target_num}였습니다."
                     result["game_over"] = True
-            except:
+            except (ValueError, TypeError):
                 result["message"] = "숫자를 입력해주세요!"
         
         return result

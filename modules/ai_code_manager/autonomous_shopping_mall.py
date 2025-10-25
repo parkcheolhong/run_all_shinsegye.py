@@ -44,7 +44,8 @@ class AutonomousShoppingMall:
                     self.orders = data.get("orders", [])
                     self.inventory = data.get("inventory", {})
                     self.mall_stats = data.get("mall_stats", self.mall_stats)
-            except:
+            except (json.JSONDecodeError, IOError, KeyError) as e:
+                print(f"⚠️ 쇼핑몰 데이터 로드 실패: {e}")
                 pass
     
     def save_mall_data(self):

@@ -24,7 +24,8 @@ class PersonalAITutor:
             try:
                 with open(self.user_profile_file, 'r', encoding='utf-8') as f:
                     return json.load(f)
-            except:
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"⚠️ 사용자 프로필 로드 실패: {e}")
                 pass
         
         # 기본 프로필 생성
