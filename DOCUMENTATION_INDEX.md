@@ -8,13 +8,13 @@
 
 ### 처음 사용하시는 분
 1. **README.md** - 프로젝트 전체 개요
-2. **ARCHITECTURE.md** - 시스템 아키텍처 설계도 (신규! ⭐)
-3. **INSTALL.md** - 설치 가이드
-4. **QUICKSTART.md** - 5분 만에 시작하기
-5. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
+2. **INSTALL.md** - 설치 가이드
+3. **QUICKSTART.md** - 5분 만에 시작하기
+4. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
+5. **ARCHITECTURE.md** - 시스템 아키텍처 설계도 (심화 학습용)
 
 ### 개발자/기여자
-1. **ARCHITECTURE.md** - 시스템 아키텍처 문서 (신규! ⭐)
+1. **ARCHITECTURE.md** - 시스템 아키텍처 설계도 (신규! ⭐)
 2. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 (영문)
 3. **REVIEW_SUMMARY_KO.md** - 검토 요약 (한글) ⭐ 추천
 4. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 목록
