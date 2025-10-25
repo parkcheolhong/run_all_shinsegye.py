@@ -7,15 +7,17 @@
 ## 🎯 어디서 시작해야 할까요?
 
 ### 처음 사용하시는 분
-1. **INSTALL.md** - 설치 가이드 (신규!)
-2. **README.md** - 프로젝트 전체 개요
-3. **QUICKSTART.md** - 5분 만에 시작하기
-4. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
+1. **README.md** - 프로젝트 전체 개요
+2. **ARCHITECTURE.md** - 시스템 아키텍처 설계도 (신규! ⭐)
+3. **INSTALL.md** - 설치 가이드
+4. **QUICKSTART.md** - 5분 만에 시작하기
+5. **HOW_TO_RUN.md** - 실행 방법 상세 가이드
 
 ### 개발자/기여자
-1. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 (영문)
-2. **REVIEW_SUMMARY_KO.md** - 검토 요약 (한글) ⭐ 추천
-3. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 목록
+1. **ARCHITECTURE.md** - 시스템 아키텍처 문서 (신규! ⭐)
+2. **CODE_REVIEW_REPORT.md** - 전체 코드 검토 (영문)
+3. **REVIEW_SUMMARY_KO.md** - 검토 요약 (한글) ⭐ 추천
+4. **IMPROVEMENT_CHECKLIST.md** - 개선 작업 목록
 
 ### 문제 해결이 필요한 분
 1. **TROUBLESHOOTING.md** - 빠른 문제 해결 가이드 ⭐ 추천
@@ -27,7 +29,26 @@
 
 ### 시작 가이드 (Getting Started)
 
-#### 📦 INSTALL.md ⭐ 신규!
+#### 🏗️ ARCHITECTURE.md ⭐ 신규!
+**대상**: 개발자, 시스템 설계자, 아키텍트  
+**내용**: 
+- 투사이클 브레인 시스템 개요
+- 전체 시스템 아키텍처 (6개 레이어)
+- 완전한 데이터 플로우 다이어그램
+- 28개 AI 모듈 상세 구조
+- 디렉토리 및 파일 구조
+- 기술 스택 및 성능 사양
+- 모듈/플러그인 확장 가이드
+
+**이런 분들에게 추천**:
+- 시스템 구조를 이해하고 싶은 개발자
+- 새로운 모듈을 추가하려는 기여자
+- 아키텍처 설계를 참고하려는 분
+- 프로젝트 전체 구조를 파악하고 싶은 분
+
+---
+
+#### 📦 INSTALL.md
 **대상**: 처음 설치하는 모든 사용자  
 **내용**: 
 - 자동 설치 스크립트 (install.sh, install.bat)
