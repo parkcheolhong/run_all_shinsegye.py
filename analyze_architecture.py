@@ -14,7 +14,10 @@ from pathlib import Path
 class ProjectArchitectureAnalyzer:
     """프로젝트 아키텍처 분석기"""
     
-    def __init__(self, project_root="c:/Projects/Shinsegye_Main"):
+    def __init__(self, project_root=None):
+        # 현재 스크립트가 실행되는 디렉토리를 프로젝트 루트로 설정
+        if project_root is None:
+            project_root = Path(__file__).parent.absolute()
         self.project_root = Path(project_root)
         self.analysis_results = {}
         
